@@ -7,7 +7,7 @@ class Desire(models.Model):
         User, on_delete=models.CASCADE, related_name='user_desires')
 
     order = models.IntegerField(blank=False)
-    #hello ya panda
+    #ahlan wasahlan
     title= models.CharField(max_length=1000)
 
     class Meta():
