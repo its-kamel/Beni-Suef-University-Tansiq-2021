@@ -1,0 +1,17 @@
+.user-body{
+    padding: 10px 150px 10px 150px;
+    /* margin-top: 5%; */
+
+    /* background: #f3f5f6; */
+}
+
+.layout-grid {
+    display: flex;
+    flex-wrap: wrap; 
+    --height: 402px;  /* Minimal row height */
+    --ratio: 1; /* Default aspect ratio for buttons that are not loaded yet */
+    padding-top:20px;
+    max-width: 800px;
+    margin: auto;
+}
+

@@ -1,0 +1,19 @@
+.tansiq_btn{
+    border: none;
+    color: #f5ba13;
+    font-size: 25px;
+    background-color: navy;
+    margin: 20px 40px;
+    padding: 20px 40px;
+    border-radius: 5px;
+    position:absolute;
+    cursor: pointer;
+    font-weight: bold;
+    font-family: 'Tajawal', sans-serif;
+    position: relative;
+    width:250px;
+}
+
+#icon_btn{
+    font-size: 100px;
+}
