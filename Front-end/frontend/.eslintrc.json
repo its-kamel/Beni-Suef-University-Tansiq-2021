@@ -1,0 +1,33 @@
+{
+    "env": {
+        "browser": true,
+        "es2021": true,
+        "node": true,
+        "jest": true
+    },
+    "extends": [
+        "plugin:react/recommended"
+        // "airbnb"
+    ],
+    "parserOptions": {
+        "ecmaFeatures": {
+            "jsx": true
+        },
+        "ecmaVersion": 12,
+        "sourceType": "module"
+    },
+    "plugins": [
+        "react"
+    ],
+    "rules": {
+        "linebreak-style":"off",
+        "react/jsx-filename-extension": [0],
+        // suppress errors for missing 'import React' in files
+        "react/react-in-jsx-scope": "off",
+        "import/no-unresolved":"off",
+        "no-unused-vars":"off",
+        "eslint react/prop-types": 0 ,
+        "react/prop-types":[0],
+        "no-console": "off"
+    }
+}
