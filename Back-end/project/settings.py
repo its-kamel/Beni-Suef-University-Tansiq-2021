@@ -72,6 +72,10 @@ TEMPLATES = [
     },
 ]
 
+REST_FRAMEWORK = {
+    'NON_FIELD_ERRORS_KEY': 'error'
+}
+
 WSGI_APPLICATION = 'project.wsgi.application'
 
 
