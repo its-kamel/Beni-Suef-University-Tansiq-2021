@@ -1,0 +1,85 @@
+main {
+    background: #fff;
+    margin: 0 auto;
+    max-width: 680px;
+    padding: 50px 30px;
+}
+
+.modal__backdrop {
+    background: rgba(255, 254, 254, 0.705);
+    bottom: 0;
+    left: 0;
+    overflow: auto;
+    position: fixed;
+    right: 0;
+    top: 0;
+    z-index: 6;
+}
+  
+.modal__container {
+    background: #fff;
+    border-radius: 5px;
+    max-width: 900px;
+    max-height: 500px;
+    height: 500px;
+    margin: 100px auto;
+    border-radius: 3px;
+    box-shadow: 0 1px 6px rgb(0 0 0 / 20%);
+    box-sizing: border-box;
+    overflow: auto;
+}
+  
+.modal__title {
+    font-size: 25px;
+    padding: 10px 25px 10px;
+    line-height: 20px;
+    color:navy;
+    font-weight:bolder;
+    font-family: 'Tajawal', sans-serif;
+    direction: rtl;
+}
+  
+#para {
+    padding: 20px;
+    min-height: 20px;
+    overflow-y: auto;
+    padding-top: 0;
+    font-size: 20px;
+    color:navy;
+    font-weight:medium;
+    font-family: 'Tajawal', sans-serif;
+    direction: rtl;
+}
+
+.modal__container button {
+    padding: 10px 20px;
+    margin-left: 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #f5ba13;
+    position: relative;
+    margin-top: 29%;
+    cursor: pointer;
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    font-family: 'Tajawal', sans-serif;
+    direction: rtl;
+}
+
+#cancel {
+    height: 29px;
+    line-height: 29px;
+    min-width: 80px;
+    font-size: 14px;
+    background-color: #979ea2;
+    color: #fff;
+    box-sizing: border-box;
+    display: inline-block;
+    border-radius: 3px;
+    border: none;
+    cursor: pointer;
+    margin-left: 10px;
+    padding: 0 20px;
+    position: relative;
+}

@@ -1,21 +1,29 @@
-import React from "react"
+import React, { useState } from "react"
 import Navbar from "../Navbar/Navbar";
 import './User.css'
 import Button from '../../Constants/Button'
+import TansiqModal from "./TansiqModal";
+import ResultModal from "./ResultModal";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChartBar, faGraduationCap } from '@fortawesome/free-solid-svg-icons'
 
 function User() {
     const tansiqIcon = <FontAwesomeIcon icon={faChartBar} color="#f5ba13"/>
     const resultIcon = <FontAwesomeIcon icon={faGraduationCap} color="#f5ba13"/>
-
+    const [isTansiqOpen, setIsTansiqOpen] = useState(false)
+    const [isResultOpen, setIsResultOpen] = useState(false)
 
     function openTansiqModal(){
-        console.log("Tansiq Modal");
+        setIsTansiqOpen(true)
     }
 
-    function openResultModal(){
-        console.log("Result Modal");
+    function toggleResultModal(){
+        setIsResultOpen(!isResultOpen)
+    }
+
+    function confirmChange(){
+        setIsTansiqOpen(false)
+        //put request
     }
 
     return( 
@@ -26,15 +34,18 @@ function User() {
                     <Button
                         icon = {tansiqIcon}
                         text = " النتيجة"
-                        onOpen = {openResultModal}
+                        onOpen = {toggleResultModal}
                     />
                     <Button
                         icon = {resultIcon}
                         text = "تسجيل الرغبات"
                         onOpen = {openTansiqModal}
                     />
+
                 </div>
             </div>
+            {isTansiqOpen && <TansiqModal onConfirm={confirmChange}/>}
+            {isResultOpen && <ResultModal onClose={toggleResultModal}/>}
         </>
     );
 }
