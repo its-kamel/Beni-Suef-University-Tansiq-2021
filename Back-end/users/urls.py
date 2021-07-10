@@ -30,8 +30,8 @@ path('sign-up/', SignUpView.as_view(), name="signup"),
 # path('password-reset-email', RequestPasswordResetEmail.as_view(),
 #      name="reset=pass"),
 
-# #log user in
-# path('login/', LoginView.as_view(), name="login"),
+#log user in
+path('login/', LoginView.as_view(), name="login"),
 
 # #reset user's password
 # path('password-reset/<uidb64>/<token>/', PasswordTokenCheck.as_view(),

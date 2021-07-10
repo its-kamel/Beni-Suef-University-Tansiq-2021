@@ -2,7 +2,9 @@ from django.db import models
 from helpers.models import TrackingModel
 from django.contrib.auth.models  import (PermissionsMixin, BaseUserManager, AbstractBaseUser)  
 from django.contrib.auth.validators  import UnicodeUsernameValidator  
-
+import jwt
+from django.conf import settings
+from datetime import datetime,timedelta
 # Create your models here.
 class MyUserManager(BaseUserManager):
     def create_user(self, email,first_name ,middle_name ,last_name , national_id, password=None):
@@ -38,6 +40,7 @@ class MyUserManager(BaseUserManager):
         user.is_staff = True
         user.is_superuser = True
         user.is_pro = True
+        
         user.save(using=self._db)
         return user
 class User(AbstractBaseUser, PermissionsMixin, TrackingModel):
@@ -50,24 +53,16 @@ class User(AbstractBaseUser, PermissionsMixin, TrackingModel):
     is_admin = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
     is_allowed = models.BooleanField(default=True)
+    is_verified = models.BooleanField(default=False)
+
     
     USERNAME_FIELD = 'email'
     objects = MyUserManager()
-
+    @property
     def tokens(self):
-        refresh = RefreshToken.for_user(self)
-        return {
-            'refresh': str(refresh),
-            'access': str(refresh.access_token)
-        }
+        token = jwt.encode({'email': self.email, 'national_id': self.national_id, 'exp':datetime.utcnow() + timedelta(hours=24)},settings.SECRET_KEY, algorithm='HS256')
+        return token
         
     def __str__(self):
         return self.email
 
-    # For checking permissions. to keep it simple all admin have ALL permissons
-    def has_perm(self, perm, obj=None):
-        return self.is_admin
-
-    # Does this user have permission to view this app?
-    def has_module_perms(self, app_label):
-        return True
