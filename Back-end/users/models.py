@@ -49,11 +49,12 @@ class User(AbstractBaseUser, PermissionsMixin, TrackingModel):
     middle_name = models.CharField(verbose_name='middle-name', max_length=60)
     last_name = models.CharField(verbose_name='last-name', max_length=60)
     department = models.CharField(verbose_name='department', max_length=60, blank = True)
-    national_id= models.BigIntegerField()
+    national_id= models.BigIntegerField(unique=True)
     is_admin = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
     is_verified = models.BooleanField(default=False)
     result=models.CharField(max_length=1000, default=" لم تظهر بعد" )
+    grade = models.IntegerField(default= 0)
     
     USERNAME_FIELD = 'email'
     objects = MyUserManager()

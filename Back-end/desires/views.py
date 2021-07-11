@@ -11,6 +11,8 @@ from .serializers import *
 # from project.permissions import check_permission
 from django.core.exceptions import ObjectDoesNotExist
 from rest_framework.permissions import IsAuthenticated
+import openpyxl
+from rest_framework import exceptions
 
 # Create your views here.
 
@@ -41,32 +43,27 @@ def form_info(request):
         return Response(form.data, status= status.HTTP_200_OK )
 
 
-# @api_view(['POST'])
-# @permission_classes((IsAuthenticated,))
+@api_view(['POST'])
+@permission_classes((IsAuthenticated,))
 
-# def uploadGrade(request):
-#     '''
-#     Class information is imported
-#     :param request:
-#     :return:
-#     '''
-#     if request.method == 'POST':
-#         f = request.FILES.get('file')
-#         excel_type = f.name.split('.')[1]
-#         if excel_type in ['xlsx','xls']:
-#                          # Start parsing excel spreadsheet upload
-#             wb = xlrd.open_workbook(filename=None,file_contents=f.read())
-#             table = wb.sheets()[0]
-#                          total number of rows rows = table.nrows #
-#             try:
-#                 with transaction.atomic (): # database transaction transaction control
-#                     for i in range(1,rows):
-#                         rowVlaues = table.row_values(i)
-#                         major = models.TMajor.objects.filter(majorid=rowVlaues[1]).first()
-#                         models.TGrade.objects.create(gradeid=rowVlaues[0],major=major,gradename=rowVlaues[2],memo=rowVlaues[3])
-#             except:
-#                 logger.error ( 'parse excel file or data insertion error')
-#                 return render (request, 'bg / success.html', { 'message': 'import success'})
-#         else:
-#             logger.error ( 'upload file type error!')
-#             return render (request, 'bg / failed.html', { 'message': 'Import failed'})        
+def uploadGrade(request):
+    if request.method == 'POST':
+        
+        excel_file = request.FILES["excel_file"]
+        wb = openpyxl.load_workbook(excel_file)
+        worksheet = wb["Sheet1"]
+        
+        for row in worksheet.iter_rows():
+            national_id = row.__getitem__(0).value
+            grade = row.__getitem__(1).value
+            user = User.objects.filter(national_id= national_id)
+
+            if not user.exists():
+                raise exceptions.NotFound("User with national_id {id} not found in database".format(id = national_id), 404)
+            else:
+                user = User.objects.get(national_id= national_id)
+                user.grade = grade
+                user.save()
+                return Response("Grades uploaded successfully")
+
+            
