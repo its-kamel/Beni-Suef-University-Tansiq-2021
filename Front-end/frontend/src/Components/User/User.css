@@ -10,7 +10,7 @@
     --height: 402px;  /* Minimal row height */
     --ratio: 1; /* Default aspect ratio for buttons that are not loaded yet */
     padding-top:20px;
-    max-width: 800px;
+    max-width: 700px;
     margin: auto;
 }
 
