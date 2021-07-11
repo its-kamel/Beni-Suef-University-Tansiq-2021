@@ -52,9 +52,8 @@ class User(AbstractBaseUser, PermissionsMixin, TrackingModel):
     national_id= models.BigIntegerField()
     is_admin = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
-    is_allowed = models.BooleanField(default=True)
     is_verified = models.BooleanField(default=False)
-
+    result=models.CharField(max_length=1000, default=" لم تظهر بعد" )
     
     USERNAME_FIELD = 'email'
     objects = MyUserManager()

@@ -10,3 +10,10 @@ class DesireSerializer(serializers.ModelSerializer):
         # total info for a comment on a gallery
         fields = '__all__'
         extra_kwargs = {'owner': {'read_only': True}}
+
+
+class FormSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Form
+        # total info for a comment on a gallery
+        fields = '__all__'

@@ -1,3 +1,4 @@
+from django.contrib.auth import authenticate
 from django.shortcuts import render
 from .functions import prepare_verify_email,validate_password
 from rest_framework import generics, status, views, permissions
@@ -12,8 +13,8 @@ from rest_framework.response import Response
 
 #sign up user
 class SignUpView(generics.GenericAPIView):
+    authentication_classes=[]
     serializer_class = SignUpSerializer
-    
     #POST for user signing up
     def post(self, request):
         user = request.data
@@ -21,7 +22,7 @@ class SignUpView(generics.GenericAPIView):
         serializer.is_valid(raise_exception=True)
         serializer.save()
         user_data = serializer.data
-
+        
         #Setting email message
         user = User.objects.get(email=user_data['email'])
         # token = RefreshToken.for_user(user).access_token
@@ -36,6 +37,7 @@ class SignUpView(generics.GenericAPIView):
     
 #User login
 class LoginView(generics.GenericAPIView):
+    authentication_classes=[]
 
     serializer_class = LogInSerializer
 

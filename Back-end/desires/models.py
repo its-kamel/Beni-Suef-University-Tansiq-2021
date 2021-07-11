@@ -3,15 +3,19 @@ from users.models import *
 # Create your models here.
 class Desire(models.Model):
 
-    owner = models.ForeignKey(
-        User, on_delete=models.CASCADE, related_name='user_desires')
+    owner = models.ManyToManyField(
+        User, related_name='user_desires', blank=True)
 
     order = models.IntegerField(blank=False)
-    #hello
-    title= models.CharField(max_length=1000)
+
+    name = models.CharField(max_length=1000)
 
     class Meta():
         ordering = ['order',]
     
     def __str__(self):
-        return self.title
+        return self.name
+
+class Form(models.Model):
+    is_enabled = models.BooleanField(default=True)
+    due_date = models.DateTimeField(blank=True)

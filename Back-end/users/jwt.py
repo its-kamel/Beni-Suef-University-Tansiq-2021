@@ -3,6 +3,7 @@ from rest_framework import exceptions
 import jwt
 from django.conf import settings
 from users.models import User
+
 class JWTAuthentication(BaseAuthentication):
 
     def authenticate(self, request):

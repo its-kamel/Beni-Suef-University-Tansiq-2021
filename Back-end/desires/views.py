@@ -8,7 +8,7 @@ from rest_framework.decorators import api_view, permission_classes
 from .models import *
 from users.models import *
 from .serializers import *
-from project.permissions import check_permission
+# from project.permissions import check_permission
 from django.core.exceptions import ObjectDoesNotExist
 from rest_framework.permissions import IsAuthenticated
 
@@ -16,12 +16,33 @@ from rest_framework.permissions import IsAuthenticated
 
 @api_view(['GET'])
 @permission_classes((IsAuthenticated,))
-
 def desires_list(request):
     # GET
-    desires_list = Desire.objects.all()
+    desires_list = Desire.objects.filter(owner=request.user)
     desires = DesireSerializer(desires_list, many=True)
     return Response( desires.data)
+
+
+@api_view(['GET','PUT'])
+@permission_classes((IsAuthenticated,))
+def form_info(request):
+    # GET
+    form_obj = Form.objects.get(id=1)
+    if request.method == 'GET':
+        form = FormSerializer(form_obj)
+        return Response(form.data)
+    if request.method == 'PUT':
+        if form_obj.is_enabled :
+            form_obj.is_enabled= False
+        else:
+            form_obj.is_enabled= True
+        form_obj.save()
+        form = FormSerializer(form_obj)
+        return Response(form.data, status= status.HTTP_200_OK )
+
+
+# @api_view(['POST'])
+# @permission_classes((IsAuthenticated,))
 
 # def uploadGrade(request):
 #     '''
