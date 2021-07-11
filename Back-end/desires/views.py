@@ -1,3 +1,4 @@
+from typing import List
 from django.shortcuts import render
 from django.core import paginator
 from django.db.models import fields
@@ -15,6 +16,23 @@ import openpyxl
 from rest_framework import exceptions
 
 # Create your views here.
+    # print("NNNNNNNN", request.data.getlist(["ids"]))
+    # print("KKKKKKK",request.data.getlist('ids'))
+@api_view(['PUT'])
+@permission_classes((IsAuthenticated,))
+def edit_desires(request):
+    # PUT
+    
+    list=request.data["ids"].split(',')
+    i=1
+    for id in list :
+        desire_obj=Desire.objects.get(id=id)
+        desire_obj.order=i
+        desire_obj.save()
+        i+=1
+    desires_list = Desire.objects.filter(owner=request.user)
+    desires = DesireSerializer(desires_list, many=True)
+    return Response(desires.data, status= status.HTTP_200_OK)
 
 @api_view(['GET'])
 @permission_classes((IsAuthenticated,))
@@ -22,17 +40,19 @@ def desires_list(request):
     # GET
     desires_list = Desire.objects.filter(owner=request.user)
     desires = DesireSerializer(desires_list, many=True)
-    return Response( desires.data)
+    return Response( desires.data, status= status.HTTP_200_OK)
 
 
 @api_view(['GET','PUT'])
 @permission_classes((IsAuthenticated,))
 def form_info(request):
-    # GET
+    
     form_obj = Form.objects.get(id=1)
+    # GET
     if request.method == 'GET':
         form = FormSerializer(form_obj)
         return Response(form.data)
+    # PUT
     if request.method == 'PUT':
         if form_obj.is_enabled :
             form_obj.is_enabled= False

@@ -19,3 +19,4 @@ class Desire(models.Model):
 class Form(models.Model):
     is_enabled = models.BooleanField(default=True)
     due_date = models.DateTimeField(blank=True)
+    # count
