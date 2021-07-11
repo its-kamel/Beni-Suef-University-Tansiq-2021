@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from .functions import prepare_verify_email,validate_password
-from rest_framework import generics, status, views
+from rest_framework import generics, status, views, permissions
 from .serializers import SignUpSerializer,LogInSerializer
 from .models import User
 from rest_framework.response import Response
@@ -36,6 +36,7 @@ class SignUpView(generics.GenericAPIView):
     
 #User login
 class LoginView(generics.GenericAPIView):
+
     serializer_class = LogInSerializer
 
     #POST
@@ -44,3 +45,12 @@ class LoginView(generics.GenericAPIView):
         print('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')
         serializer.is_valid(raise_exception=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+#test
+class AuthUserAPIView(generics.GenericAPIView):
+    permission_classes = (permissions.IsAuthenticated,)
+
+    def get(self,request):
+        user = request.user
+        serializer = SignUpSerializer(user)
+        return Response({'User': serializer.data})

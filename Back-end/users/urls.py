@@ -8,6 +8,8 @@ urlpatterns = [
 #sign user up
 path('sign-up/', SignUpView.as_view(), name="signup"),
 
+path('user/', AuthUserAPIView.as_view(), name="user"),
+
 # #change user's password
 # path('change-password/', ChangePassword.as_view(), name='change-password'),
 

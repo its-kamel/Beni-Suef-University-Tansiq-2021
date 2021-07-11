@@ -74,7 +74,10 @@ TEMPLATES = [
 ]
 
 REST_FRAMEWORK = {
-    'NON_FIELD_ERRORS_KEY': 'error'
+    'NON_FIELD_ERRORS_KEY': 'error',
+    'DEFAULT_AUTHENTICATION_CLASSES':[
+        'users.jwt.JWTAuthentication',
+    ]
 }
 
 WSGI_APPLICATION = 'project.wsgi.application'
