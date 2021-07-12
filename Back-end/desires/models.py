@@ -10,6 +10,8 @@ class Desire(models.Model):
 
     name = models.CharField(max_length=1000)
 
+    students_count= models.IntegerField(default=0)
+    
     class Meta():
         ordering = ['order',]
     

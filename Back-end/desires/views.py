@@ -12,6 +12,7 @@ import openpyxl
 from rest_framework import exceptions
 
 # Create your views here.
+
     # print("NNNNNNNN", request.data.getlist(["ids"]))
     # print("KKKKKKK",request.data.getlist('ids'))
 @api_view(['PUT'])
@@ -61,7 +62,7 @@ def form_info(request):
 @api_view(['POST'])
 @permission_classes((IsAuthenticated,))
 
-def uploadGrade(request):
+def upload_grade(request):
     if request.method == 'POST':
         
         excel_file = request.FILES["excel_file"]
@@ -81,4 +82,44 @@ def uploadGrade(request):
                 user.save()
                 return Response("Grades uploaded successfully")
 
-            
+@api_view(['GET'])
+@permission_classes((IsAuthenticated,))
+
+def department_students(request):
+    first_students = User.objects.filter(result="غزل ونسيج").count()
+    first_desire = Desire.objects.get(name="غزل ونسيج")
+    first_desire.students_count= first_students
+    first_desire.save()
+    second_students = User.objects.filter(result="ميكانيكا انتاج").count()
+    second_desire = Desire.objects.get(name="ميكانيكا انتاج")
+    second_desire.students_count= second_students
+    second_desire.save()
+    third_students =User.objects.filter(result="ميكانيكا اجهزة").count()
+    third_desire= Desire.objects.get(name="ميكانيكا اجهزة")
+    third_desire.students_count= third_students
+    third_desire.save()
+    fourth_students= User.objects.filter(result="كهرباء تحكم آلى").count()
+    fourth_desire= Desire.objects.get(name="كهرباء تحكم آلى")
+    fourth_desire.students_count= fourth_students
+    fourth_desire.save()
+    fifth_students=User.objects.filter(result="كهرباء الكترونيات").count()    
+    fifth_desire= Desire.objects.get(name="كهرباء الكترونيات")
+    fifth_desire.students_count= fifth_students
+    fifth_desire.save()
+    sixth_students= User.objects.filter(result="عمارة").count()
+    sixth_desire= Desire.objects.get(name="عمارة")
+    sixth_desire.students_count= sixth_students
+    sixth_desire.save()
+    seventh_students= User.objects.filter(result="مدنى").count()
+    seventh_desire= Desire.objects.get(name="مدنى")
+    seventh_desire.students_count= seventh_students
+    seventh_desire.save()
+
+    desires_list = Desire.objects.all()
+    desires = DesireSerializer(desires_list, many=True)
+    return Response(desires.data, status= status.HTTP_200_OK)
+
+
+
+
+
