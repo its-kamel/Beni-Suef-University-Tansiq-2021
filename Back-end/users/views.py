@@ -2,14 +2,37 @@ from django.contrib.auth import authenticate
 from django.shortcuts import render
 from .functions import prepare_verify_email,validate_password
 from rest_framework import generics, status, views, permissions
-from .serializers import SignUpSerializer,LogInSerializer
-from .models import User
 from rest_framework.response import Response
+from rest_framework.decorators import api_view, permission_classes
+from .models import *
+from .serializers import *
+from rest_framework.permissions import IsAuthenticated
+from django.core.exceptions import ObjectDoesNotExist
 
 # from rest_framework_simplejwt.tokens import RefreshToken
 
 # Create your views here.
 
+@api_view(['GET'])
+@permission_classes((IsAuthenticated,))
+def result_info(request):
+    # GET
+    result = ResultSerializer(request.user)
+    return Response( result.data, status= status.HTTP_200_OK)
+
+@api_view(['PUT'])
+@permission_classes((IsAuthenticated,))
+def edit_result(request,id):
+    # PUT
+    try:
+        user_obj = User.objects.get(id=id)
+    except ObjectDoesNotExist:
+        return Response( status= status.HTTP_404_NOT_FOUND)
+    serializer = ResultSerializer(user_obj, data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data,status= status.HTTP_200_OK)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 #sign up user
 class SignUpView(generics.GenericAPIView):

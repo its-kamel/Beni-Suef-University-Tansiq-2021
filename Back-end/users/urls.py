@@ -54,5 +54,8 @@ path('login/', LoginView.as_view(), name="login"),
 
 # #get account info
 # path('user-info/', UserInfo.as_view(), name="user-info"),
+path('result', result_info, name='result_info'),
+
+path('<int:id>/edit-result', edit_result , name='edit_result'),
 
 ]

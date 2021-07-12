@@ -7,6 +7,11 @@ from desires.models import *
 
 
 
+class ResultSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['result']
+
 #Sign up serializer
 class SignUpSerializer(serializers.ModelSerializer):
     '''Serializer for Signing up'''

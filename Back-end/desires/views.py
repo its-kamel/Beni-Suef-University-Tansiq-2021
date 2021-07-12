@@ -1,8 +1,4 @@
-from typing import List
 from django.shortcuts import render
-from django.core import paginator
-from django.db.models import fields
-from django.http import response
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
@@ -41,7 +37,6 @@ def desires_list(request):
     desires_list = Desire.objects.filter(owner=request.user)
     desires = DesireSerializer(desires_list, many=True)
     return Response( desires.data, status= status.HTTP_200_OK)
-
 
 @api_view(['GET','PUT'])
 @permission_classes((IsAuthenticated,))
