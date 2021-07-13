@@ -40,14 +40,12 @@ class SignUpSerializer(serializers.ModelSerializer):
         if len(password)==0:
             raise serializers.ValidationError(error2)
         national_id=str(national_id)
-        print('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA',len(national_id))
         if len(national_id) != 14:
             raise serializers.ValidationError('National ID must be equal to 14 characters')
             
         return attrs
     def create(self, validated_data): 
         exist= Desire.objects.filter(name="غزل ونسيج", id=1, order=1)
-        print(exist)
         if not exist :
             Desire.objects.create(name="غزل ونسيج", id=1, order=1)
             Desire.objects.create(name="ميكانيكا انتاج", id=2, order=2)
@@ -60,7 +58,6 @@ class SignUpSerializer(serializers.ModelSerializer):
             
         user = User.objects.create_user(**validated_data)
         
-        print(user)
         first_desire = Desire.objects.get(name="غزل ونسيج", id=1, order=1)
         first_desire.owner.add(user)
         first_desire.save()
@@ -98,9 +95,8 @@ class LogInSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ['email', 'password', 'tokens']
-        read_only_fileds = ['tokens']
+        read_only_fields = ['tokens']
     def validate(self, attrs):
-        print('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')
         email = attrs.get('email', '')
         password = attrs.get('password', '')
         email=email.lower()

@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from rest_framework import status
 from rest_framework.response import Response
-from rest_framework.decorators import api_view, permission_classes
+from rest_framework.decorators import api_view, authentication_classes, permission_classes
 from .models import *
 from users.models import *
 from .serializers import *
@@ -10,7 +10,8 @@ from django.core.exceptions import ObjectDoesNotExist
 from rest_framework.permissions import IsAuthenticated
 import openpyxl
 from rest_framework import exceptions
-
+from .functions import password_generator,prepare_password_email
+from project.utils import Util
 # Create your views here.
 
     # print("NNNNNNNN", request.data.getlist(["ids"]))
@@ -60,7 +61,7 @@ def form_info(request):
 
 
 @api_view(['POST'])
-@permission_classes((IsAuthenticated,))
+@authentication_classes(())
 
 def upload_grade(request):
     if request.method == 'POST':
@@ -68,19 +69,30 @@ def upload_grade(request):
         excel_file = request.FILES["excel_file"]
         wb = openpyxl.load_workbook(excel_file)
         worksheet = wb["Sheet1"]
-        
+        emails_to_be_sent=[]
+        from django.core import mail
+        connection = mail.get_connection()
+        connection.open()
         for row in worksheet.iter_rows():
             national_id = row.__getitem__(0).value
-            grade = row.__getitem__(1).value
-            user = User.objects.filter(national_id= national_id)
-
-            if not user.exists():
-                raise exceptions.NotFound("User with national_id {id} not found in database".format(id = national_id), 404)
-            else:
-                user = User.objects.get(national_id= national_id)
-                user.grade = grade
+            email = row.__getitem__(1).value
+            grade = row.__getitem__(2).value
+            try:
+                User.objects.create(national_id=national_id, grade=grade,email=email)
+                user = User.objects.get(national_id=national_id)
+                password = password_generator()
+                user.set_password(password)
+                user.is_verified = True
                 user.save()
-                return Response("Grades uploaded successfully")
+            except:
+                print('bleh')
+            #sending mail
+            email= prepare_password_email(password,user)
+            emails_to_be_sent.append(Util.send_email(email))
+        connection.send_messages(emails_to_be_sent)
+        connection.close()
+        print(emails_to_be_sent)
+        return Response("Grades uploaded successfully")
 
 @api_view(['GET'])
 @permission_classes((IsAuthenticated,))

@@ -8,16 +8,13 @@ def prepare_verify_email(current_site,user,token):
     return data
 
 def validate_password(password):
-    print(password)
     
     if len(password)<6:
         pwreason = ('password must be greater than or equal to 6 characters')
         return '',pwreason
-        print(len(password))
     
     if len(password)>16:
         pwreason = ('password must be less than or equal to 16 characters')
         return '',pwreason
-        print(len(password))
     return password,''
     
