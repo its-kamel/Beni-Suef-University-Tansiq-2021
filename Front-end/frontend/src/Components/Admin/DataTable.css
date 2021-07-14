@@ -1,9 +1,10 @@
 .modal__container__Result {
+    direction: rtl;
     background: #fff;
     border-radius: 5px;
     max-width: 900px;
-    max-height: 200px;
-    height: 200px;
+    max-height: 500px;
+    height: 500px;
     margin: 200px auto;
     border-radius: 3px;
     box-shadow: 0 1px 6px rgb(0 0 0 / 20%);
