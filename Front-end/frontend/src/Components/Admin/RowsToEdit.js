@@ -1,6 +1,7 @@
 import React from "react";
 
 const RowsToEdit = ({
+  department,
   editFormData,
   handleEditFormChange,
   handleCancelClick,
@@ -8,14 +9,7 @@ const RowsToEdit = ({
   return (
     <tr>
       <td>
-        <input
-          type="text"
-          required="required"
-          placeholder="أدخل الاسم"
-          name="departmentName"
-          value={editFormData.departmentName}
-          onChange={handleEditFormChange}
-        ></input>
+      {department.departmentName}
       </td>
       <td>
         <input

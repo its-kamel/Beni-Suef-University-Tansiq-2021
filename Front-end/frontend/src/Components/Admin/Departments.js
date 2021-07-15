@@ -42,24 +42,6 @@ const DepartmentsTable = () => {
     setEditFormData(newFormData);
   };
 
-  const handleAddFormSubmit = (event) => {
-    event.preventDefault();
-
-    const newDepartment = {
-      id: nanoid(),
-      departmentName: addFormData.departmentName,
-      departmentCapacity: addFormData.departmentCapacity,
-     
-    };
-
-    const newDepartments = [...Departments, newDepartment];
-    setDepartments(newDepartments);
-    setAddFormData({
-      departmentName: "",
-      departmentCapacity: "",
-      
-    })
-  };
 
   const handleEditFormSubmit = (event) => {
     event.preventDefault();
@@ -98,16 +80,6 @@ const DepartmentsTable = () => {
     setEditDepartmentId(null);
   };
 
-  const handleDeleteClick = (departmentId) => {
-    const newDepartments = [...Departments];
-
-    const index = Departments.findIndex((department) => department.id === departmentId);
-
-    newDepartments.splice(index, 1);
-
-    setDepartments(newDepartments);
-  };
-
   return (
     <div className="app-container">
       <form onSubmit={handleEditFormSubmit}>
@@ -124,6 +96,7 @@ const DepartmentsTable = () => {
               <Fragment >
                 {editDepartmentId === department.id ? (
                   <RowsToEdit
+                    department={department}
                     editFormData={editFormData}
                     handleEditFormChange={handleEditFormChange}
                     handleCancelClick={handleCancelClick}
@@ -133,34 +106,12 @@ const DepartmentsTable = () => {
                   <RowsToRead
                     department={department}
                     handleEditClick={handleEditClick}
-                    handleDeleteClick={handleDeleteClick}
                   />
                 )}
               </Fragment>
             ))}
           </tbody>
         </table>
-      </form>
-
-      <h2>اضافة قسم جديد</h2>
-      <form onSubmit={handleAddFormSubmit}>
-        <input
-          value={addFormData.departmentName}
-          type="text"
-          name="departmentName"
-          required="required"
-          placeholder="أدخل الاسم"
-          onChange={handleAddFormChange}
-        />
-        <input
-          value={addFormData.departmentCapacity}
-          type="number"
-          name="departmentCapacity"
-          required="required"
-          placeholder="أدخل السعة"
-          onChange={handleAddFormChange}
-        />
-        <button type="submit">اضافة</button>
       </form>
     </div>
   );

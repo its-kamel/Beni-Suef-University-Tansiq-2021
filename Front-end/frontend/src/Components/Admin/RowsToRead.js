@@ -13,9 +13,6 @@ const RowsToRead = ({ department, handleEditClick, handleDeleteClick }) => {
         >
           تعديل
         </button>
-        <button className="button-layout" type="button" onClick={() => handleDeleteClick(department.id)}>
-          حذف
-        </button>
       </td>
     </tr>
   );
