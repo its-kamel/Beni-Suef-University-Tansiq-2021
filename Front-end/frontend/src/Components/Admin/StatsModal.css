@@ -1,0 +1,31 @@
+.modal__container__Stats {
+    background: #fff;
+    border-radius: 5px;
+    max-width: 1000px;
+    max-height: 500px;
+    height: 500px;
+    margin: 100px auto;
+    border-radius: 3px;
+    box-shadow: 0 1px 6px rgb(0 0 0 / 20%);
+    box-sizing: border-box;
+    overflow: auto;
+}
+
+/* The Close Button */
+.close {
+    color: #aaaaaa;
+    float: left;
+    font-size: 28px;
+    font-weight: bold;
+    font-family: 'Tajawal', sans-serif;
+    direction: rtl;
+    margin-left: 20px;
+    padding-top: 5px;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: #f5ba13;
+    text-decoration: none;
+    cursor: pointer;
+  }

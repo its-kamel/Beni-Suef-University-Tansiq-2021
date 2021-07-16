@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react"
 import './TansiqModal.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBars } from '@fortawesome/free-solid-svg-icons'
-import $ from 'jquery'
+import getUserChoices from "../../Services/userServices"
 
 function TansiqModal(props){
 
@@ -10,6 +10,7 @@ function TansiqModal(props){
     const [majors,setMajors] = useState([{name:"ميكانيكا انتاج",id:1},{name:"ميكانيكا أجهزة",id:2},{name:"كهرباء تحكم آلي",id:3},{name:"كهرباء الكترونيات",id:4},{name:"عمارة",id:5},{name:"مدني",id:6},{name:"غزل و نسيج",id:7}])
     const [majorsOrder,setMajorsOrder] = useState([])
     const array = [0,1,2,3,4,5,6]
+    
     // dragging behaviour
     useEffect( () =>{
         (function dragBehaviour() {
@@ -59,6 +60,7 @@ function TansiqModal(props){
             mouseY = coords.y - mouseDownY;  
             
             moveRow(mouseX, mouseY);
+            reOrder()
             });
             
             document.addEventListener('mouseup', (event) => {
@@ -79,6 +81,7 @@ function TansiqModal(props){
                 row2 = currIndex > index ? row : currRow;
                 
             tbody.insertBefore(row1, row2);
+            // reOrder()
         }
             
         function moveRow(x, y) {
@@ -155,25 +158,40 @@ function TansiqModal(props){
         function isIntersecting(min0, max0, min1, max1) {
             return Math.max(min0, max0) >= Math.min(min1, max1) &&
                     Math.min(min0, max0) <= Math.max(min1, max1);
-        }         
+        } 
+        
+        function reOrder(){
+            var table = document.getElementsByTagName('table')[0],
+            rows = table.getElementsByTagName('tr'),
+            orders = table.getElementsByClassName('order'),
+            text = 'textContent' in document ? 'textContent' : 'innerText';
+
+
+            for (var i = 0, len = orders.length; i < len; i++) {
+            rows[i].children[1][text] = i;
+            }
+        }
         
         init();
         
         })();
+
+        // get request
+        // getUserChoices().then( response => {
+        //     setMajors(response.data);
+        // })
     })//end of useEffect
 
     //get current order
     function getOrder(){
         const newOrder = document.getElementsByClassName('order')
-        console.log("before:",majorsOrder)
         array.forEach( index =>{
             const currentElement = newOrder[index]
             const id = currentElement.getAttribute('data-id');
             // setMajorsOrder(majorsOrder => [...majorsOrder,id]);
             majorsOrder.push(parseInt(id))
         })
-        console.log("after:",majorsOrder);
-        props.onConfirm();
+        props.onConfirm(majorsOrder);
     }
 
     return(
@@ -187,11 +205,11 @@ function TansiqModal(props){
                         <thead>
                             <tr>
                                 <th>الرغبات</th>
-                                <th>id</th>
+                                <th>الترتيب</th>
                             </tr>
                         </thead>
                         <tbody>
-                        {majors.map(major =>(
+                        {majors.map( major =>(
                             <>
                             <tr>
                             <td>{major.name}</td>
