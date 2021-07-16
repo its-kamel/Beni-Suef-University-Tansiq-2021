@@ -1,13 +1,4 @@
-.admin-body{
-    padding: 10px 150px 10px 150px;
-    /* left: 700px; */
-    /* right: 0; */
-    /* align-items:flex-end; */
-    /* margin-top: 5%; */
-    /* background: #f3f5f6; */
-}
-
-.layout-grid {
+.admin-layout {
     display: flex;
     flex-wrap: wrap; 
     --height: 402px;  /* Minimal row height */
@@ -20,10 +11,6 @@
    
 }
 
-.table-layout{
-    display: grid;
-    
-}
 .button-layout{
     padding: 10px 20px;
     margin-left: 20px;
@@ -38,4 +25,14 @@
     font-weight: bold;
     font-family: 'Tajawal', sans-serif;
     /* direction: rtl; */
+}
+
+.groups-form-layout{
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing:border-box;
+  direction: rtl;
+  display: flex;
+  gap: 5px;
+  font-size: 28px;
 }

@@ -1,6 +1,7 @@
 import React, {useState} from "react"
 import Navbar from '../Navbar/Navbar'
 import './Admin.css'
+import './Departments.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChartBar, faGraduationCap } from '@fortawesome/free-solid-svg-icons'
 import DataTable from "./DataTable"
@@ -19,7 +20,7 @@ function Admin() {
     const [currentSheet,setCurrentSheet]=useState({});
     const handleUpload =(event) =>{
         const file=event.target.files[0];
-        readFile(file)
+        readFile(file)  
         .then((readedData)=>setInitialData(readedData))
         .catch((error)=>console.error(error));
     };
@@ -46,12 +47,15 @@ function Admin() {
         setInputNumberOfGroups(" ");
 
     };
+    const handleTanseeqButton=(event)=>{
+        event.preventDefault();
+    }
     return( 
         <>
         <Navbar
             isLogged= {true}
         />
-        <div className='layout-grid'>
+        <div className='admin-layout'>
             <div>
                 <label>
                 رفع بيانات الطلاب</label>
@@ -81,14 +85,17 @@ function Admin() {
             <br/>
             <div dir='rtl'>
             <h1>أدخل عدد المجموعات</h1>
-            <form>
+            <form className="groups-form-layout">
                 <input value={inputNumberOfGroups} type="text" onChange={handleInputNumberOfGroups}/>
-                <button type="submit" onClick={handleSubmitNumberOfGroups} >
+                <button className="button-layout" type="submit" onClick={handleSubmitNumberOfGroups} >
                     حفظ
                 </button>
             </form>
             <h3>عدد المجموعات المحددة حاليا: {numberOfGroups}</h3>
             </div>
+        </div>
+        <div className='admin-layout'>
+            <button type="submit" className="button-layout" onClick={ handleTanseeqButton}>تنسيق الطلاب</button>
         </div>
     </>
     );

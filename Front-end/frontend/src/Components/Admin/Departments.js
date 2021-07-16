@@ -7,10 +7,7 @@ import RowsToRead from "./RowsToRead";
 
 const DepartmentsTable = () => {
   const [Departments, setDepartments] = useState(data);
-  const [addFormData, setAddFormData] = useState({
-    departmentName: "",
-    departmentCapacity: "",
-  });
+
   const [editFormData, setEditFormData] = useState({
     departmentName: "",
     departmentCapacity: "",
@@ -18,17 +15,7 @@ const DepartmentsTable = () => {
 
   const [editDepartmentId, setEditDepartmentId] = useState(null);
 
-  const handleAddFormChange = (event) => {
-    event.preventDefault();
-
-    const fieldName = event.target.getAttribute("name");
-    const fieldValue = event.target.value;
-
-    const newFormData = { ...addFormData };
-    newFormData[fieldName] = fieldValue;
-
-    setAddFormData(newFormData);
-  };
+  
 
   const handleEditFormChange = (event) => {
     event.preventDefault();
@@ -81,10 +68,10 @@ const DepartmentsTable = () => {
   };
 
   return (
-    <div className="app-container">
-      <form onSubmit={handleEditFormSubmit}>
-        <table>
-          <thead>
+    <div className="departments-container">
+      <form className="form-layout" onSubmit={handleEditFormSubmit}>
+        <table className="table-layout">
+          <thead className="table-header">
             <tr>
               <th>اسم القسم</th>
               <th>السعة الاستيعابية</th>

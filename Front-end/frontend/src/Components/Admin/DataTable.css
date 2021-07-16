@@ -1,6 +1,6 @@
-.modal__container__Result {
+.modal__container__datatable {
     direction: rtl;
-    background: #fff;
+    background-color: rgb(255, 255, 255);
     border-radius: 5px;
     max-width: 900px;
     max-height: 500px;
@@ -12,7 +12,7 @@
     overflow: auto;
 }
 
-.modal__container__Result button {
+.modal__container__datatable button {
     padding: 10px 20px;
     margin-left: 20px;
     border: none;
@@ -26,4 +26,26 @@
     font-weight: bold;
     font-family: 'Tajawal', sans-serif;
     direction: rtl;
+}
+
+.modal-excel-sheet{
+    direction: rtl;
+  border: 1px solid #ffffff;
+  text-align: center;
+  padding: 8px;
+  font-size: 32px;
+}
+.modal-excel-sheet td{
+    direction: rtl;
+    border: 1px solid #ffffff;
+    text-align: center;
+    padding: 8px;
+    font-size: 32px;
+    background-color: rgb(205, 235, 253);
+}
+.modal-excel-sheet th{
+    direction: rtl;
+    border: 1px solid #ffffff;
+    background-color: rgb(117, 201, 250);
+  
 }

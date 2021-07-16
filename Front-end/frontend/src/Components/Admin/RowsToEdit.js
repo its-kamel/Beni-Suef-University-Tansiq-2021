@@ -1,4 +1,5 @@
 import React from "react";
+import "./Departments.css"
 
 const RowsToEdit = ({
   department,
@@ -8,11 +9,11 @@ const RowsToEdit = ({
 }) => {
   return (
     <tr>
-      <td>
+      <td className="table-data">
       {department.departmentName}
       </td>
-      <td>
-        <input
+      <td className="table-data">
+        <input className="form-layout"
           type="number"
           required="required"
           placeholder="أدخل السعة"
@@ -21,9 +22,9 @@ const RowsToEdit = ({
           onChange={handleEditFormChange}
         ></input>
       </td>
-      <td>
-        <button type="submit">حفظ</button>
-        <button type="button" onClick={handleCancelClick}>
+      <td className="table-data">
+        <button className="button-layout" type="submit">حفظ</button>
+        <button className="button-layout" type="button" onClick={handleCancelClick}>
           الغاء
         </button>
       </td>
