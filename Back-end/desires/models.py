@@ -38,10 +38,4 @@ class Desire(models.Model):
 
 class Form(models.Model):
     is_enabled = models.BooleanField(default=True)
-    due_date = models.DateTimeField(blank=True)
-    # count
-# class studentDesires (models.Model):
-#     user = models.ForeignKey(User, related_name='user_desire', on_delete=models.CASCADE, editable=False)
-#     desire = models.ForeignKey(Desire, related_name='desire_user', on_delete=models.CASCADE)
-#     order = models.IntegerField(blank=False)
-    
+    groups_count= models.IntegerField(default=0)
