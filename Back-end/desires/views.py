@@ -91,13 +91,7 @@ def upload_grade(request):
             user.set_password(password)
             user.is_verified = True
             user.save()            
-            Desire.objects.create(name="غزل ونسيج", uid=1, order=1,owner=user)
-            Desire.objects.create(name="ميكانيكا انتاج", uid=2, order=2,owner=user)
-            Desire.objects.create(name="ميكانيكا اجهزة", uid=3, order=3,owner=user)
-            Desire.objects.create(name="كهرباء تحكم آلى", uid=4, order=4,owner=user)
-            Desire.objects.create(name="كهرباء الكترونيات", uid=5, order=5,owner=user)
-            Desire.objects.create(name="عمارة", uid=6, order=6,owner=user)
-            Desire.objects.create(name="مدنى", uid=7, order=7,owner=user)
+           
             #sending mail
             email= prepare_password_email(password,user)
             emails_to_be_sent.append(Util.send_email(email))
