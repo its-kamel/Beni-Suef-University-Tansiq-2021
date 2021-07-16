@@ -108,7 +108,6 @@ def upload_grade(request):
 
 @api_view(['GET'])
 @permission_classes((IsAuthenticated,))
-
 def department_students(request):
     first_students = User.objects.filter(result="غزل ونسيج").count()
     first_desire = Desire.objects.get(name="غزل ونسيج",owner=request.user)
@@ -145,7 +144,6 @@ def department_students(request):
 
 @api_view(['GET'])
 @permission_classes((IsAuthenticated,))
-
 def department_desires(request):
     
     first_desire = Desire.objects.get(name="غزل ونسيج",owner=request.user)

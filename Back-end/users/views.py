@@ -1,6 +1,6 @@
 from django.contrib.auth import authenticate
 from django.shortcuts import render
-from .functions import prepare_verify_email,validate_password
+from .functions import StudentDistribution, prepare_verify_email,validate_password
 from rest_framework import generics, status, views, permissions
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, authentication_classes, permission_classes
@@ -39,25 +39,35 @@ def edit_result(request,id):
 @authentication_classes(())
 def SortStudents(request):
     #put
-    print("user_obj")
     try:
         users = User.objects.all().order_by('-grade')
     except ObjectDoesNotExist:
         return Response( status= status.HTTP_404_NOT_FOUND)
     
-    users = list(users.values_list('national_id', 'grade'))
+    users = list(users.values_list('national_id', 'grade').filter(grade__gt= 50))
     Students = []
+    distribute_later = []
     student = []
     for ID, grade in users:
         student.append(ID)
+        has_Filled = Desire.objects.filter(owner = User.objects.get(national_id = ID)).count()
+        if has_Filled==0:
+            distribute_later.append(ID)
+            continue
         Desires = Desire.objects.filter(owner = User.objects.get(national_id = ID))
         for desire in Desires:
             student.append(str(desire))
         Students.append(student.copy())
         student = []
-    Colleges = [["غزل ونسيج"],["ميكانيكا انتاج"], ["ميكانيكا اجهزة"], ["كهرباء تحكم آلى"], ["كهرباء الكترونيات"], ["عمارة"], ["مدنى"]]
+    Colleges = [["غزل ونسيج"],["ميكانيكا انتاج"], ["ميكانيكا اجهزة"], ["كهرباء تحكم آلى"], 
+    ["كهرباء الكترونيات"], ["عمارة"], ["مدنى"]]
+    
     for i in range(len(Colleges)):
-        Colleges[i].append(Desire.objects.get(name=Colleges[i][0]).students_count)
+        Colleges[i].append(Desire.objects.get(name=Colleges[i][0]).Capacity)
+
+    
+
+    
     
     
 #sign up user
