@@ -3,7 +3,7 @@ from django.shortcuts import render
 from .functions import prepare_verify_email,validate_password
 from rest_framework import generics, status, views, permissions
 from rest_framework.response import Response
-from rest_framework.decorators import api_view, permission_classes
+from rest_framework.decorators import api_view, authentication_classes, permission_classes
 from .models import *
 from .serializers import *
 from rest_framework.permissions import IsAuthenticated
@@ -34,6 +34,32 @@ def edit_result(request,id):
         return Response(serializer.data,status= status.HTTP_200_OK)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+@api_view(['PUT'])
+#@permission_classes((IsAuthenticated,))
+@authentication_classes(())
+def SortStudents(request):
+    #put
+    print("user_obj")
+    try:
+        users = User.objects.all().order_by('-grade')
+    except ObjectDoesNotExist:
+        return Response( status= status.HTTP_404_NOT_FOUND)
+    
+    users = list(users.values_list('national_id', 'grade'))
+    Students = []
+    student = []
+    for ID, grade in users:
+        student.append(ID)
+        Desires = Desire.objects.filter(owner = User.objects.get(national_id = ID))
+        for desire in Desires:
+            student.append(str(desire))
+        Students.append(student.copy())
+        student = []
+    Colleges = [["غزل ونسيج"],["ميكانيكا انتاج"], ["ميكانيكا اجهزة"], ["كهرباء تحكم آلى"], ["كهرباء الكترونيات"], ["عمارة"], ["مدنى"]]
+    for i in range(len(Colleges)):
+        Colleges[i].append(Desire.objects.get(name=Colleges[i][0]).students_count)
+    
+    
 #sign up user
 class SignUpView(generics.GenericAPIView):
     authentication_classes=[]
@@ -45,7 +71,6 @@ class SignUpView(generics.GenericAPIView):
         serializer.is_valid(raise_exception=True)
         serializer.save()
         user_data = serializer.data
-        
         #Setting email message
         user = User.objects.get(email=user_data['email'])
         # token = RefreshToken.for_user(user).access_token
