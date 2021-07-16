@@ -1,0 +1,55 @@
+.trueIcon {
+    content: url("./tick.png");
+    width: 20px; height: 20px;
+    display: inline-block;
+    margin-bottom: 0%;
+    margin-top: 2%;
+  }
+
+.formcompleteContent {
+  background: linear-gradient(to bottom, #000099 0%, #ff9900 125%);
+  background-repeat: no-repeat;
+  background-position-x: center;
+  background-size: 100% 100%;
+
+  margin: 0px auto;
+  width: 100%;
+  height: 830px;
+  position: relative;
+  display: grid;
+  }
+
+.pragrapgh {
+  font-size: 0.8rem;
+  text-align:center;
+  margin-top: 4%;
+}
+
+.changecompleteForm {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 200px;
+  width: 280px;
+  border-radius: 40px;
+  display: flex;
+  background: rgba(255, 255, 255, 0.212);
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+   
+}
+  .lastButton {
+    width: 90%;
+    height: 35px;
+    margin-top: 3%;
+    margin-bottom: 2%;
+    border-radius: 16px;
+    outline: none;
+    border: none;
+    color:white;
+    font-size: 1rem;
+    background-color:rgb(2, 50, 122);
+  }
+  
