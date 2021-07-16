@@ -1,0 +1,38 @@
+[
+    {
+      "id": 1,
+      "departmentName": "ميكانيكا إنتاج",
+      "departmentCapacity": 100
+    },
+    {
+      "id": 2,
+      "departmentName": "ميكانيكا أجهزة",
+      "departmentCapacity": 100
+    },
+    {
+      "id": 3,
+      "departmentName": "كهرباء تحكم آلي",
+      "departmentCapacity": 100
+    },
+    {
+      "id": 4,
+      "departmentName": "كهرباء إلكترونيات",
+      "departmentCapacity": 100
+    },
+    {
+      "id": 5,
+      "departmentName": "عمارة",
+      "departmentCapacity": 100
+    },
+    {
+      "id": 6,
+      "departmentName": "مدني",
+      "departmentCapacity": 100
+    },
+    {
+      "id": 7,
+      "departmentName": "غزل ونسيج",
+      "departmentCapacity": 100
+    }
+  ]
+  

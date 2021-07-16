@@ -1,0 +1,57 @@
+.departments-container {
+    direction: rtl;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 1rem;
+    
+  }
+  
+.table-layout {
+  direction: rtl;
+  border-collapse: collapse;
+  width: 70%;
+}
+
+
+.table-data {
+  direction: rtl;
+  border: 1px solid #ffffff;
+  text-align: center;
+  padding: 8px;
+  font-size: 32px;
+  background-color: rgb(205, 235, 253);
+}
+
+.table-header {
+  direction: rtl;
+  border: 1px solid #ffffff;
+  background-color: rgb(117, 201, 250);
+}
+
+
+
+.form-layout {
+  direction: rtl;
+  display: flex;
+  gap: 5px;
+  font-size: 28px;
+}
+
+.button-layout{
+  padding: 10px 20px;
+  margin-left: 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: #f5ba13;
+  position: relative;
+  margin-bottom: 1%;
+  cursor: pointer;
+  color: #fff;
+  font-size: 17px;
+  font-weight: bold;
+  font-family: 'Tajawal', sans-serif;
+  /* direction: rtl; */
+}
+  
+  

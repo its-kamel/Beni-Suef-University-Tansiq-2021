@@ -1,0 +1,51 @@
+.modal__container__datatable {
+    direction: rtl;
+    background-color: rgb(255, 255, 255);
+    border-radius: 5px;
+    max-width: 900px;
+    max-height: 500px;
+    height: 500px;
+    margin: 200px auto;
+    border-radius: 3px;
+    box-shadow: 0 1px 6px rgb(0 0 0 / 20%);
+    box-sizing: border-box;
+    overflow: auto;
+}
+
+.modal__container__datatable button {
+    padding: 10px 20px;
+    margin-left: 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #f5ba13;
+    position: relative;
+    margin-bottom: 1%;
+    cursor: pointer;
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    font-family: 'Tajawal', sans-serif;
+    direction: rtl;
+}
+
+.modal-excel-sheet{
+    direction: rtl;
+  border: 1px solid #ffffff;
+  text-align: center;
+  padding: 8px;
+  font-size: 32px;
+}
+.modal-excel-sheet td{
+    direction: rtl;
+    border: 1px solid #ffffff;
+    text-align: center;
+    padding: 8px;
+    font-size: 32px;
+    background-color: rgb(205, 235, 253);
+}
+.modal-excel-sheet th{
+    direction: rtl;
+    border: 1px solid #ffffff;
+    background-color: rgb(117, 201, 250);
+  
+}
