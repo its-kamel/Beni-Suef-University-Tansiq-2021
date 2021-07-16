@@ -1,22 +1,24 @@
-.formloginContent {
-  background: linear-gradient(to bottom, #000099 0%, #ff9900 125%);
-  background-repeat: no-repeat;
-  background-position-x: center;
-  background-size: 100% 100%;
 
-  margin: 0px auto;
-  width: 100%;
+.formloginContent{
+  background: linear-gradient(to bottom, #000099 0%, #ff9900 125%);
+  /* background-repeat: no-repeat;
+  background-position-x: center;
+  background-size: 100% 100%; */
+
+  /* margin: 0px auto;
+  width: 100%; */
   height: 830px;
-  position: relative;
-  display: grid;
+  /* position: relative;
+  display: grid; */
 }
 
 .fucltyLogo
 {
   content: url("./fuc_logo.png");
-  margin-left: 94%;
+  margin: 10px;
   width: 100px;
   height: 100px;
+  float: right;
 }
 
 .loginIcon {
