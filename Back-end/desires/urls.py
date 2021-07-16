@@ -7,6 +7,7 @@ urlpatterns = [
     path('edit', edit_desires, name='edit_desires'),
     path('form', form_info, name='form_info'),
     path('grades-upload', upload_grade, name='upload_grade'),
-    path('students', department_students, name='department_students'),
+    path('department-students', department_students, name='department_students'),
+    path('departments', department_desires, name='department_desires'),
     
 ]

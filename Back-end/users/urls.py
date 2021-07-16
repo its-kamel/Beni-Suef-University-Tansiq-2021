@@ -6,9 +6,9 @@ app_name = 'users'
 
 urlpatterns = [
 #sign user up
-path('sign-up/', SignUpView.as_view(), name="signup"),
+path('sign-up', SignUpView.as_view(), name="signup"),
 
-path('user/', AuthUserAPIView.as_view(), name="user"),
+path('user', AuthUserAPIView.as_view(), name="user"),
 
 path('sort/', SortStudents, name="sort"),
 

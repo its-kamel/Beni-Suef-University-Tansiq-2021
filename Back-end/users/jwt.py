@@ -8,7 +8,6 @@ class JWTAuthentication(BaseAuthentication):
 
     def authenticate(self, request):
         auth_header = get_authorization_header(request)
-        print('EEEEEEEEEEEEEEEEE')
         auth_data = auth_header.decode('utf-8')
 
         auth_token = auth_data.split(" ")
@@ -18,9 +17,7 @@ class JWTAuthentication(BaseAuthentication):
 
         token = auth_token[1]
         try:
-            print('OOOOOOOOOO')
             payload = jwt.decode(token,settings.SECRET_KEY, algorithms='HS256')
-            print(payload)
 
             national_id = payload['national_id']
 
