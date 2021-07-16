@@ -1,0 +1,107 @@
+.formloginContent {
+  background: linear-gradient(to bottom, #000099 0%, #ff9900 125%);
+  background-repeat: no-repeat;
+  background-position-x: center;
+  background-size: 100% 100%;
+
+  margin: 0px auto;
+  width: 100%;
+  height: 830px;
+  position: relative;
+  display: grid;
+}
+
+.fucltyLogo
+{
+  content: url("./fuc_logo.png");
+  margin-left: 94%;
+  width: 100px;
+  height: 100px;
+}
+
+.loginIcon {
+  content: url("./user.png");
+  margin-top: -30%;
+  margin-left: 0%;
+  width: 100px;
+  height: 100px;
+}
+
+.loginformTitle {
+  margin-top: -7%;
+  font-weight: bold;
+  color: white;
+}
+
+.loginForm {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 320px;
+  width: 370px;
+  border-radius: 40px;
+  display: flex;
+  background: rgba(255, 255, 255, 0.212);
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.loginInputs {
+  margin-bottom: -5%;
+  width: 80%;
+}
+
+.loginInputs p {
+  font-weight: bold;
+  font-size: 0.7rem;
+  margin-top: 1%;
+  margin-bottom: 0%;
+  color: #f00e0e;
+  text-align: right;
+}
+
+.loginInput {
+  padding-left: 10px;
+  border-radius: 4px;
+  height: 40px;
+  width: 300px;
+  border-width: 1.5px;
+  border-color: rgb(211, 211, 211);
+  border-style: solid;
+  background-color: white;
+}
+
+.loginInput:focus {
+  outline: none !important;
+  border: 1.5px solid rgb(2, 50, 122);
+}
+
+.signinButton {
+  width: 30%;
+  height: 35px;
+  margin-top: 0%;
+  margin-right: -50%;
+  margin-bottom: -5%;
+  border-radius: 16px;
+  outline: none;
+  border: none;
+  color: white;
+  font-size: 1rem;
+  background-color: rgb(2, 50, 122);
+}
+
+.line {
+  border: 0;
+  width: 100%;
+  background-color: rgb(211, 211, 211);
+  height: 1px;
+  position: center;
+}
+
+.formSignUp {
+  font-size: 0.8rem;
+  color: rgb(255, 255, 255);
+  text-align: center;
+}
