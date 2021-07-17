@@ -1,3 +1,6 @@
+from math import inf
+
+
 def prepare_verify_email(current_site,user,token):
     relative_link = reverse('accounts:email-verify')
     absurl = 'http://'+current_site+relative_link+"?token="+str(token)
@@ -18,20 +21,20 @@ def validate_password(password):
         return '',pwreason
     return password,''
     
-def StudentDistribution(no_of_groups, student_list, college_list):
-    """Distributes the students according to their desires. The list should be sorted from greatest to smallest mark
+def StudentDistribution(no_of_groups, student_list, college_list, distribute_later):
+    """Distributes the students according to there desires. The list should be sorted for greatest to smallest mark
 
     Args:
         no_of_groups (int): the number of groups that the students will be devided into
         student_list (list): list of list of students with their desires
         college_list (list): list of list of colleges with their capacities
+        distribute_later (list): [description]
 
     Returns:
         tuple: 2 list...The first for the students and their accepted desire, The second for the current capacities of colleges 
     """
     first_group = len(student_list)//no_of_groups
     StudentAcceptance = []
-    #print(student_list[0])
     capacity = []
     college = []
     for i in range(len(college_list)):
@@ -39,7 +42,6 @@ def StudentDistribution(no_of_groups, student_list, college_list):
         college.append(0)
         capacity.append(college.copy())
         college = []
-    
     for i in range(first_group):
         student_list[i].append(student_list[i][1])
         StudentAcceptance.append((student_list[i][0], student_list[i][1]))
@@ -53,4 +55,18 @@ def StudentDistribution(no_of_groups, student_list, college_list):
                 student_list[i].append(student_list[stud][i+1])
                 break
         StudentAcceptance.append((student_list[stud][0], student_list[stud][8]))
+
+    for student in distribute_later:
+        min_capacity=[0,inf]
+        for i in range(len(capacity)):
+            if capacity[i][1]==college_list[i][1]:
+                continue
+            if capacity[i][1]<min_capacity[1]:
+                min_capacity = capacity[i]
+        
+        for i in range(len(capacity)):
+            if capacity[i]==min_capacity:
+                capacity[i][1]+=1
+                StudentAcceptance.append((student, capacity[i][0]))
+                break
     return (StudentAcceptance, capacity)

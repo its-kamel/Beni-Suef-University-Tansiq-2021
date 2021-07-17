@@ -3,7 +3,7 @@ from users.models import *
 # Create your models here.
 class Desire(models.Model):
 
-    uid= models.IntegerField(blank=True)
+    uid= models.IntegerField(blank=False)
     
     owner = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name='user_desires', blank=True)

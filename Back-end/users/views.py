@@ -1,5 +1,6 @@
 from django.contrib.auth import authenticate
 from django.shortcuts import render
+from rest_framework import response
 from .functions import StudentDistribution, prepare_verify_email,validate_password
 from rest_framework import generics, status, views, permissions
 from rest_framework.response import Response
@@ -44,20 +45,21 @@ def SortStudents(request):
     except ObjectDoesNotExist:
         return Response( status= status.HTTP_404_NOT_FOUND)
     
-    users = list(users.values_list('national_id', 'grade').filter(grade__gt= 50))
-    Students = []
+    users = list(users.filter(grade__gte= 50).values_list('national_id', 'grade'))
+    student_list = []
     distribute_later = []
     student = []
     for ID, grade in users:
-        student.append(ID)
         has_Filled = Desire.objects.filter(owner = User.objects.get(national_id = ID)).count()
         if has_Filled==0:
+            # print('ID: {}, grade: {}'.format(ID, grade))
             distribute_later.append(ID)
             continue
+        student.append(ID)
         Desires = Desire.objects.filter(owner = User.objects.get(national_id = ID))
         for desire in Desires:
             student.append(str(desire))
-        Students.append(student.copy())
+        student_list.append(student.copy())
         student = []
     Colleges = [["غزل ونسيج"],["ميكانيكا انتاج"], ["ميكانيكا اجهزة"], ["كهرباء تحكم آلى"], 
     ["كهرباء الكترونيات"], ["عمارة"], ["مدنى"]]
@@ -65,9 +67,19 @@ def SortStudents(request):
     for i in range(len(Colleges)):
         Colleges[i].append(Desire.objects.get(name=Colleges[i][0]).Capacity)
 
-    
+    no_of_groups = Form.objects.values_list('groups_count')[0][0]
+    if not( no_of_groups and student_list and Colleges):
+        print(no_of_groups)
+        print(student_list)
+        return response(status = status.HTTP_400_BAD_REQUEST)
 
+    accepted_students, college_current_capacities = StudentDistribution(no_of_groups, student_list, Colleges, distribute_later)
     
+    for ID, college in accepted_students:
+        student = User.objects.get(national_id = ID)
+        student.department = college
+    print('regsaefgfwe')
+    return response(status = status.HTTP_202_ACCEPTED)
     
     
 #sign up user
