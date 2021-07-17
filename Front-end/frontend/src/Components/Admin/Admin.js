@@ -2,19 +2,31 @@ import React, {useState} from "react"
 import Navbar from '../Navbar/Navbar'
 import './Admin.css'
 import './Departments.css'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faChartBar, faGraduationCap } from '@fortawesome/free-solid-svg-icons'
 import DataTable from "./DataTable"
 import {ReactExcel, readFile, generateObjects} from '@ramonak/react-excel'
-import Departments from "./Departments"
-
+import Button from "../../Constants/Button"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faUpload, faCogs, faChartLine, faTable } from '@fortawesome/free-solid-svg-icons'
+import UploadModal from "../AdminModals/UploadModal"
+import StatsModal from "../AdminModals/StatsModal"
+import SettingsModal from "../AdminModals/SettingsModal"
+import InfoModal from "../AdminModals/InfoModal"
 
 function Admin() {
-    
+    const upload = <FontAwesomeIcon icon={faUpload} color="#f5ba13"/>
+    const settings = <FontAwesomeIcon icon={faCogs} color="#f5ba13"/>
+    const chart = <FontAwesomeIcon icon={faChartLine} color="#f5ba13"/>
+    const info = <FontAwesomeIcon icon={faTable} color="#f5ba13"/>
+
     const [isExcelOpen, setIsExcelOpen] = useState(false);
     const [isTanseqOpen,setIsTanseqOpen]=useState(false);
     const [numberOfGroups,setNumberOfGroups]=useState(" ");
     const [inputNumberOfGroups,setInputNumberOfGroups]=useState("");
+    // Modals conts
+    const [isUpload,setIsUpload] = useState(false)
+    const [isSettings,setIsSettings] = useState(false)
+    const [isStatsOpen, setIsStatsOpen] = useState(false)
+    const [isInfoOpen, setIsInfoOpen] = useState(false)
 
     const [initialData, setInitialData]=useState(undefined);
     const [currentSheet,setCurrentSheet]=useState({});
@@ -50,35 +62,69 @@ function Admin() {
     const handleTanseeqButton=(event)=>{
         event.preventDefault();
     }
+
+    // modals functions
+    function toggleUploadModal(){
+        setIsUpload(!isUpload);
+    }
+    function toggleStatsModal(){
+        setIsStatsOpen(!isStatsOpen);
+    }
+    function toggleSettingsModal(){
+        setIsSettings(!isSettings);
+    }
+    function toggleInfoModal(){
+        setIsInfoOpen(!isInfoOpen);
+    }
+
     return( 
         <>
         <Navbar
             isLogged= {true}
         />
-        <div className='admin-layout'>
-            <div>
-                <label>
-                رفع بيانات الطلاب</label>
-                <input  className='button-layout' type='file' accept='.xlsx' onChange={handleUpload}/>
-
-               <button  type="button" onClick= {toggleExcelMode}> معاينة البيانات</button>
-               {/* <button onClick={save}>Save </button> */}
-            </div>
-            <div >
-                <br/>
-                <label>
-                   <input type='checkbox' onChange={toggleTanseqMode}/>
-                   فتح اختيار الرغبات
-               </label>
-
-            </div>
-            
+        <div className="layout-grid">
+            <Button
+                icon = {chart}
+                text = "الإحصاءات"
+                onOpen = {toggleStatsModal}
+            />
+            <Button
+                icon = {upload}
+                text = "رفع بيانات الطلاب"
+                onOpen = {toggleUploadModal}
+            />
+            <Button
+                icon = {settings}
+                text = " الإعدادات"
+                onOpen = {toggleSettingsModal}
+            />
+            <Button
+                icon = {info}
+                text = " بيانات الأقسام"
+                onOpen = {toggleInfoModal}
+            />
 
 
         </div>
+
+        {/* <div>
+            <label>
+            رفع بيانات الطلاب</label>
+            <input  className='button-layout' type='file' accept='.xlsx' onChange={handleUpload}/>
+
+            <button  type="button" onClick= {toggleExcelMode}> معاينة البيانات</button>
+            <button onClick={save}>Save </button>
+        </div>
+        <div >
+            <br/>
+            <label>
+                <input type='checkbox' onChange={toggleTanseqMode}/>
+                فتح اختيار الرغبات
+            </label>
+
+        </div> */}
         
-        {isExcelOpen && <DataTable initialData={initialData} setInitialData={setInitialData} currentSheet={currentSheet} setCurrentSheet={setCurrentSheet} toggleExcelMode={toggleExcelMode} save={save} />}
-        <div>
+        {/* <div>
             <br/>
             <h1 dir='rtl'>بيانات الأقسام</h1>
             <Departments/>
@@ -96,7 +142,14 @@ function Admin() {
         </div>
         <div className='admin-layout'>
             <button type="submit" className="button-layout" onClick={ handleTanseeqButton}>تنسيق الطلاب</button>
-        </div>
+        </div> */}
+
+        {isExcelOpen && <DataTable initialData={initialData} setInitialData={setInitialData} currentSheet={currentSheet} setCurrentSheet={setCurrentSheet} toggleExcelMode={toggleExcelMode} save={save} />}
+        {isUpload && <UploadModal onClose={toggleUploadModal} onUpload={handleUpload} onToggle={toggleExcelMode} onSave={save}/>}
+        {isStatsOpen && <StatsModal onClose={toggleStatsModal}/>}
+        {isSettings && <SettingsModal onClose={toggleSettingsModal} onCheck={toggleTanseqMode} onTansiq={handleTanseeqButton}/>}
+        {isInfoOpen && <InfoModal onClose={toggleInfoModal} number={numberOfGroups} input={inputNumberOfGroups} onHandle={handleInputNumberOfGroups} />}
+
     </>
     );
 }

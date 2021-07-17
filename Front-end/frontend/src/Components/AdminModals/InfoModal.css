@@ -1,0 +1,12 @@
+.modal__container__info {
+    background: #fff;
+    border-radius: 5px;
+    max-width: 1000px;
+    max-height: 520px;
+    height: 520px;
+    margin: 90px auto;
+    border-radius: 3px;
+    box-shadow: 0 1px 6px rgb(0 0 0 / 20%);
+    box-sizing: border-box;
+    overflow: auto;
+}
