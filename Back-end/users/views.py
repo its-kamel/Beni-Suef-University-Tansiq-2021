@@ -55,12 +55,14 @@ def SortStudents(request):
             # print('ID: {}, grade: {}'.format(ID, grade))
             distribute_later.append(ID)
             continue
+
         student.append(ID)
         Desires = Desire.objects.filter(owner = User.objects.get(national_id = ID))
         for desire in Desires:
             student.append(str(desire))
         student_list.append(student.copy())
         student = []
+        
     Colleges = [["غزل ونسيج"],["ميكانيكا انتاج"], ["ميكانيكا اجهزة"], ["كهرباء تحكم آلى"], 
     ["كهرباء الكترونيات"], ["عمارة"], ["مدنى"]]
     
@@ -68,19 +70,17 @@ def SortStudents(request):
         Colleges[i].append(Desire.objects.get(name=Colleges[i][0]).Capacity)
 
     no_of_groups = Form.objects.values_list('groups_count')[0][0]
+
     if not( no_of_groups and student_list and Colleges):
-        print(no_of_groups)
-        print(student_list)
-        return response(status = status.HTTP_400_BAD_REQUEST)
+        return Response(status = status.HTTP_400_BAD_REQUEST)
 
     accepted_students, college_current_capacities = StudentDistribution(no_of_groups, student_list, Colleges, distribute_later)
     
     for ID, college in accepted_students:
         student = User.objects.get(national_id = ID)
-        student.department = college
-    print('regsaefgfwe')
-    return response(status = status.HTTP_202_ACCEPTED)
-    
+        student.result = college
+        student.save()
+    return Response(status = status.HTTP_202_ACCEPTED)
     
 #sign up user
 class SignUpView(generics.GenericAPIView):
