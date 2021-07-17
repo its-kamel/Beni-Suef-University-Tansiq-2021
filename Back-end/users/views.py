@@ -1,7 +1,7 @@
 from django.contrib.auth import authenticate
 from django.shortcuts import render
 from rest_framework import response
-from .functions import StudentDistribution, prepare_verify_email,validate_password
+from .functions import StudentDistribution,validate_password
 from rest_framework import generics, status, views, permissions
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, authentication_classes, permission_classes
@@ -65,20 +65,24 @@ def SortStudents(request):
         
     Colleges = [["غزل ونسيج"],["ميكانيكا انتاج"], ["ميكانيكا اجهزة"], ["كهرباء تحكم آلى"], 
     ["كهرباء الكترونيات"], ["عمارة"], ["مدنى"]]
+    
 
     for i in range(len(Colleges)):
         Colleges[i].append(Desire.objects.get(name=Colleges[i][0],owner=request.user).Capacity)
 
     no_of_groups = Form.objects.values_list('groups_count')[0][0]
-    no_of_groups =1
+    no_of_groups =5
     if not( no_of_groups and student_list and Colleges):
         return Response(status = status.HTTP_400_BAD_REQUEST)
 
+    Colleges = [[1],[2], [3], [4],[5], [6], [7]]
     accepted_students, college_current_capacities = StudentDistribution(no_of_groups, student_list, Colleges, distribute_later)
     Departments = [["غزل ونسيج"],["ميكانيكا انتاج"], ["ميكانيكا اجهزة"], ["كهرباء تحكم آلى"], 
     ["كهرباء الكترونيات"], ["عمارة"], ["مدنى"]]
     for ID, college in accepted_students:
+        print(accepted_students)
         student = User.objects.get(national_id = ID)
+        print(type(college), college)
         student.result = Departments[college-1][0]
         student.save()
     return Response(status = status.HTTP_202_ACCEPTED)

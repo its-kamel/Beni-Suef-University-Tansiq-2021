@@ -1,15 +1,5 @@
 from math import inf
 
-
-def prepare_verify_email(current_site,user,token):
-    relative_link = reverse('accounts:email-verify')
-    absurl = 'http://'+current_site+relative_link+"?token="+str(token)
-    email_body = 'Hi ' + user.username + ' Use link to verify \n' + absurl
-    data = {'email_body': email_body,
-            'to_email': user.email,
-            'email_subject': 'Verify Your Email'}
-    return data
-
 def validate_password(password):
     
     if len(password)<6:
@@ -42,19 +32,29 @@ def StudentDistribution(no_of_groups, student_list, college_list, distribute_lat
         college.append(0)
         capacity.append(college.copy())
         college = []
+    # print(first_group,len(student_list), no_of_groups)
     for i in range(first_group):
         student_list[i].append(student_list[i][1])
+        print('XXXXXXXXXX')
         StudentAcceptance.append((student_list[i][0], student_list[i][1]))
-        
+        # print(i)
         capacity[student_list[i][1]-1][1]+=1
 
+    bool=False
     for stud in range(first_group,len(student_list),1):
         for i in range(len(college_list)):
             if capacity[student_list[stud][i+1]-1][1] < college_list[student_list[stud][i+1]-1][1]:
+                bool=True
                 capacity[student_list[stud][i+1]-1][1]+=1
                 student_list[i].append(student_list[stud][i+1])
+                print('SSSSSSSSSSSSSS')
                 break
-        StudentAcceptance.append((student_list[stud][0], student_list[stud][8]))
+            
+        if bool:
+            bool=False
+            print('SSSSSSSSSSSSSS')
+            StudentAcceptance.append((student_list[stud][0], student_list[stud][8]))
+            
 
     for student in distribute_later:
         min_capacity=[0,inf]
@@ -67,6 +67,8 @@ def StudentDistribution(no_of_groups, student_list, college_list, distribute_lat
         for i in range(len(capacity)):
             if capacity[i]==min_capacity:
                 capacity[i][1]+=1
+                print('YYYYYYYYYYYY')
+                
                 StudentAcceptance.append((student, capacity[i][0]))
                 break
     return (StudentAcceptance, capacity)

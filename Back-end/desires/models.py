@@ -28,7 +28,7 @@ class Desire(models.Model):
     
     seventh_count= models.IntegerField(default=0)
 
-    Capacity = models.IntegerField(default=0)
+    Capacity = models.IntegerField(default=1)
     
     class Meta():
         ordering = ['order',]
