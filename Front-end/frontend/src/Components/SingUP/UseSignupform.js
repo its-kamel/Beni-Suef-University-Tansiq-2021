@@ -43,25 +43,28 @@ const useform = (SignUpValidate) => {
     setIsSubmitting(true);
   };
 
-  // useEffect(() => {
-  //   if (Object.keys(errors).length === 0 && isSubmitting) {
-  //     const {
-  //       email,
-  //     } = newuser;
-  //     localStorage.removeItem('ResendemailSignup');
-  //     localStorage.setItem('ResendemailSignup', email);
-  //     console.log(localStorage.getItem('ResendemailSignup'));
+  useEffect(() => {
+    if (Object.keys(errors).length === 0 && isSubmitting) {
+      // const {
+      //   email,
+      // } = newuser;
+      // localStorage.removeItem('ResendemailSignup');
+      // localStorage.setItem('ResendemailSignup', email);
+      // console.log(localStorage.getItem('ResendemailSignup'));
 
-  //     const GotoComplete = AccountServices.addUser(newuser);
+      // const GotoComplete = AccountServices.addUser(newuser);
 
-  //     const goto = AccountServices.backaddUser(newuser);
+      // const goto = AccountServices.backaddUser(newuser);
 
-  //     if (goto === false) {
-  //       console.log('account with this email already exist');
-  //     }
-  //     if (goto || GotoComplete) { history.push('/check-email/sign-up'); }
-  //   }
-  // }, [errors]);
+      // if (goto === false) {
+      //   console.log('account with this email already exist');
+      // }
+      // if (goto || GotoComplete) { history.push('/check-email/sign-up'); }
+
+      history.push('/CompleteSignup');
+
+    }
+  }, [errors]);
 
   return {
     handleChange, newuser, handleSubmit, errors,

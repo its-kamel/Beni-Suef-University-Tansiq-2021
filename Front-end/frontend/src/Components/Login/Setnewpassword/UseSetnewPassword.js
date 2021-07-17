@@ -36,13 +36,17 @@ const UseSetnewPassword = (SetnewpasswordValidate) => {
     setIsSubmitting(true);
   };
 
-  // useEffect(() => {
-  //   if (Object.keys(passworderror).length === 0 && isSubmitting) {
-  //     console.log(usernewpassword);
-  //     const gochangeComplete = AccountServices.addNewPassword(usernewpassword);
-  //     if (gochangeComplete) { history.push('/change-complete/forgot-password'); }
-  //   }
-  // }, [passworderror]);
+  useEffect(() => {
+    if (Object.keys(passworderror).length === 0 && isSubmitting) {
+      // console.log(usernewpassword);
+      // const gochangeComplete = AccountServices.addNewPassword(usernewpassword);
+      // if (gochangeComplete) { history.push('/change-complete/forgot-password'); }
+
+      history.push('/ChangeComplete');
+
+    }
+
+  }, [passworderror]);
 
   return {
     handleChange, usernewpassword, handleSubmit, passworderror,

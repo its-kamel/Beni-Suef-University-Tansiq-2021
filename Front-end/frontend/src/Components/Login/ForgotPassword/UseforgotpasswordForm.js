@@ -37,19 +37,21 @@ const useforgotpasswordform = (Validate) => {
 
     e.preventDefault();
   };
-  // useEffect(() => {
-  //   if (Object.keys(emailerror).length === 0 && isSubmitting) {
-  //     console.log(EmailsToReset);
-  //     console.log(localStorage);
-  //     localStorage.removeItem('ResendemailLogin');
-  //     localStorage.setItem('ResendemailLogin', EmailsToReset.email);
-  //     console.log(localStorage.getItem('ResendemailLogin'));
+  useEffect(() => {
+    if (Object.keys(emailerror).length === 0 && isSubmitting) {
+      // console.log(EmailsToReset);
+      // console.log(localStorage);
+      // localStorage.removeItem('ResendemailLogin');
+      // localStorage.setItem('ResendemailLogin', EmailsToReset.email);
+      // console.log(localStorage.getItem('ResendemailLogin'));
 
-  //     const GotoCheckInbox = AccountServices.emailToResetPassword(EmailsToReset);
-  //     const gotocheckinbox = AccountServices.backemailToResetPassword(EmailsToReset);
-  //     if (GotoCheckInbox || gotocheckinbox) { history.push('/check-email/forgot-password'); }
-  //   }
-  // }, [emailerror]);
+      // const GotoCheckInbox = AccountServices.emailToResetPassword(EmailsToReset);
+      // const gotocheckinbox = AccountServices.backemailToResetPassword(EmailsToReset);
+      // if (GotoCheckInbox || gotocheckinbox) { history.push('/check-email/forgot-password'); }
+      history.push('/Setnewpassword');
+
+    }
+  }, [emailerror]);
 
   return {
     handleChange, EmailsToReset, handleSubmit, emailerror,

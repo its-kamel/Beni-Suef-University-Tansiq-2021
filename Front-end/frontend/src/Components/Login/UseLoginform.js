@@ -42,7 +42,7 @@ const UseLoginform = (LoginValidate) => {
     setIsSubmitting(true);
   };
   useEffect(() => {
-    if (Object.keys(error).length === 0 && isSubmitting) {
+    if (Object.keys(error).length === 0 && isSubmitting && user.email == "menna.nawar@gmail.com") {
       // console.log(user);
       // const backLoginUser = async () => {
       //   await axios
@@ -60,6 +60,11 @@ const UseLoginform = (LoginValidate) => {
 
       history.push('/user');
 
+    }
+
+    else if (Object.keys(error).length === 0 && isSubmitting && user.email == "menna.nawar99@gmail.com")
+    {
+      history.push('/admin');
     }
   }, [error]);
 
