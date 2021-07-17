@@ -88,6 +88,7 @@ def upload_grade(request):
             User.objects.create(national_id=national_id, grade=grade,email=email)
             user = User.objects.get(national_id=national_id)
             password = password_generator()
+            print(user.email,"UUUU",password)
             user.set_password(password)
             user.is_verified = True
             user.save()            

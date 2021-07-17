@@ -36,8 +36,8 @@ def edit_result(request,id):
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['PUT'])
-#@permission_classes((IsAuthenticated,))
-@authentication_classes(())
+@permission_classes((IsAuthenticated,))
+# @authentication_classes(())
 def SortStudents(request):
     #put
     try:
@@ -57,28 +57,29 @@ def SortStudents(request):
             continue
 
         student.append(ID)
-        Desires = Desire.objects.filter(owner = User.objects.get(national_id = ID))
+        Desires = Desire.objects.filter(owner = User.objects.get(national_id = ID)).values("uid")
         for desire in Desires:
-            student.append(str(desire))
+            student.append(desire["uid"])
         student_list.append(student.copy())
         student = []
         
     Colleges = [["غزل ونسيج"],["ميكانيكا انتاج"], ["ميكانيكا اجهزة"], ["كهرباء تحكم آلى"], 
     ["كهرباء الكترونيات"], ["عمارة"], ["مدنى"]]
-    
+
     for i in range(len(Colleges)):
-        Colleges[i].append(Desire.objects.get(name=Colleges[i][0]).Capacity)
+        Colleges[i].append(Desire.objects.get(name=Colleges[i][0],owner=request.user).Capacity)
 
     no_of_groups = Form.objects.values_list('groups_count')[0][0]
-
+    no_of_groups =1
     if not( no_of_groups and student_list and Colleges):
         return Response(status = status.HTTP_400_BAD_REQUEST)
 
     accepted_students, college_current_capacities = StudentDistribution(no_of_groups, student_list, Colleges, distribute_later)
-    
+    Departments = [["غزل ونسيج"],["ميكانيكا انتاج"], ["ميكانيكا اجهزة"], ["كهرباء تحكم آلى"], 
+    ["كهرباء الكترونيات"], ["عمارة"], ["مدنى"]]
     for ID, college in accepted_students:
         student = User.objects.get(national_id = ID)
-        student.result = college
+        student.result = Departments[college-1][0]
         student.save()
     return Response(status = status.HTTP_202_ACCEPTED)
     

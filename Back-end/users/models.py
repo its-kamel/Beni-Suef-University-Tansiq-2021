@@ -48,7 +48,6 @@ class User(AbstractBaseUser, PermissionsMixin, TrackingModel):
     first_name = models.CharField(verbose_name='first-name', max_length=60,blank=True)
     middle_name = models.CharField(verbose_name='middle-name', max_length=60,blank=True)
     last_name = models.CharField(verbose_name='last-name', max_length=60,blank=True)
-    department = models.CharField(verbose_name='department', max_length=60, blank = True)
     national_id= models.BigIntegerField(unique=True,blank=False)
     is_admin = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
