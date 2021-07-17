@@ -1,5 +1,6 @@
 import React from "react"
 import './UploadModal.css'
+import { ReactExcel} from "@ramonak/react-excel";
 
 function UploadModal(props){
 
@@ -12,8 +13,16 @@ function UploadModal(props){
                 {/* upload div */}
                 <div className='admin-layout'>
                     <input  className='button-layout' type='file' accept='.xlsx' onChange={props.onUpload}/>
-                    <button  type="button" onClick= {props.onToggle}> معاينة البيانات</button>
                     <button onClick={props.onSave}>Save </button>
+                </div>
+                <div >
+                    <ReactExcel
+                    initialData={props.initialData}
+                    onSheetUpdate={(currentSheet)=>props.setCurrentSheet(currentSheet)}
+                    activeSheetClassName='modal-excel-sheet'
+                    reactExcelClassName='modal-excel-sheet'
+                    
+                    />
                 </div>
             </div>
         </div>

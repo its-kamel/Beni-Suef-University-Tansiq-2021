@@ -17,7 +17,7 @@ function InfoModal(props){
                 <h1>أدخل عدد المجموعات</h1>
                 <form className="groups-form-layout">
                     <input value={props.input} type="text" onChange={props.onHandle}/>
-                    <button className="button-layout" type="submit" onClick={props.onHandle} >
+                    <button className="button-layout" type="submit" onClick={props.onSubmit}  >
                         حفظ
                     </button>
                 </form>

@@ -144,11 +144,11 @@ function Admin() {
             <button type="submit" className="button-layout" onClick={ handleTanseeqButton}>تنسيق الطلاب</button>
         </div> */}
 
-        {isExcelOpen && <DataTable initialData={initialData} setInitialData={setInitialData} currentSheet={currentSheet} setCurrentSheet={setCurrentSheet} toggleExcelMode={toggleExcelMode} save={save} />}
-        {isUpload && <UploadModal onClose={toggleUploadModal} onUpload={handleUpload} onToggle={toggleExcelMode} onSave={save}/>}
+        {/* {isExcelOpen && <DataTable initialData={initialData} setInitialData={setInitialData} currentSheet={currentSheet} setCurrentSheet={setCurrentSheet} toggleExcelMode={toggleExcelMode} save={save} />} */}
+        {isUpload && <UploadModal onClose={toggleUploadModal} onUpload={handleUpload} onToggle={toggleExcelMode} onSave={save} initialData={initialData} setCurrentSheet={setCurrentSheet}/>}
         {isStatsOpen && <StatsModal onClose={toggleStatsModal}/>}
         {isSettings && <SettingsModal onClose={toggleSettingsModal} onCheck={toggleTanseqMode} onTansiq={handleTanseeqButton}/>}
-        {isInfoOpen && <InfoModal onClose={toggleInfoModal} number={numberOfGroups} input={inputNumberOfGroups} onHandle={handleInputNumberOfGroups} />}
+        {isInfoOpen && <InfoModal onClose={toggleInfoModal} number={numberOfGroups} input={inputNumberOfGroups} onHandle={handleInputNumberOfGroups} onSubmit={handleSubmitNumberOfGroups} />}
 
     </>
     );
