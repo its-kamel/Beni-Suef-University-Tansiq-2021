@@ -2,6 +2,8 @@ from django.shortcuts import render
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, authentication_classes, permission_classes
+
+from project.permissions import IsAdminUser
 from .models import *
 from users.models import *
 from .serializers import *
@@ -44,7 +46,7 @@ def desires_list(request):
     return Response( desires.data, status= status.HTTP_200_OK)
 
 @api_view(['GET','PUT'])
-@permission_classes((IsAuthenticated,))
+@permission_classes((IsAuthenticated,IsAdminUser))
 def form_info(request):
     
     form_obj = Form.objects.get(id=1)
@@ -64,8 +66,7 @@ def form_info(request):
 
 
 @api_view(['POST'])
-@authentication_classes(())
-
+@permission_classes((IsAuthenticated,IsAdminUser))
 def upload_grade(request):
     if request.method == 'POST':
         User.objects.all().delete()
@@ -102,7 +103,7 @@ def upload_grade(request):
         return Response("Grades uploaded successfully")
 
 @api_view(['GET'])
-@permission_classes((IsAuthenticated,))
+@permission_classes((IsAuthenticated,IsAdminUser))
 def department_students(request):
     first_students = User.objects.filter(result="غزل ونسيج").count()
     first_desire = Desire.objects.get(name="غزل ونسيج",owner=request.user)
@@ -138,7 +139,7 @@ def department_students(request):
 
 
 @api_view(['GET'])
-@permission_classes((IsAuthenticated,))
+@permission_classes((IsAuthenticated,IsAdminUser))
 def department_desires(request):
     
     first_desire = Desire.objects.get(name="غزل ونسيج",owner=request.user)

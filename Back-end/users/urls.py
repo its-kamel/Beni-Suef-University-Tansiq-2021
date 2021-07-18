@@ -10,6 +10,8 @@ path('sign-up', SignUpView.as_view(), name="signup"),
 
 path('user', AuthUserAPIView.as_view(), name="user"),
 
+path('addAdmin', AddAdminView.as_view(), name="addadmin"),
+
 path('sort/', SortStudents, name="sort"),
 
 # #change user's password
