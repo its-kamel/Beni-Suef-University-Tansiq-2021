@@ -20,9 +20,9 @@ main {
     background: #fff;
     border-radius: 5px;
     max-width: 900px;
-    max-height: 550px;
-    height: 550px;
-    margin: 100px auto;
+    max-height: 590px;
+    height: 590px;
+    margin: 60px auto;
     border-radius: 3px;
     box-shadow: 0 1px 6px rgb(0 0 0 / 20%);
     box-sizing: border-box;
@@ -58,7 +58,8 @@ main {
     border-radius: 5px;
     background-color: #f5ba13;
     position: relative;
-    margin-top: 3%;
+    margin-bottom: 2%;
+    margin-top: -10000000000000%;
     cursor: pointer;
     color: #fff;
     font-size: 16px;
@@ -150,4 +151,16 @@ tr.is-dragging  td {
     text-align: center;
     border: 1px solid #E0E0E0;
     padding: 5px;
+}
+
+#remark {
+    padding: 40px;
+    min-height: 16px;
+    overflow-y: auto;
+    padding-top: 0;
+    font-size: 16px;
+    color:navy;
+    font-weight:medium;
+    font-family: 'Tajawal', sans-serif;
+    direction: rtl;  
 }

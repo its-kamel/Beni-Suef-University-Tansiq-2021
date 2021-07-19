@@ -168,7 +168,8 @@ function TansiqModal(props){
 
 
             for (var i = 0, len = orders.length; i < len; i++) {
-            rows[i].children[1][text] = i;
+                if (i != 0){
+                    rows[i].children[1][text] = 'الرغبة ' + i;}
             }
         }
         
@@ -209,17 +210,46 @@ function TansiqModal(props){
                             </tr>
                         </thead>
                         <tbody>
-                        {majors.map( major =>(
+                            <tr>
+                                <td>{majors[0].name}</td>
+                                <td className="order" data-id={majors[0].id}>الرغبة 1</td>
+                            </tr>
+                            <tr>
+                                <td>{majors[1].name}</td>
+                                <td className="order" data-id={majors[1].id}>الرغبة 2</td>
+                            </tr>
+                            <tr>
+                                <td>{majors[2].name}</td>
+                                <td className="order" data-id={majors[2].id}>الرغبة 3</td>
+                            </tr>
+                            <tr>
+                                <td>{majors[3].name}</td>
+                                <td className="order" data-id={majors[3].id}>الرغبة 4</td>
+                            </tr>
+                            <tr>
+                                <td>{majors[4].name}</td>
+                                <td className="order" data-id={majors[4].id}>الرغبة 5</td>
+                            </tr>
+                            <tr>
+                                <td>{majors[5].name}</td>
+                                <td className="order" data-id={majors[5].id}>الرغبة 6</td>
+                            </tr>
+                            <tr>
+                                <td>{majors[6].name}</td>
+                                <td className="order" data-id={majors[6].id}>الرغبة 7</td>
+                            </tr>
+                        {/* {majors.map( major =>(
                             <>
                             <tr>
                             <td>{major.name}</td>
                             <td className="order" data-id={major.id}>{major.id}</td>
                             </tr>
                             </>
-                        ))}
+                        ))} */}
                         </tbody>
                     </table>
-                    </div>
+                </div>
+                <p id="remark">*اسحب الرغبة الي مكانها المناسب، ثم احفظ التغيرات.</p>
                 {/* submit button */}
                 <button id="confirm" type="button" onClick={ () =>{
                     getOrder();}}>
