@@ -39,3 +39,5 @@ class Desire(models.Model):
 class Form(models.Model):
     is_enabled = models.BooleanField(default=True)
     groups_count= models.IntegerField(default=0)
+    start_date= models.DateTimeField(default=datetime.now())
+    end_date= models.DateTimeField(default=datetime.now())

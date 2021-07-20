@@ -53,6 +53,12 @@ class ResultSerializer(serializers.ModelSerializer):
         model = User
         fields = ['result']
 
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['result', 'grade','email','national_id','is_admin']
+
+
 #Sign up serializer
 class SignUpSerializer(serializers.ModelSerializer):
     '''Serializer for Signing up'''
