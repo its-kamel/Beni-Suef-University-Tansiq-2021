@@ -62,11 +62,8 @@ def SortStudents(request):
             student.append(desire["uid"])
         student_list.append(student.copy())
         student = []
-        
-    Colleges = [["غزل ونسيج"],["ميكانيكا انتاج"], ["ميكانيكا اجهزة"], ["كهرباء تحكم آلى"], 
-    ["كهرباء الكترونيات"], ["عمارة"], ["مدنى"]]
     
-
+    Colleges = [[1],[2], [3], [4], [5], [6], [7]]
     for i in range(len(Colleges)):
         Colleges[i].append(Desire.objects.get(name=Colleges[i][0],owner=request.user).Capacity)
 
@@ -75,7 +72,6 @@ def SortStudents(request):
     if not( no_of_groups and student_list and Colleges):
         return Response(status = status.HTTP_400_BAD_REQUEST)
 
-    Colleges = [[1],[2], [3], [4],[5], [6], [7]]
     accepted_students, college_current_capacities = StudentDistribution(no_of_groups, student_list, Colleges, distribute_later)
     Departments = [["غزل ونسيج"],["ميكانيكا انتاج"], ["ميكانيكا اجهزة"], ["كهرباء تحكم آلى"], 
     ["كهرباء الكترونيات"], ["عمارة"], ["مدنى"]]
