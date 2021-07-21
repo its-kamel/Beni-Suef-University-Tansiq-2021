@@ -2,6 +2,8 @@ from django.shortcuts import render
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, authentication_classes, permission_classes
+
+from project.permissions import IsAdminUser
 from .models import *
 from users.models import *
 from .serializers import *
@@ -12,7 +14,34 @@ import openpyxl
 from rest_framework import exceptions
 from .functions import password_generator,prepare_password_email
 from project.utils import Util
+
 # Create your views here.
+@api_view(['PUT'])
+@permission_classes((IsAuthenticated,IsAdminUser))
+def edit_groups(request):
+    # PUT
+    exist= Form.objects.filter(id=1)
+    if not exist :
+        Form.objects.create(id=1,is_enabled=True)
+    Form_obj =Form.objects.get(id=1)
+    groups_count = GroupSerializer(Form_obj,data=request.data)
+    if groups_count.is_valid():
+            groups_count.save()
+            return Response(groups_count.data, status= status.HTTP_200_OK )
+
+@api_view(['GET'])
+@permission_classes((IsAuthenticated,IsAdminUser))
+def students_list(request,id):
+    #GET
+    try:
+        Desire_obj =Desire.objects.get(owner=request.user,uid=id)
+    except ObjectDoesNotExist :
+        return Response(status= status.HTTP_404_NOT_FOUND)
+
+    students_list= User.objects.filter(result=Desire_obj.name)
+    students = UserSerializer(students_list, many=True)
+    return Response(students.data, status= status.HTTP_200_OK)
+
 
 @api_view(['PUT'])
 @permission_classes((IsAuthenticated,))
@@ -44,9 +73,11 @@ def desires_list(request):
     return Response( desires.data, status= status.HTTP_200_OK)
 
 @api_view(['GET','PUT'])
-@permission_classes((IsAuthenticated,))
+@permission_classes((IsAuthenticated,IsAdminUser))
 def form_info(request):
-    
+    exist= Form.objects.filter(id=1)
+    if not exist :
+        Form.objects.create(id=1,is_enabled=True)
     form_obj = Form.objects.get(id=1)
     # GET
     if request.method == 'GET':
@@ -64,8 +95,7 @@ def form_info(request):
 
 
 @api_view(['POST'])
-@authentication_classes(())
-
+@permission_classes((IsAuthenticated,IsAdminUser))
 def upload_grade(request):
     if request.method == 'POST':
         User.objects.all().delete()
@@ -102,7 +132,7 @@ def upload_grade(request):
         return Response("Grades uploaded successfully")
 
 @api_view(['GET'])
-@permission_classes((IsAuthenticated,))
+@permission_classes((IsAuthenticated,IsAdminUser))
 def department_students(request):
     first_students = User.objects.filter(result="غزل ونسيج").count()
     first_desire = Desire.objects.get(name="غزل ونسيج",owner=request.user)
@@ -133,12 +163,12 @@ def department_students(request):
     seventh_desire.students_count= seventh_students
     seventh_desire.save()
     desires_list = Desire.objects.filter(owner=request.user)
-    desires = DesireSerializer(desires_list, many=True)
+    desires = StudentsCountSerializer(desires_list, many=True)
     return Response(desires.data, status= status.HTTP_200_OK)
 
 
 @api_view(['GET'])
-@permission_classes((IsAuthenticated,))
+@permission_classes((IsAuthenticated,IsAdminUser))
 def department_desires(request):
     
     first_desire = Desire.objects.get(name="غزل ونسيج",owner=request.user)
@@ -329,5 +359,5 @@ def department_desires(request):
     seventh_desire.save()
     
     desires_list = Desire.objects.filter(owner=request.user)
-    desires = DesireSerializer(desires_list, many=True)
+    desires = DepartmentCountSerializer(desires_list, many=True)
     return Response(desires.data, status= status.HTTP_200_OK)

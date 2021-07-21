@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
+from os import path
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -77,7 +78,10 @@ REST_FRAMEWORK = {
     'NON_FIELD_ERRORS_KEY': 'error',
     'DEFAULT_AUTHENTICATION_CLASSES':[
         'users.jwt.JWTAuthentication',
-    ]
+    ],
+    'DEFAULT_PERMISSION_CLASSES': [
+   'rest_framework.permissions.AllowAny',
+]
 }
 
 WSGI_APPLICATION = 'project.wsgi.application'
@@ -86,14 +90,24 @@ WSGI_APPLICATION = 'project.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'djongo',
+#         'NAME': 'tansiq',
+#     }
+# }
+
 DATABASES = {
     'default': {
         'ENGINE': 'djongo',
         'NAME': 'tansiq',
+        'CLIENT': {
+                    'host': "mongodb+srv://Fotone:@cluster0.khmwk.mongodb.net/tansiq?retryWrites=true&w=majority",
+                    'username': 'Fotone',
+                    'password': "1234567890"
+                    },
     }
 }
-
-
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
 
@@ -132,6 +146,24 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+MEDIA_URL = '/media/'
+
+
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
+    '/var/www/static/',
+]
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/3.1/howto/static-files/
+
+# HTTPS settings
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+SECURE_SSL_REDIRECT = True
+# HSTS settings
+SECURE_HSTS_SECONDS = 31536000 # 1 year
+SECURE_HSTS_PRELOAD = True
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
@@ -144,3 +176,9 @@ EMAIL_HOST_USER = 'mohammed99kamel@gmail.com'
 EMAIL_HOST_PASSWORD = 'rybqfxoseyjqsufy'
 # EMAIL_USE_TLS = True
 EMAIL_USE_SSL = True
+
+# SECURITY WARNING: don't run with debug turned on in production!
+# DEBUG = False
+
+
+# python manage.py check --deploy
