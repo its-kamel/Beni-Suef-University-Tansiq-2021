@@ -61,6 +61,7 @@ def SortStudents(request):
         Desires = Desire.objects.filter(owner = User.objects.get(national_id = ID)).values("uid")
         for desire in Desires:
             student.append(desire["uid"])
+        print(User.objects.get(national_id = student[0]).values_list("grade")[0])
         student_list.append(student.copy())
         student = []
     

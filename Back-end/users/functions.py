@@ -18,7 +18,7 @@ def StudentDistribution(no_of_groups, student_list, college_list, distribute_lat
         no_of_groups (int): the number of groups that the students will be devided into
         student_list (list): list of list of students with their desires
         college_list (list): list of list of colleges with their capacities
-        distribute_later (list): list of IDs of students that will be distributed later
+        distribute_later (list): [description]
 
     Returns:
         tuple: 2 list...The first for the students and their accepted desire, The second for the current capacities of colleges 
@@ -32,23 +32,42 @@ def StudentDistribution(no_of_groups, student_list, college_list, distribute_lat
         college.append(0)
         capacity.append(college.copy())
         college = []
+
+    counter=0
     for i in range(first_group):
         student_list[i].append(student_list[i][1])
         StudentAcceptance.append((student_list[i][0], student_list[i][1]))        
         capacity[student_list[i][1]-1][1]+=1
+        if i ==(first_group-1):
+            counter=first_group
+            while(counter<len(student_list) and student_list[first_group-1][8]==student_list[counter][8]):
+                student_list[i].append(student_list[counter][1])
+                StudentAcceptance.append((student_list[counter][0], student_list[counter][1]))        
+                capacity[student_list[counter][1]-1][1]+=1
+                counter+=1
 
-    bool=False
+    first_group=counter
+    last_student_lists = []
+    in_college=False
     for stud in range(first_group,len(student_list),1):
         for i in range(len(college_list)):
             if capacity[student_list[stud][i+1]-1][1] < college_list[student_list[stud][i+1]-1][1]:
-                bool=True
                 capacity[student_list[stud][i+1]-1][1]+=1
-                student_list[i].append(student_list[stud][i+1])
+                student_list[stud].append(student_list[stud][i+1])
+                if capacity[student_list[stud][i+1]-1][1] == college_list[student_list[stud][i+1]-1][1]:
+                    last_student_lists.append((capacity[student_list[stud][i+1]-1][0],student_list[stud][8]))
+                StudentAcceptance.append((student_list[stud][0], student_list[stud][9]))
                 break
-        
-        if bool:
-            bool=False
-            StudentAcceptance.append((student_list[stud][0], student_list[stud][8]))
+            for college,mark in last_student_lists:
+                if mark==student_list[stud][8] and college==capacity[student_list[stud][i+1]-1][0]:
+                    capacity[student_list[stud][i+1]-1][1]+=1
+                    student_list[stud].append(student_list[stud][i+1])
+                    StudentAcceptance.append((student_list[stud][0], student_list[stud][9]))
+                    in_college=True
+                    break
+            if in_college:
+                in_college=False
+                break
 
     for student in distribute_later:
         min_capacity=[0,inf]
