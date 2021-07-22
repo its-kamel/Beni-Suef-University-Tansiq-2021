@@ -20,6 +20,10 @@ function Admin() {
 
     const [isExcelOpen, setIsExcelOpen] = useState(false);
     const [isTanseqOpen,setIsTanseqOpen]=useState(false);
+    const [startDate, setStartDate] = useState(null);
+    const [endDate, setEndDate] = useState(null);
+    const [focusedInput, setFocusedInput] = useState(null);
+
     const [numberOfGroups,setNumberOfGroups]=useState(" ");
     const [inputNumberOfGroups,setInputNumberOfGroups]=useState("");
     // Modals conts
@@ -32,6 +36,7 @@ function Admin() {
     const [currentSheet,setCurrentSheet]=useState({});
     const handleUpload =(event) =>{
         const file=event.target.files[0];
+        console.log(file)
         readFile(file)  
         .then((readedData)=>setInitialData(readedData))
         .catch((error)=>console.error(error));
@@ -41,6 +46,19 @@ function Admin() {
         // console.log(result);
 
     };
+    const handleSaveDates=()=>{
+        const start= new Date(startDate);
+        const end= new Date(endDate);
+        const todaysDate= new Date();
+          setIsTanseqOpen(todaysDate>=start && todaysDate<=end);
+        // console.log(start.getMonth()+1)
+        // console.log(start.getDate())
+        // console.log(start.getFullYear())
+        // console.log(todaysDate.getDate());
+        // console.log(todaysDate.getMonth()+1);
+        // console.log(todaysDate.getFullYear())
+        //console.log(isTanseqOpen)
+    }
     function toggleTanseqMode(){
         setIsTanseqOpen(!isTanseqOpen);
     };
@@ -147,7 +165,7 @@ function Admin() {
         {/* {isExcelOpen && <DataTable initialData={initialData} setInitialData={setInitialData} currentSheet={currentSheet} setCurrentSheet={setCurrentSheet} toggleExcelMode={toggleExcelMode} save={save} />} */}
         {isUpload && <UploadModal onClose={toggleUploadModal} onUpload={handleUpload} onToggle={toggleExcelMode} onSave={save} initialData={initialData} setCurrentSheet={setCurrentSheet}/>}
         {isStatsOpen && <StatsModal onClose={toggleStatsModal}/>}
-        {isSettings && <SettingsModal onClose={toggleSettingsModal} onCheck={toggleTanseqMode} onTansiq={handleTanseeqButton}/>}
+        {isSettings && <SettingsModal onClose={toggleSettingsModal} onSave={handleSaveDates} onTansiq={handleTanseeqButton} startDate={startDate} endDate={endDate} setStartDate={setStartDate} setEndDate={setEndDate} focusedInput={focusedInput} setFocusedInput={setFocusedInput}/>}
         {isInfoOpen && <InfoModal onClose={toggleInfoModal} number={numberOfGroups} input={inputNumberOfGroups} onHandle={handleInputNumberOfGroups} onSubmit={handleSubmitNumberOfGroups} />}
 
     </>
