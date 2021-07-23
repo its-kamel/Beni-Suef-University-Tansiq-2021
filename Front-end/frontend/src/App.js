@@ -11,7 +11,7 @@ import Admin from "./Components/Admin/Admin";
 
 function App() {
   return (
-    <Router>
+    <Router basename="/BSU">
       <div className="App">
         <header className="App-header"></header>
         <Switch>
