@@ -18,8 +18,6 @@ function UploadModal(props){
                 <div >
                     <ReactExcel
                     initialData={props.initialData}
-                    onSheetUpdate={(currentSheet)=>props.setCurrentSheet(currentSheet)}
-                    activeSheetClassName='modal-excel-sheet'
                     reactExcelClassName='modal-excel-sheet'
                     
                     />

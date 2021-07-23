@@ -32,16 +32,21 @@ function Admin() {
     const [isStatsOpen, setIsStatsOpen] = useState(false)
     const [isInfoOpen, setIsInfoOpen] = useState(false)
 
+    const [studentsfile, setStudentsFile]=useState(undefined)
     const [initialData, setInitialData]=useState(undefined);
     const [currentSheet,setCurrentSheet]=useState({});
     const handleUpload =(event) =>{
         const file=event.target.files[0];
+        setStudentsFile(event.target.files[0])
         console.log(file)
         readFile(file)  
         .then((readedData)=>setInitialData(readedData))
         .catch((error)=>console.error(error));
+        console.log(studentsfile)
     };
     const save = ()=>{
+        //send students data to backend studentsFile
+        console.log(initialData)
         // const result=generateObjects(currentSheet);
         // console.log(result);
 
