@@ -144,7 +144,6 @@ def upload_grade(request):
             User.objects.create(national_id=national_id, grade=grade,email=email)
             user = User.objects.get(national_id=national_id)
             password = password_generator()
-            print(user.email,"UUUU",password)
             user.set_password(password)
             user.is_verified = True
             user.save()            
@@ -154,7 +153,6 @@ def upload_grade(request):
             emails_to_be_sent.append(Util.send_email(email))
         connection.send_messages(emails_to_be_sent)
         connection.close()
-        print(emails_to_be_sent)
         return Response("Grades uploaded successfully")
 
 @api_view(['GET'])

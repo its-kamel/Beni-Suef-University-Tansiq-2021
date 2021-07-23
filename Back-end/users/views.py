@@ -52,7 +52,6 @@ def SortStudents(request):
     for ID, grade in users:
         has_Filled = Desire.objects.filter(owner = User.objects.get(national_id = ID)).count()
         if has_Filled==0:
-            # print('ID: {}, grade: {}'.format(ID, grade))
             distribute_later.append(ID)
             continue
 
@@ -79,9 +78,7 @@ def SortStudents(request):
     Departments = [["غزل ونسيج"],["ميكانيكا انتاج"], ["ميكانيكا اجهزة"], ["كهرباء تحكم آلى"], 
     ["كهرباء الكترونيات"], ["عمارة"], ["مدنى"]]
     for ID, college in accepted_students:
-        print(accepted_students)
         student = User.objects.get(national_id = ID)
-        print(type(college), college)
         student.result = Departments[college-1][0]
         student.save()
     return Response(status = status.HTTP_202_ACCEPTED)

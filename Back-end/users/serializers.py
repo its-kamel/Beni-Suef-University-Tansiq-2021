@@ -32,7 +32,6 @@ class AddAdminSerializer(serializers.ModelSerializer):
         return attrs
     def create(self, validated_data): 
         user = User.objects.create(**validated_data)
-        print(validated_data)
         user = User.objects.get(national_id=validated_data['national_id'])
         password = password_generator()
         user.set_password(password)
