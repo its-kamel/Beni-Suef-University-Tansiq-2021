@@ -49,8 +49,18 @@ def StudentDistribution(no_of_groups, student_list, college_list, distribute_lat
     first_group=counter
     last_student_lists = []
     in_college=False
+    # 7
+    # print("LLLLLL",len(college_list))
+    # # 9
+    # print("EEEEEEEEE",len(student_list[0]))
+    # # 5
+    # print("NN",no_of_groups)
     for stud in range(first_group,len(student_list),1):
         for i in range(len(college_list)):
+            print("IIIIIIIIIII",i)
+            print("SSSSSSSS",student_list[stud])
+            print("CCC",college_list)
+            print("AAAAAAAA",capacity)
             if capacity[student_list[stud][i+1]-1][1] < college_list[student_list[stud][i+1]-1][1]:
                 capacity[student_list[stud][i+1]-1][1]+=1
                 student_list[stud].append(student_list[stud][i+1])

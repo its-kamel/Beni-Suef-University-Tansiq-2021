@@ -24,11 +24,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-ku3!cs*20&!$3bp@k7&lb)4ye!8&n4%@cmve&x(j@h339!hl2='
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = []
 
 AUTH_USER_MODEL="users.User"
+
+CORS_ORIGIN_ALLOW_ALL=True
 
 # Application definition
 
@@ -41,12 +43,15 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     
     ###
+    'corsheaders',
     'rest_framework',
     'users',
     'desires',
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -176,9 +181,5 @@ EMAIL_HOST_USER = 'mohammed99kamel@gmail.com'
 EMAIL_HOST_PASSWORD = 'rybqfxoseyjqsufy'
 # EMAIL_USE_TLS = True
 EMAIL_USE_SSL = True
-
-# SECURITY WARNING: don't run with debug turned on in production!
-# DEBUG = False
-
 
 # python manage.py check --deploy

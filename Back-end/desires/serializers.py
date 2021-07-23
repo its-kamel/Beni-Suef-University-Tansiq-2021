@@ -30,6 +30,18 @@ class StudentsCountSerializer(serializers.ModelSerializer):
         # total info for a comment on a gallery
         fields = ['uid','name','students_count']       
 
+class CapacitySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Desire
+        # total info for a comment on a gallery
+        fields = ['uid','name','capacity']   
+        
+class EditCapacitySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Desire
+        # total info for a comment on a gallery
+        fields = ['capacity']   
+
 class DepartmentCountSerializer(serializers.ModelSerializer):
     class Meta:
         model = Desire

@@ -14,18 +14,44 @@ import openpyxl
 from rest_framework import exceptions
 from .functions import password_generator,prepare_password_email
 from project.utils import Util
-
 # Create your views here.
-@api_view(['PUT'])
+
+
+@api_view(['GET','PUT'])
+@permission_classes((IsAuthenticated,IsAdminUser))
+def edit_capacity(request,id):
+    try:
+        Desire_obj =Desire.objects.get(owner=request.user,uid=id)
+    except ObjectDoesNotExist :
+        return Response(status= status.HTTP_404_NOT_FOUND)
+    # GET
+    if request.method == 'GET':
+        desire = CapacitySerializer(Desire_obj)
+        return Response(desire.data)
+    # PUT
+    if request.method == 'PUT':
+        serializer = EditCapacitySerializer(Desire_obj,data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status= status.HTTP_200_OK )    
+
+
+@api_view(['GET','PUT'])
 @permission_classes((IsAuthenticated,IsAdminUser))
 def edit_groups(request):
-    # PUT
+
     exist= Form.objects.filter(id=1)
     if not exist :
-        Form.objects.create(id=1,is_enabled=True)
-    Form_obj =Form.objects.get(id=1)
-    groups_count = GroupSerializer(Form_obj,data=request.data)
-    if groups_count.is_valid():
+        Form.objects.create(id=1,is_enabled=False)
+    form_obj = Form.objects.get(id=1)
+    # GET
+    if request.method == 'GET':
+        groups_count = GroupSerializer(form_obj)
+        return Response(groups_count.data)
+    # PUT
+    if request.method == 'PUT':
+        groups_count = GroupSerializer(form_obj,data=request.data)
+        if groups_count.is_valid():
             groups_count.save()
             return Response(groups_count.data, status= status.HTTP_200_OK )
 
@@ -77,7 +103,7 @@ def desires_list(request):
 def form_info(request):
     exist= Form.objects.filter(id=1)
     if not exist :
-        Form.objects.create(id=1,is_enabled=True)
+        Form.objects.create(id=1,is_enabled=False)
     form_obj = Form.objects.get(id=1)
     # GET
     if request.method == 'GET':
@@ -101,7 +127,7 @@ def upload_grade(request):
         User.objects.all().delete()
         exist= Form.objects.filter(id=1)
         if not exist :
-            Form.objects.create(id=1,is_enabled=True)
+            Form.objects.create(id=1,is_enabled=False)
         excel_file = request.FILES["excel_file"]
         wb = openpyxl.load_workbook(excel_file)
         worksheet = wb["Sheet1"]
