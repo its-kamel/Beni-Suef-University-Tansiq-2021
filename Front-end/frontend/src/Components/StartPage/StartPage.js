@@ -11,7 +11,7 @@ function StartPage(props) {
   return (
 
     <div className="formContent">
-
+      <i className="fucltyLogoStart" />
       <p className="pContainer">
         نظام تسجيل الرغبات
         {' '}
@@ -22,7 +22,8 @@ function StartPage(props) {
         جامعة بني سويف
       </p>
 
-      <button type="button" className="signupButton" onClick={() => history.push('/signup')}> إنشاء حساب جديد </button>
+      <button type="button" className="signupStart" onClick={() => history.push('/signup')}> إنشاء حساب جديد </button>
+      <button type="button" className="loginStart" onClick={() => history.push('/login')}> تسجيل الدخول </button>
 
     </div>
 

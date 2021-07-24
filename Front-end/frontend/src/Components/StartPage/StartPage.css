@@ -1,35 +1,53 @@
-
+.fucltyLogoStart
+{
+  content: url("../Login/fuc_logo.png");
+  margin: 20px;
+  width: 160px;
+  height: 160px;
+  float: right;
+  margin-top: 15%;
+}
 .pContainer {
     position: absolute;
-    top: 48%;
-    left: 51%;
+    top: 40%;
+    left: 70%;
     transform: translate(-50%, -50%);
-    height: 200px;
+    height: 240px;
     width: 600px;
-    display: flex;
-    align-items: center;
-    text-align: center;
-    font-weight:700;
-    font-size: 1.4rem ;
+    font-weight:750;
+    font-size: 3rem ;
     color:white;
     text-align: center;
   }
 
-.signupButton{
+.signupStart{
     position: absolute;
-    top: 70%;
-    left: 50%;
+    top: 40%;
+    left: 30%;
     transform: translate(-50%, -50%);
     border-radius: 5px;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    width: 200px;
+    width: 180px;
     height: 70px;
     outline: none;
     border: none;
-    color:black;
+    color:rgb(255, 255, 255);
     font-size: 1.5rem ;
     font-weight:bold;
-    background-color:white;
+    background-color:rgba(255, 255, 255, 0.212);
+}
+
+.loginStart{
+  position: absolute;
+  top: 55%;
+  left: 30%;
+  transform: translate(-50%, -50%);
+  border-radius: 5px;
+  width: 180px;
+  height: 70px;
+  outline: none;
+  border: none;
+  color:rgb(255, 255, 255);
+  font-size: 1.5rem ;
+  font-weight:bold;
+  background-color:rgba(255, 255, 255, 0.212);
 }

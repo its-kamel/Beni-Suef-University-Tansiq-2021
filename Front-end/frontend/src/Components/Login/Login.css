@@ -14,15 +14,6 @@
   display: grid; */
 }
 
-.fucltyLogo
-{
-  content: url("./fuc_logo.png");
-  margin: 10px;
-  width: 100px;
-  height: 100px;
-  float: right;
-}
-
 .loginIcon {
   content: url("./user.png");
   margin-top: -30%;

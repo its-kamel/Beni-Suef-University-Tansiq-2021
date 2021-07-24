@@ -20,11 +20,6 @@ import './Login.css';
   return (
     <div className="formContent" >
 
-      <i className="fucltyLogo" />
-      {/* <Navbar
-        isLogged= {false}
-        /> */}
-
       <form onSubmit={handleSubmit} className="loginForm">
         
         <i className="loginIcon" />
