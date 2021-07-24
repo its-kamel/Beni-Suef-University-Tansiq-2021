@@ -1,4 +1,4 @@
-import React, {useState} from "react"
+import React, {useEffect, useState} from "react"
 import Navbar from '../Navbar/Navbar'
 import './Admin.css'
 import './Departments.css'
@@ -35,6 +35,20 @@ function Admin() {
     const [studentsfile, setStudentsFile]=useState(undefined)
     const [initialData, setInitialData]=useState(undefined);
     const [currentSheet,setCurrentSheet]=useState({});
+
+    const todaysDate= new Date();
+    useEffect( () =>{
+        
+        if (todaysDate == startDate){
+            // put request -> isEnabled = true
+        }
+
+        if (todaysDate == endDate){
+            // put request -> isEnabled = false
+        }
+
+    },[todaysDate.getDay()])
+
     const handleUpload =(event) =>{
         const file=event.target.files[0];
         setStudentsFile(event.target.files[0])
@@ -62,7 +76,7 @@ function Admin() {
         // console.log(todaysDate.getDate());
         // console.log(todaysDate.getMonth()+1);
         // console.log(todaysDate.getFullYear())
-        //console.log(isTanseqOpen)
+        console.log(isTanseqOpen)
     }
     function toggleTanseqMode(){
         setIsTanseqOpen(!isTanseqOpen);
