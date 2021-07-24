@@ -11,6 +11,8 @@ import UploadModal from "../AdminModals/UploadModal"
 import StatsModal from "../AdminModals/StatsModal"
 import SettingsModal from "../AdminModals/SettingsModal"
 import InfoModal from "../AdminModals/InfoModal"
+import "../../Services/adminServices"
+import { putStudentsInfo, putTanseeqStatus } from "../../Services/adminServices"
 
 function Admin() {
     const upload = <FontAwesomeIcon icon={faUpload} color="#f5ba13"/>
@@ -41,13 +43,36 @@ function Admin() {
         
         if (todaysDate == startDate){
             // put request -> isEnabled = true
+            // putTanseeqStatus(true)
+            //     .then(Response=>{console.log(Response);});
         }
 
         if (todaysDate == endDate){
             // put request -> isEnabled = false
+            // putTanseeqStatus(false)
+            //     .then(Response=>{console.log(Response);});
+
         }
 
     },[todaysDate.getDay()])
+
+    useEffect( () =>{
+
+        // put students data
+        // putStudentsInfo(studentsfile)
+        // .then(Response=>{console.log(Response);});
+
+    },[studentsfile])
+
+    useEffect( () =>{
+
+        
+        // put number of groups
+        // putStudentsInfo(numberOfGroups)
+        // .then(Response=>{console.log(Response);});
+
+    },[numberOfGroups])
+
 
     const handleUpload =(event) =>{
         const file=event.target.files[0];
@@ -60,9 +85,10 @@ function Admin() {
     };
     const save = ()=>{
         //send students data to backend studentsFile
-        console.log(initialData)
+        // console.log(initialData)
         // const result=generateObjects(currentSheet);
         // console.log(result);
+
 
     };
     const handleSaveDates=()=>{
