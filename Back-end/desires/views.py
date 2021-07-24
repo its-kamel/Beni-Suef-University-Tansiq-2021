@@ -135,13 +135,16 @@ def upload_grade(request):
         from django.core import mail
         connection = mail.get_connection()
         connection.open()
-        for row in worksheet.iter_rows():
-            national_id = row.__getitem__(0).value
-            email = row.__getitem__(1).value
+        for i,row in enumerate(worksheet.iter_rows()):
+            if i == 0:                                                                              
+                continue
+            national_id = row.__getitem__(1).value
+            name = row.__getitem__(0).value
+            email = row.__getitem__(3).value
             grade = row.__getitem__(2).value
-            if national_id == None or email== None or grade== None:
-               continue  
-            User.objects.create(national_id=national_id, grade=grade,email=email)
+            if national_id == None or email== None or grade== None or name==None:
+               continue             
+            User.objects.create(national_id=national_id, grade=grade,email=email,name = name)
             user = User.objects.get(national_id=national_id)
             password = password_generator()
             user.set_password(password)

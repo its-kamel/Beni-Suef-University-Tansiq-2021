@@ -27,7 +27,7 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['mzayed.net', 'www.mzayed.net', '127.0.0.1']
 
 AUTH_USER_MODEL="users.User"
 

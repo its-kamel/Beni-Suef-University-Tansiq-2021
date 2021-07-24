@@ -7,21 +7,16 @@ from django.conf import settings
 from datetime import datetime,timedelta
 # Create your models here.
 class MyUserManager(BaseUserManager):
-    def create_user(self, email,first_name ,middle_name ,last_name , national_id, password=None):
+    def create_user(self, email,name, national_id, password=None):
         if not email:
             raise ValueError('Users must have an email address')
-        if not first_name:
-            raise ValueError('Users must have a first name')
-        if not middle_name:
-            raise ValueError('Users must have a middle name')
-        if not last_name:
-            raise ValueError('Users must have a last name')
+        if not name:
+            raise ValueError('Users must have a  name')
+
         
         user = self.model(
             email=email.lower(),
-            first_name=first_name,
-            last_name=last_name,
-            middle_name=middle_name,
+            name=name,
             national_id=national_id
         )
 
@@ -29,12 +24,11 @@ class MyUserManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
-    def create_superuser(self, email, password, first_name='admin',middle_name='admin' ,last_name='admin'):
+    def create_superuser(self, email, password, name='admin'):
         user = self.create_user(
             email=email.lower(),
             password=password,
-            first_name=first_name,
-            last_name=last_name
+            name=name
         )
         user.is_admin = True
         user.is_staff = True
@@ -45,9 +39,7 @@ class MyUserManager(BaseUserManager):
         return user
 class User(AbstractBaseUser, PermissionsMixin, TrackingModel):
     email = models.EmailField(verbose_name='email', max_length=60, unique=True)
-    first_name = models.CharField(verbose_name='first-name', max_length=60,blank=True)
-    middle_name = models.CharField(verbose_name='middle-name', max_length=60,blank=True)
-    last_name = models.CharField(verbose_name='last-name', max_length=60,blank=True)
+    name = models.CharField(verbose_name='name', max_length=80,blank=True)
     national_id= models.BigIntegerField(unique=True,blank=False)
     is_admin = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
