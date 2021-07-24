@@ -4,19 +4,15 @@ import { useHistory } from 'react-router-dom';
 
 /**
  * Useform
- * @param {[function]} SignUpValidate [function from Validate to check on new user inpus]
+ * @param {[function]} addValidate [function from Validate to check on new user inpus]
  * @returns handleChange, newuser, handleSubmit, errors,
  */
-const useform = (SignUpValidate) => {
+const useform = (addValidate) => {
   const history = useHistory();
 
   const [newuser, setNewuser] = useState({
     email: '',
-    password: '',
-    first_name: '',
-    last_name: '',
-    middle_name: '',
-    national_id: '',
+    national_id : '',
   });
 
   const [errors, setErrors] = useState({});
@@ -39,7 +35,7 @@ const useform = (SignUpValidate) => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    setErrors(SignUpValidate(newuser));
+    setErrors(addValidate(newuser));
 
     setIsSubmitting(true);
   };
@@ -62,7 +58,7 @@ const useform = (SignUpValidate) => {
       // }
       // if (goto || GotoComplete) { history.push('/check-email/sign-up'); }
 
-      history.push('/CompleteSignup');
+      history.push('/admin');
 
     }
   }, [errors]);
