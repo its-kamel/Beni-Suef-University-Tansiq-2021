@@ -11,7 +11,7 @@ function CompleteSignup() {
   } = UseCompleteSignup();
 
   return (
-    <div className="formcheckinboxContent">
+    <div className="formContent">
       <form onSubmit={handleSubmit} className="checkinboxForm">
 
         <i className="messageIcon" />

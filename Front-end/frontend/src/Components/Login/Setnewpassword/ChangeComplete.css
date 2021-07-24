@@ -6,18 +6,6 @@
     margin-top: 2%;
   }
 
-.formcompleteContent {
-  background: linear-gradient(to bottom, #000099 0%, #ff9900 125%);
-  background-repeat: no-repeat;
-  background-position-x: center;
-  background-size: 100% 100%;
-
-  margin: 0px auto;
-  width: 100%;
-  height: 830px;
-  position: relative;
-  display: grid;
-  }
 
 .pragrapgh {
   font-size: 0.8rem;

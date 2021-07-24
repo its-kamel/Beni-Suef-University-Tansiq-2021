@@ -14,7 +14,7 @@ function Forgotpassword() {
   } = Useforgotpasswordform(Forgotpasswordvalidate);
 
   return (
-    <div className="forgotpasswordContent">
+    <div className="formContent">
       <form onSubmit={handleSubmit} className="forgotpaswwordForm">
         <i className="lockIcon" />
 

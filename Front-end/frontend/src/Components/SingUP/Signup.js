@@ -14,7 +14,7 @@ const Signup = () => {
   } = useform(SignUpValidate);
 
   return (
-    <div className="formSignUpContent">
+    <div className="formContent">
 
       <form onSubmit={handleSubmit} className="signupForm">
         <i className="signupIcon" />
@@ -120,7 +120,7 @@ const Signup = () => {
           <hr className="seperationLine" />
           لدي حساب بالفعل ؟
 
-          <Link to="/">تسجبل الدخول</Link>
+          <Link to="/login">تسجبل الدخول</Link>
         </span>
 
       </form>

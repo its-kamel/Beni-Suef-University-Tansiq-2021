@@ -18,7 +18,7 @@ import './Login.css';
   } = UseLoginform(LoginValidate);
 
   return (
-    <div className="formloginContent" >
+    <div className="formContent" >
 
       <i className="fucltyLogo" />
       {/* <Navbar

@@ -1,0 +1,35 @@
+
+.pContainer {
+    position: absolute;
+    top: 48%;
+    left: 51%;
+    transform: translate(-50%, -50%);
+    height: 200px;
+    width: 600px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    font-weight:700;
+    font-size: 1.4rem ;
+    color:white;
+    text-align: center;
+  }
+
+.signupButton{
+    position: absolute;
+    top: 70%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 200px;
+    height: 70px;
+    outline: none;
+    border: none;
+    color:black;
+    font-size: 1.5rem ;
+    font-weight:bold;
+    background-color:white;
+}

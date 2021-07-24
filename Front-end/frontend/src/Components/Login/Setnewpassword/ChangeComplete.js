@@ -9,7 +9,7 @@ import './ChangeComplete.css';
 function ChangeComplete() {
   const history = useHistory();
   return (
-    <div className="formcompleteContent">
+    <div className="formContent">
       <form className="changecompleteForm">
 
         <i className="trueIcon" />

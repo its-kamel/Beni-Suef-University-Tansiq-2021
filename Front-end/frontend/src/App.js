@@ -1,5 +1,6 @@
 import {BrowserRouter as Router, Switch , Route} from "react-router-dom";
 import logo from './logo.svg';
+import StartPage from './Components/StartPage/StartPage'
 import Login from './Components/Login/Login'
 import Signup from './Components/SingUP/Signup'
 import CompleteSignup from './Components/SingUP/CompleteSignup'
@@ -15,7 +16,8 @@ function App() {
       <div className="App">
         <header className="App-header"></header>
         <Switch>
-          <Route path="/" exact component={Login}/>
+          <Route path="/" exact component={StartPage}/>  
+          <Route path="/login" exact component={Login}/>
           <Route path="/signup" exact component={Signup}/>
           <Route path="/CompleteSignup" exact component={CompleteSignup}/>
           <Route path="/ForgotPassword" exact component={Forgotpassword}/>
