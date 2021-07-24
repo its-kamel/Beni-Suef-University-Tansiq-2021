@@ -1,0 +1,13 @@
+.addadminformTitle {
+    position: absolute;
+    top: 30%;
+    left: 85%;
+    transform: translate(-50%, -50%);
+    height: 240px;
+    width: 600px;
+    font-weight: bolder;
+    font-size: 1.2rem;
+    color: rgb(240, 142, 13);
+  }
+
+

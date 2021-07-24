@@ -13,9 +13,7 @@ const useform = (SignUpValidate) => {
   const [newuser, setNewuser] = useState({
     email: '',
     password: '',
-    first_name: '',
-    last_name: '',
-    middle_name: '',
+    name: '',
     national_id: '',
   });
 

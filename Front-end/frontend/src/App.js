@@ -9,6 +9,7 @@ import Setnewpassword from './Components/Login/Setnewpassword/SetnewPassword'
 import ChangeComplete from './Components/Login/Setnewpassword/ChangeComplete'
 import User from './Components/User/User'
 import Admin from "./Components/Admin/Admin";
+import addNewAdmin from './Components/Admin/AddAdmin'
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
           <Route path="/ChangeComplete" exact component={ChangeComplete}/>
           <Route path="/user" component={User}/>
           <Route path="/admin" component={Admin}/>
+          <Route path="/addNewAdmin" component={addNewAdmin}/>
         </Switch>
       </div>
     </Router>

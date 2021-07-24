@@ -1,6 +1,7 @@
 import React from 'react';
 import useform from './UseAddAdminform';
 import addValidate from './addValidate.js';
+import Navbar from "../Navbar/Navbar";
 import './AddAdmin.css';
 
 /**
@@ -14,15 +15,18 @@ const addNewAdmin = () => {
 
   return (
     <div>
+        {<Navbar
+        isLogged= {false}
+        />}
 
-      <form onSubmit={handleSubmit} >
+      <form onSubmit={handleSubmit} className="loginForm">
+      <h className="addadminformTitle"> من فضلك ادخل بيانات المشرف الذي تود اضافته </h>
 
-        <div>
-
+        <div className = "loginInputs">
           <input
             type="text"
             name="email"
-            className="addInput"
+            className="loginInput"
             placeholder="البريد الإلكتروني"
             value={newuser.email}
             onChange={handleChange}
@@ -32,12 +36,12 @@ const addNewAdmin = () => {
 
         </div>
 
-        <div>
+        <div className = "loginInputs">
 
           <input
             type="number"
             name="national_id"
-            className="addInput"
+            className="loginInput"
             placeholder="الرقم القومي"
             value={newuser.national_id}
             onChange={handleChange}
@@ -47,6 +51,7 @@ const addNewAdmin = () => {
         </div>
 
         <button
+          className="signinButton"
           type="submit"
         >
           إضافة
