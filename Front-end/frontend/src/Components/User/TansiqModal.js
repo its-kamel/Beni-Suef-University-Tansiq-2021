@@ -3,6 +3,7 @@ import './TansiqModal.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBars } from '@fortawesome/free-solid-svg-icons'
 import getUserChoices from "../../Services/userServices"
+import getIsEnabled from "../../Services/adminServices";
 
 function TansiqModal(props){
 
@@ -10,9 +11,22 @@ function TansiqModal(props){
     const [majors,setMajors] = useState([{name:"ميكانيكا انتاج",id:1},{name:"ميكانيكا أجهزة",id:2},{name:"كهرباء تحكم آلي",id:3},{name:"كهرباء الكترونيات",id:4},{name:"عمارة",id:5},{name:"مدني",id:6},{name:"غزل و نسيج",id:7}])
     const [majorsOrder,setMajorsOrder] = useState([])
     const array = [0,1,2,3,4,5,6]
+    const [isEnabled , setIsEnabled] = useState(true)
     
     // dragging behaviour
     useEffect( () =>{
+
+        // get requests
+        // getIsEnabled().then( response => {
+        //     setIsEnabled(response.data);
+        // })
+
+        if (isEnabled == true){
+            // getUserChoices().then( response => {
+            //     setMajors(response.data);
+            // })
+        
+
         (function dragBehaviour() {
         "use strict";
         
@@ -176,11 +190,10 @@ function TansiqModal(props){
         init();
         
         })();
+    }
 
-        // get request
-        // getUserChoices().then( response => {
-        //     setMajors(response.data);
-        // })
+        
+
     })//end of useEffect
 
     //get current order
@@ -198,9 +211,12 @@ function TansiqModal(props){
     return(
         <div className="modal__backdrop" >
             <div className="modal__container">
+                {!isEnabled && <span className="close" onClick={props.onClose}>&times;</span>}
                 {/* Header */}
                 <h1 className="modal__title">يرجي ترتيب الرغبات حسب الاولوية</h1>
                 {/* body */}
+                {isEnabled? 
+                <>
                 <div className="responsive-table">
                     <table id="drag-table" className="draggable-table">
                         <thead>
@@ -255,6 +271,10 @@ function TansiqModal(props){
                     getOrder();}}>
                     حفظ التغيرات
                 </button>
+                </>
+                :
+                <p id="para">تم غلق التنسيق</p>
+                }
             </div>
         </div>
     );

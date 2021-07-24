@@ -1,13 +1,8 @@
 import React, { useState, useEffect } from "react"
 import Chart from "react-google-charts";
+import { getBarData } from "../../Services/adminServices";
 
 function ChoicesChart(){
-
-    useEffect( () =>{
-
-        // get request
-
-    },[])
 
     const [data,setData]=useState([{uid:1,name:"غزل و نسيج",first_count:20,second_count:10,third_count:3,fourth_count:9,fifth_count:13,sixth_count:40,seventh_count:15},
                                     {uid:2,name:"ميكانيكا انتاج",first_count:10,second_count:0,third_count:25,fourth_count:7,fifth_count:3,sixth_count:45,seventh_count:20},
@@ -16,6 +11,15 @@ function ChoicesChart(){
                                     {uid:5,name:"كهرباء الكترونيات",first_count:2,second_count:30,third_count:7,fourth_count:40,fifth_count:13,sixth_count:4,seventh_count:14},
                                     {uid:6,name:"عمارة",first_count:20,second_count:10,third_count:28,fourth_count:20,fifth_count:13,sixth_count:4,seventh_count:15},
                                     {uid:7,name:"مدني",first_count:50,second_count:18,third_count:3,fourth_count:17,fifth_count:13,sixth_count:4,seventh_count:5}])
+    
+
+    useEffect( () =>{
+        // get request
+        // getBarData().then( response => {
+        //     setData(response.data);
+        // })
+    },[data])
+    
     return(
         <Chart
             width={'1200px'}

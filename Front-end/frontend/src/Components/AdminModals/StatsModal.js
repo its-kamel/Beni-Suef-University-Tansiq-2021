@@ -3,6 +3,7 @@ import './StatsModal.css'
 import Chart from "react-google-charts";
 import DistributionChart from "../Charts/DistributionChart";
 import ChoicesChart from "../Charts/ChoicesChart";
+import TableChart from "../Charts/TableChart";
 
 function StatsModal(props){
 
@@ -15,10 +16,13 @@ function StatsModal(props){
                 <div className="charts">
 
                     {/* pie chart */}
-                    <DistributionChart />
+                    <DistributionChart /><hr className="separator"/>
 
                     {/* stacked bar chart */}
-                    <ChoicesChart />
+                    <ChoicesChart /><hr className="separator2"/>
+
+                    {/* table chart */}
+                    <TableChart />
                     
                     {/* <div style={{ display: 'flex', maxWidth: 1500 }}></div> */}
                 </div>
