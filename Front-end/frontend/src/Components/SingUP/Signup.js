@@ -14,7 +14,7 @@ const Signup = () => {
   } = useform(SignUpValidate);
 
   return (
-    <div className="formSignUpContent">
+    <div className="formContent">
 
       <form onSubmit={handleSubmit} className="signupForm">
         <i className="signupIcon" />
@@ -25,42 +25,14 @@ const Signup = () => {
 
           <input
             type="text"
-            name="first_name"
+            name="name"
             className="signupInput"
-            placeholder="الاسم الاول"
+            placeholder="الاسم رباعي"
             no-autoFocus
             value={newuser.first_name}
             onChange={handleChange}
           />
           {errors.first_name && <p>{errors.first_name}</p>}
-
-        </div>
-
-
-        <div className="signupInputs">
-
-          <input
-            type="text"
-            name="middle_name"
-            className="signupInput"
-            placeholder="الاسم الثاني"
-            value={newuser.middle_name}
-            onChange={handleChange}
-          />
-          {errors.middle_name && <p>{errors.middle_name}</p>}
-
-        </div>
-        <div className="signupInputs">
-
-          <input
-            type="text"
-            name="last_name"
-            className="signupInput"
-            placeholder="اسم العائلة"
-            value={newuser.last_name}
-            onChange={handleChange}
-          />
-          {errors.last_name && <p>{errors.last_name}</p>}
 
         </div>
 
@@ -120,7 +92,7 @@ const Signup = () => {
           <hr className="seperationLine" />
           لدي حساب بالفعل ؟
 
-          <Link to="/">تسجبل الدخول</Link>
+          <Link to="/login">تسجبل الدخول</Link>
         </span>
 
       </form>

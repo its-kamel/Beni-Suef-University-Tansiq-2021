@@ -6,16 +6,8 @@
 function SignUpValidate(props) {
   const errors = {};
 
-  if (!props.first_name) {
+  if (!props.name) {
     errors.first_name = 'مطلوب';
-  }
-
-  if (!props.middle_name) {
-    errors.middle_name = 'مطلوب';
-  }
-
-  if (!props.last_name) {
-    errors.last_name = 'مطلوب';
   }
 
   if (!props.national_id) {

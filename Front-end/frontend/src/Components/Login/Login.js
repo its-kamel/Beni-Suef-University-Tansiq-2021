@@ -18,12 +18,7 @@ import './Login.css';
   } = UseLoginform(LoginValidate);
 
   return (
-    <div className="formloginContent" >
-
-      <i className="fucltyLogo" />
-      {/* <Navbar
-        isLogged= {false}
-        /> */}
+    <div className="formContent" >
 
       <form onSubmit={handleSubmit} className="loginForm">
         

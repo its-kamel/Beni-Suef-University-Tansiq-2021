@@ -12,7 +12,7 @@ function Setnewpassword() {
   } = UseSetnewPassword(SetnewpasswordValidate);
 
   return (
-    <div className="confirmformContent">
+    <div className="formContent">
       <form onSubmit={handleSubmit} className="newpasswordForm">
 
         <i className="lockIcon" />

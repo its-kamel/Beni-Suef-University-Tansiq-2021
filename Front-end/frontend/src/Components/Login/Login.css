@@ -1,6 +1,8 @@
 
-.formloginContent{
-  background: linear-gradient(to bottom, #000099 0%, #ff9900 125%);
+.formContent{
+  /* background: linear-gradient(to top left, #000099 -10%, #ff9900 107%); */
+  background: linear-gradient(to bottom right, #0000cc -10%, #ff9900 113%);
+
   /* background-repeat: no-repeat;
   background-position-x: center;
   background-size: 100% 100%; */
@@ -10,15 +12,6 @@
   height: 830px;
   /* position: relative;
   display: grid; */
-}
-
-.fucltyLogo
-{
-  content: url("./fuc_logo.png");
-  margin: 10px;
-  width: 100px;
-  height: 100px;
-  float: right;
 }
 
 .loginIcon {
