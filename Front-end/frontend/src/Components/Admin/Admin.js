@@ -95,15 +95,15 @@ function Admin() {
         const start= new Date(startDate);
         const end= new Date(endDate);
         const todaysDate= new Date();
-          setIsTanseqOpen(todaysDate>=start && todaysDate<=end);
         // console.log(start.getMonth()+1)
         // console.log(start.getDate())
         // console.log(start.getFullYear())
         // console.log(todaysDate.getDate());
         // console.log(todaysDate.getMonth()+1);
         // console.log(todaysDate.getFullYear())
-        console.log(isTanseqOpen)
-    }
+        start.toUTCString();
+        end.toUTCString();
+        }
     function toggleTanseqMode(){
         setIsTanseqOpen(!isTanseqOpen);
     };

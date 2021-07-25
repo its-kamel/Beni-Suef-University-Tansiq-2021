@@ -29,10 +29,10 @@ const DepartmentsTable = () => {
 useEffect( () =>{
 
   // put new departments info
-  // putNewDepartmentInfo({id:editDepartmentId , capacity:editFormData.departmentCapacity})
+  // putNewDepartmentInfo(editFormData.departmentCapacity)
   // .then( response => {console.log(response);});
 
-},[data])
+},[editFormData.departmentCapacity])
   
 
   const handleEditFormChange = (event) => {
