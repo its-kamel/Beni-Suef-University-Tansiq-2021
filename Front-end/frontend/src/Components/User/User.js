@@ -7,16 +7,16 @@ import ResultModal from "./ResultModal";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChartBar, faGraduationCap } from '@fortawesome/free-solid-svg-icons'
 import { putUserChoices } from "../../Services/userServices";
-import StatsModal from "../AdminModals/StatsModal";
+
 
 function User() {
     const tansiqIcon = <FontAwesomeIcon icon={faChartBar} color="#f5ba13"/>
     const resultIcon = <FontAwesomeIcon icon={faGraduationCap} color="#f5ba13"/>
     const [isTansiqOpen, setIsTansiqOpen] = useState(false)
-    const [isResultOpen, setIsResultOpen] = useState(false)
+    const [isResultOpen, setIsResultOpen] = useState(false)    
 
-    function openTansiqModal(){
-        setIsTansiqOpen(true)
+    function toggleTansiqModal(){
+        setIsTansiqOpen(!isTansiqOpen)
     }
 
     function toggleResultModal(){
@@ -46,12 +46,12 @@ function User() {
                     <Button
                         icon = {resultIcon}
                         text = "تسجيل الرغبات"
-                        onOpen = {openTansiqModal}
+                        onOpen = {toggleTansiqModal}
                     />
 
                 </div>
             </div>
-            {isTansiqOpen && <TansiqModal onConfirm={confirmChange}/>}
+            {isTansiqOpen && <TansiqModal onConfirm={confirmChange} onClose={toggleTansiqModal}/>}
             {isResultOpen && <ResultModal onClose={toggleResultModal}/>}
         </>
     );
