@@ -78,5 +78,6 @@
     "eslint-plugin-react": "^7.23.2",
     "eslint-plugin-react-hooks": "^4.2.0",
     "jsdoc": "^3.6.6"
-  }
+  },
+  "homepage": "."
 }
