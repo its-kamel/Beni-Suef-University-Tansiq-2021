@@ -12,12 +12,12 @@ function TableChart(){
     const [items, setItem] = useState(data);
     const [selectedItem, setSelectedItem] = useState(null);
 
-    useEffect( () =>{
-        // get request
-        // getTableData().then( response => {
-        //     setData(response.data);
-        // })
-    },[data])
+    // useEffect( () =>{
+    //     // get request
+    //     // getTableData().then( response => {
+    //     //     setData(response.data);
+    //     // })
+    // },[data])
     
     const toggleDropdown = () => setOpen(!isOpen);
     
@@ -26,6 +26,10 @@ function TableChart(){
         toggleDropdown();
         console.log(id)
         // get request, body: id
+        // getTableData(id).then( response => {
+        //     setData(response.data);
+        // })
+
         if (id==1){
             setStudents([{name:'mech intag',id:1}])
         }else{
