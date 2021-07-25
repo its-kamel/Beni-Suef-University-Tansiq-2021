@@ -1,12 +1,24 @@
 .modal__container__settings {
     background: #fff;
     border-radius: 5px;
-    max-width: 900px;
-    max-height: 400px;
+    max-width: 1200px;
+    max-height: 1200px;
     height: 400px;
     margin: 100px auto;
     border-radius: 3px;
     box-shadow: 0 1px 6px rgb(0 0 0 / 20%);
     box-sizing: border-box;
     overflow: auto;
+}
+
+.admin-settings-layout {
+    display: flex;
+    flex-wrap: wrap; 
+    --height: 402px;  /* Minimal row height */
+    --ratio: 1; /* Default aspect ratio for buttons that are not loaded yet */
+    padding-top:20px;
+    max-width: 350px;
+    margin: auto;
+   
+   
 }

@@ -1,9 +1,10 @@
-import React, { useState, Fragment } from "react";
+import React, { useState, Fragment, useEffect } from "react";
 import { nanoid } from "nanoid";
 import "./Departments.css";
 import data from "./Departments-data.json";
 import RowsToEdit from "./RowsToEdit";
 import RowsToRead from "./RowsToRead";
+import { getDepartmentsInfo, putNewDepartmentInfo } from "../../Services/adminServices";
 
 const DepartmentsTable = () => {
   const [Departments, setDepartments] = useState(data);
@@ -14,7 +15,24 @@ const DepartmentsTable = () => {
   });
 
   const [editDepartmentId, setEditDepartmentId] = useState(null);
+  
+  useEffect( () =>{
 
+    // get Departments Info
+    // getDepartmentsInfo()
+    // .then( response => {
+    //     setDepartments(response.data);
+    // })
+
+},[Departments])
+
+useEffect( () =>{
+
+  // put new departments info
+  // putNewDepartmentInfo(editFormData.departmentCapacity)
+  // .then( response => {console.log(response);});
+
+},[editFormData.departmentCapacity])
   
 
   const handleEditFormChange = (event) => {

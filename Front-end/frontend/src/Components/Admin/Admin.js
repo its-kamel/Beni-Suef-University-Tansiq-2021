@@ -1,4 +1,4 @@
-import React, {useState} from "react"
+import React, {useEffect, useState} from "react"
 import Navbar from '../Navbar/Navbar'
 import './Admin.css'
 import './Departments.css'
@@ -11,6 +11,8 @@ import UploadModal from "../AdminModals/UploadModal"
 import StatsModal from "../AdminModals/StatsModal"
 import SettingsModal from "../AdminModals/SettingsModal"
 import InfoModal from "../AdminModals/InfoModal"
+import "../../Services/adminServices"
+import { putStudentsInfo, putTanseeqStatus } from "../../Services/adminServices"
 
 function Admin() {
     const upload = <FontAwesomeIcon icon={faUpload} color="#f5ba13"/>
@@ -20,6 +22,10 @@ function Admin() {
 
     const [isExcelOpen, setIsExcelOpen] = useState(false);
     const [isTanseqOpen,setIsTanseqOpen]=useState(false);
+    const [startDate, setStartDate] = useState(null);
+    const [endDate, setEndDate] = useState(null);
+    const [focusedInput, setFocusedInput] = useState(null);
+
     const [numberOfGroups,setNumberOfGroups]=useState(" ");
     const [inputNumberOfGroups,setInputNumberOfGroups]=useState("");
     // Modals conts
@@ -28,19 +34,76 @@ function Admin() {
     const [isStatsOpen, setIsStatsOpen] = useState(false)
     const [isInfoOpen, setIsInfoOpen] = useState(false)
 
+    const [studentsfile, setStudentsFile]=useState(undefined)
     const [initialData, setInitialData]=useState(undefined);
     const [currentSheet,setCurrentSheet]=useState({});
+
+    const todaysDate= new Date();
+    useEffect( () =>{
+        
+        if (todaysDate == startDate){
+            // put request -> isEnabled = true
+            // putTanseeqStatus(true)
+            //     .then(Response=>{console.log(Response);});
+        }
+
+        if (todaysDate == endDate){
+            // put request -> isEnabled = false
+            // putTanseeqStatus(false)
+            //     .then(Response=>{console.log(Response);});
+
+        }
+
+    },[todaysDate.getDay()])
+
+    useEffect( () =>{
+
+        // put students data
+        // putStudentsInfo(studentsfile)
+        // .then(Response=>{console.log(Response);});
+
+    },[studentsfile])
+
+    useEffect( () =>{
+
+        
+        // put number of groups
+        // putStudentsInfo(numberOfGroups)
+        // .then(Response=>{console.log(Response);});
+
+    },[numberOfGroups])
+
+
     const handleUpload =(event) =>{
         const file=event.target.files[0];
+        setStudentsFile(event.target.files[0])
+        console.log(file)
         readFile(file)  
         .then((readedData)=>setInitialData(readedData))
         .catch((error)=>console.error(error));
+        console.log(studentsfile)
     };
     const save = ()=>{
+        //send students data to backend studentsFile
+        // console.log(initialData)
         // const result=generateObjects(currentSheet);
         // console.log(result);
 
+
     };
+    const handleSaveDates=()=>{
+        const start= new Date(startDate);
+        const end= new Date(endDate);
+        const todaysDate= new Date();
+        // console.log(start.getMonth()+1)
+        // console.log(start.getDate())
+        // console.log(start.getFullYear())
+        // console.log(todaysDate.getDate());
+        // console.log(todaysDate.getMonth()+1);
+        // console.log(todaysDate.getFullYear())
+        start.toUTCString();
+        end.toUTCString();
+        }
     function toggleTanseqMode(){
         setIsTanseqOpen(!isTanseqOpen);
     };
@@ -147,7 +210,7 @@ function Admin() {
         {/* {isExcelOpen && <DataTable initialData={initialData} setInitialData={setInitialData} currentSheet={currentSheet} setCurrentSheet={setCurrentSheet} toggleExcelMode={toggleExcelMode} save={save} />} */}
         {isUpload && <UploadModal onClose={toggleUploadModal} onUpload={handleUpload} onToggle={toggleExcelMode} onSave={save} initialData={initialData} setCurrentSheet={setCurrentSheet}/>}
         {isStatsOpen && <StatsModal onClose={toggleStatsModal}/>}
-        {isSettings && <SettingsModal onClose={toggleSettingsModal} onCheck={toggleTanseqMode} onTansiq={handleTanseeqButton}/>}
+        {isSettings && <SettingsModal onClose={toggleSettingsModal} onSave={handleSaveDates} onTansiq={handleTanseeqButton} startDate={startDate} endDate={endDate} setStartDate={setStartDate} setEndDate={setEndDate} focusedInput={focusedInput} setFocusedInput={setFocusedInput}/>}
         {isInfoOpen && <InfoModal onClose={toggleInfoModal} number={numberOfGroups} input={inputNumberOfGroups} onHandle={handleInputNumberOfGroups} onSubmit={handleSubmitNumberOfGroups} />}
 
     </>
