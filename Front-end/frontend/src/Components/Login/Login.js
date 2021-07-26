@@ -33,7 +33,7 @@ import './Login.css';
             name="email"
             className="loginInput"
             placeholder="البريد الإلكتروني"
-            value={user.emailaddress}
+            value={user.email}
             onChange={handleChange}
           />
           {error.email && <p>{error.email}</p>}

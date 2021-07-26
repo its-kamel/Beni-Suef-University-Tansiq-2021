@@ -5,12 +5,12 @@ import { useHistory } from 'react-router-dom';
 /**
  * Useform
  * @param {[function]} addValidate [function from Validate to check on new user inpus]
- * @returns handleChange, newuser, handleSubmit, errors,
+ * @returns handleChange, newadmin, handleSubmit, errors,
  */
 const useform = (addValidate) => {
   const history = useHistory();
 
-  const [newuser, setNewuser] = useState({
+  const [newadmin, setNewadmin] = useState({
     email: '',
     national_id : '',
   });
@@ -26,8 +26,8 @@ const useform = (addValidate) => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setNewuser({
-      ...newuser,
+    setNewadmin({
+      ...newadmin,
       [name]: value,
     });
   };
@@ -35,7 +35,7 @@ const useform = (addValidate) => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    setErrors(addValidate(newuser));
+    setErrors(addValidate(newadmin));
 
     setIsSubmitting(true);
   };
@@ -64,7 +64,7 @@ const useform = (addValidate) => {
   }, [errors]);
 
   return {
-    handleChange, newuser, handleSubmit, errors,
+    handleChange, newadmin, handleSubmit, errors,
   };
 };
 

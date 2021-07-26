@@ -10,7 +10,7 @@ import './AddAdmin.css';
  */
 const addNewAdmin = () => {
   const {
-    handleChange, newuser, handleSubmit, errors,
+    handleChange, newadmin, handleSubmit, errors,
   } = useform(addValidate);
 
   return (
@@ -28,9 +28,8 @@ const addNewAdmin = () => {
             name="email"
             className="loginInput"
             placeholder="البريد الإلكتروني"
-            value={newuser.email}
+            value={newadmin.email}
             onChange={handleChange}
-            novalid
           />
           {errors.email && <p>{errors.email}</p>}
 
@@ -43,7 +42,7 @@ const addNewAdmin = () => {
             name="national_id"
             className="loginInput"
             placeholder="الرقم القومي"
-            value={newuser.national_id}
+            value={newadmin.national_id}
             onChange={handleChange}
           />
           {errors.national_id && <p>{errors.national_id}</p>}
