@@ -16,6 +16,29 @@ from .functions import password_generator,prepare_password_email
 from project.utils import Util
 # Create your views here.
 
+@api_view(['GET'])
+@permission_classes((IsAuthenticated,))
+def get_dates(request):
+    exist= Form.objects.filter(id=1)
+    if not exist :
+        Form.objects.create(id=1,is_enabled=False)
+    form_obj = Form.objects.get(id=1)
+    # GET
+    serializer = DateSerializer(form_obj)
+    return Response(serializer.data)
+    
+@api_view(['PUT'])
+@permission_classes((IsAuthenticated,IsAdminUser))
+def edit_dates(request):
+    exist= Form.objects.filter(id=1)
+    if not exist :
+        Form.objects.create(id=1,is_enabled=False)
+    form_obj = Form.objects.get(id=1)
+    # PUT
+    serializer = DateSerializer(form_obj,data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data, status= status.HTTP_200_OK )
 
 @api_view(['GET','PUT'])
 @permission_classes((IsAuthenticated,IsAdminUser))
@@ -33,8 +56,7 @@ def edit_capacity(request,id):
         serializer = EditCapacitySerializer(Desire_obj,data=request.data)
         if serializer.is_valid():
             serializer.save()
-            return Response(serializer.data, status= status.HTTP_200_OK )    
-
+            return Response(serializer.data, status= status.HTTP_200_OK )  
 
 @api_view(['GET','PUT'])
 @permission_classes((IsAuthenticated,IsAdminUser))
@@ -111,14 +133,10 @@ def form_info(request):
         return Response(form.data)
     # PUT
     if request.method == 'PUT':
-        if form_obj.is_enabled :
-            form_obj.is_enabled= False
-        else:
-            form_obj.is_enabled= True
-        form_obj.save()
-        form = FormSerializer(form_obj)
-        return Response(form.data, status= status.HTTP_200_OK )
-
+        serializer = EnableSerializer(form_obj,data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status= status.HTTP_200_OK )
 
 @api_view(['POST'])
 @permission_classes((IsAuthenticated,IsAdminUser))

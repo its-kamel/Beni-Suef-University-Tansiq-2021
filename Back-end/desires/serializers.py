@@ -24,6 +24,18 @@ class GroupSerializer(serializers.ModelSerializer):
         # total info for a comment on a gallery
         fields = ['groups_count']
 
+class EnableSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Form
+        # total info for a comment on a gallery
+        fields = ['is_enabled']        
+
+class DateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Form
+        # total info for a comment on a gallery
+        fields = ['start_date','end_date']        
+
 class StudentsCountSerializer(serializers.ModelSerializer):
     class Meta:
         model = Desire
@@ -35,7 +47,7 @@ class CapacitySerializer(serializers.ModelSerializer):
         model = Desire
         # total info for a comment on a gallery
         fields = ['uid','name','capacity']   
-        
+
 class EditCapacitySerializer(serializers.ModelSerializer):
     class Meta:
         model = Desire
