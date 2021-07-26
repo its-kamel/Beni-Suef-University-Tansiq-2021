@@ -5,7 +5,7 @@ import { getTableData } from "../../Services/adminServices";
 
 function TableChart(){
 
-    const [data,setData] = useState([{name:"ميكانيكا انتاج",id:1},{name:"ميكانيكا أجهزة",id:2},{name:"كهرباء تحكم آلي",id:3},{name:"كهرباء الكترونيات",id:4},{name:"عمارة",id:5},{name:"مدني",id:6},{name:"غزل و نسيج",id:7}]);
+    const [data,setData] = useState([{name:"ميكانيكا انتاج",uid:1},{name:"ميكانيكا أجهزة",uid:2},{name:"كهرباء تحكم آلي",uid:3},{name:"كهرباء الكترونيات",uid:4},{name:"عمارة",uid:5},{name:"مدني",uid:6},{name:"غزل و نسيج",uid:7}]);
     const [students,setStudents] = useState([]);
     
     const [isOpen, setOpen] = useState(false);
@@ -31,9 +31,9 @@ function TableChart(){
         // })
 
         if (id==1){
-            setStudents([{name:'mech ',id:1}])
+            setStudents([{name:'mech ',uid:1}])
         }else{
-            setStudents([{name:'other',id:111}])
+            setStudents([{name:'other',uid:111}])
         }
     }
     
@@ -42,13 +42,13 @@ function TableChart(){
         <h1 className="modal__title">بيانات الطلاب الذين التحقوا بقسم:</h1>
         <div className='dropdown'>
             <div className='dropdown-header' onClick={toggleDropdown}>
-            {selectedItem ? items.find(item => item.id == selectedItem).name : "اختار القسم"}
+            {selectedItem ? items.find(item => item.uid == selectedItem).name : "اختار القسم"}
             <i className={`fa fa-chevron-right icon ${isOpen && "open"}`}></i>
             </div>
             <div className={`dropdown-body ${isOpen && 'open'}`}>
             {items.map(item => (
-                <div className="dropdown-item" onClick={e => handleItemClick(e.target.id)} id={item.id}>
-                <span className={`dropdown-item-dot ${item.id == selectedItem && 'selected'}`}>• </span>
+                <div className="dropdown-item" onClick={e => handleItemClick(e.target.id)} id={item.uid}>
+                <span className={`dropdown-item-dot ${item.uid == selectedItem && 'selected'}`}>• </span>
                 {item.name}
                 </div>
             ))}
@@ -68,7 +68,7 @@ function TableChart(){
                     <>
                     <tr>
                     <td>{student.name}</td>
-                    <td>{student.id}</td>
+                    <td>{student.uid}</td>
                     </tr>
                     </>
                 ))}

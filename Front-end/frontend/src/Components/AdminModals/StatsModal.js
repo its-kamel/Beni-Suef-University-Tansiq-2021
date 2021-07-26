@@ -10,7 +10,7 @@ function StatsModal(props){
     return(
         <div className="modal__backdrop" >
             <div className="modal__container__Stats">
-                <span className="close" onClick={props.onClose}>&times;</span>
+                <span className="close-charts" onClick={props.onClose}>&times;</span>
                 <h1 className="modal__title">الإحصاءات</h1>
                 {/* charts test */}
                 <div className="charts">
