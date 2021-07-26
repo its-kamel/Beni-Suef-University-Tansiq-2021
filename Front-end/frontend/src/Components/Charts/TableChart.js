@@ -7,6 +7,10 @@ function TableChart(){
 
     const [data,setData] = useState([{name:"ميكانيكا انتاج",uid:1},{name:"ميكانيكا أجهزة",uid:2},{name:"كهرباء تحكم آلي",uid:3},{name:"كهرباء الكترونيات",uid:4},{name:"عمارة",uid:5},{name:"مدني",uid:6},{name:"غزل و نسيج",uid:7}]);
     const [students,setStudents] = useState([]);
+    const [students1,setStudents1] = useState([{name:"سمر نبيل",email:"samarnabil22@gmail.com"}]);
+    const [students2,setStudents2] = useState([{name:"منة نوار",email:"menna@gmail.com"},{name:" عبد الرحمن سليمان",email:"abdulrahman@gmail.com"}]);
+
+
     
     const [isOpen, setOpen] = useState(false);
     const [items, setItem] = useState(data);
@@ -31,9 +35,9 @@ function TableChart(){
         // })
 
         if (id==1){
-            setStudents([{name:'mech ',uid:1}])
+            setStudents(students1)
         }else{
-            setStudents([{name:'other',uid:111}])
+            setStudents(students2)
         }
     }
     
@@ -68,7 +72,7 @@ function TableChart(){
                     <>
                     <tr>
                     <td>{student.name}</td>
-                    <td>{student.uid}</td>
+                    <td>{student.email}</td>
                     </tr>
                     </>
                 ))}
