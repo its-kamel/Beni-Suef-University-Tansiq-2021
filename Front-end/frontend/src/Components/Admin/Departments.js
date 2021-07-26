@@ -26,6 +26,13 @@ const DepartmentsTable = () => {
 
 },[Departments])
 
+useEffect( () =>{
+
+  // put new departments info
+  // putNewDepartmentInfo(editFormData.departmentCapacity,editDepartmentId)
+  // .then( response => {console.log(response);});
+
+},[editFormData.departmentCapacity])
   
   const handleSaveCapacity=()=>{
     console.log(editDepartmentId)

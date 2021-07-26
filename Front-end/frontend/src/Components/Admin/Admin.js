@@ -38,8 +38,11 @@ function Admin() {
     const [initialData, setInitialData]=useState(undefined);
     const [currentSheet,setCurrentSheet]=useState({});
 
+    
     const todaysDate= new Date();
     useEffect( () =>{
+
+        // get dates -> string
         
         if (todaysDate == startDate){
             // put request -> isEnabled = true
@@ -56,13 +59,6 @@ function Admin() {
 
     },[todaysDate.getDay()])
 
-    useEffect( () =>{
-
-        // put students data
-        // putStudentsInfo(studentsfile)
-        // .then(Response=>{console.log(Response);});
-
-    },[studentsfile])
 
     useEffect( () =>{
 
@@ -89,6 +85,9 @@ function Admin() {
         // const result=generateObjects(currentSheet);
         // console.log(result);
 
+        // put students data
+        // putStudentsInfo(studentsfile)
+        // .then(Response=>{console.log(Response);});
 
     };
     const handleSaveDates=()=>{
@@ -101,6 +100,8 @@ function Admin() {
         // console.log(todaysDate.getDate());
         // console.log(todaysDate.getMonth()+1);
         // console.log(todaysDate.getFullYear())
+
+        // put dates
         start.toUTCString();
         end.toUTCString();
         }
