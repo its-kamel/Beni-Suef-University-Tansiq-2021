@@ -26,15 +26,14 @@ const DepartmentsTable = () => {
 
 },[Departments])
 
-useEffect( () =>{
-
-  // put new departments info
-  // putNewDepartmentInfo(editFormData.departmentCapacity)
-  // .then( response => {console.log(response);});
-
-},[editFormData.departmentCapacity])
   
+  const handleSaveCapacity=()=>{
+    console.log(editDepartmentId)
+    console.log(editFormData.departmentCapacity)
+    // putNewDepartmentInfo(editFormData.departmentCapacity)
+    // .then( response => {console.log(response);});
 
+  }
   const handleEditFormChange = (event) => {
     event.preventDefault();
 
@@ -105,6 +104,7 @@ useEffect( () =>{
                     editFormData={editFormData}
                     handleEditFormChange={handleEditFormChange}
                     handleCancelClick={handleCancelClick}
+                    handleSaveClick={handleSaveCapacity}
                     
                   />
                 ) : (

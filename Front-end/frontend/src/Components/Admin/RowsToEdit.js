@@ -6,6 +6,7 @@ const RowsToEdit = ({
   editFormData,
   handleEditFormChange,
   handleCancelClick,
+  handleSaveClick
 }) => {
   return (
     <tr>
@@ -23,7 +24,7 @@ const RowsToEdit = ({
         ></input>
       </td>
       <td className="table-data">
-        <button className="button-layout" type="submit">حفظ</button>
+        <button className="button-layout" type="submit" onClick={handleSaveClick}>حفظ</button>
         <button className="button-layout" type="button" onClick={handleCancelClick}>
           الغاء
         </button>
