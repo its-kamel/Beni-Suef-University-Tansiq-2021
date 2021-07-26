@@ -172,9 +172,9 @@ export async function getDepartmentsInfo (){
 };
 
 //Edit department Capacity
-export async function putNewDepartmentInfo (data){
+export async function putNewDepartmentInfo (data,id){
   try{
-      const response = await axios.put( SERVER_URL+'endpoint',data,{headers:{token:localStorage.token}});
+      const response = await axios.put( SERVER_URL+'endpoint/'+id,data,{headers:{token:localStorage.token}});
       //Success
       return(response)
   } catch (error){

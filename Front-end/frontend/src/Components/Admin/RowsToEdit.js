@@ -6,14 +6,15 @@ const RowsToEdit = ({
   editFormData,
   handleEditFormChange,
   handleCancelClick,
+  handleSaveClick
 }) => {
   return (
-    <tr>
-      <td className="table-data">
+    <tr >
+      <td >
       {department.departmentName}
       </td>
-      <td className="table-data">
-        <input className="form-layout"
+      <td >
+        <input 
           type="number"
           required="required"
           placeholder="أدخل السعة"
@@ -22,8 +23,8 @@ const RowsToEdit = ({
           onChange={handleEditFormChange}
         ></input>
       </td>
-      <td className="table-data">
-        <button className="button-layout" type="submit">حفظ</button>
+      <td >
+        <button className="button-layout" type="submit" onClick={handleSaveClick}>حفظ</button>
         <button className="button-layout" type="button" onClick={handleCancelClick}>
           الغاء
         </button>

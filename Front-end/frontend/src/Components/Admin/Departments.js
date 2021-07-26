@@ -26,15 +26,14 @@ const DepartmentsTable = () => {
 
 },[Departments])
 
-useEffect( () =>{
-
-  // put new departments info
-  // putNewDepartmentInfo(editFormData.departmentCapacity)
-  // .then( response => {console.log(response);});
-
-},[editFormData.departmentCapacity])
   
+  const handleSaveCapacity=()=>{
+    console.log(editDepartmentId)
+    console.log(editFormData.departmentCapacity)
+    // putNewDepartmentInfo(editFormData.departmentCapacity, editDepartmentId)
+    // .then( response => {console.log(response);});
 
+  }
   const handleEditFormChange = (event) => {
     event.preventDefault();
 
@@ -86,16 +85,18 @@ useEffect( () =>{
   };
 
   return (
-    <div className="departments-container">
+    <>
       <form className="form-layout" onSubmit={handleEditFormSubmit}>
-        <table className="table-layout">
-          <thead className="table-header">
+      <div className="responsive-table">
+        <table className="draggable-table" id="new_cursor" >
+          <thead >
             <tr>
               <th>اسم القسم</th>
               <th>السعة الاستيعابية</th>
+              <th>اضغط للتعديل</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody >
             {Departments.map((department) => (
               // eslint-disable-next-line react/jsx-key
               <Fragment >
@@ -105,6 +106,7 @@ useEffect( () =>{
                     editFormData={editFormData}
                     handleEditFormChange={handleEditFormChange}
                     handleCancelClick={handleCancelClick}
+                    handleSaveClick={handleSaveCapacity}
                     
                   />
                 ) : (
@@ -117,8 +119,9 @@ useEffect( () =>{
             ))}
           </tbody>
         </table>
+        </div>
       </form>
-    </div>
+    </>
   );
 };
 

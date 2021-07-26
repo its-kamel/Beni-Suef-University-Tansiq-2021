@@ -2,10 +2,10 @@ import React from "react";
 import "./Departments.css"
 const RowsToRead = ({ department, handleEditClick, handleDeleteClick }) => {
   return (
-    <tr >
-      <td className="table-data">{department.departmentName}</td>
-      <td className="table-data">{department.departmentCapacity}</td>
-      <td className="table-data">
+    <tr id="new_cursor">
+      <td >{department.departmentName}</td>
+      <td >{department.departmentCapacity}</td>
+      <td >
         <button
             className="button-layout"
           type="button"

@@ -8,7 +8,7 @@ import getIsEnabled from "../../Services/adminServices";
 function TansiqModal(props){
 
     const drag = <FontAwesomeIcon icon={faBars} color="#f5ba13"/>
-    const [majors,setMajors] = useState([{name:"ميكانيكا انتاج",id:1},{name:"ميكانيكا أجهزة",id:2},{name:"كهرباء تحكم آلي",id:3},{name:"كهرباء الكترونيات",id:4},{name:"عمارة",id:5},{name:"مدني",id:6},{name:"غزل و نسيج",id:7}])
+    const [majors,setMajors] = useState([{name:"ميكانيكا انتاج",uid:1},{name:"ميكانيكا أجهزة",uid:2},{name:"كهرباء تحكم آلي",uid:3},{name:"كهرباء الكترونيات",uid:4},{name:"عمارة",uid:5},{name:"مدني",uid:6},{name:"غزل و نسيج",uid:7}])
     const [majorsOrder,setMajorsOrder] = useState([])
     const array = [0,1,2,3,4,5,6]
     const [isEnabled , setIsEnabled] = useState(true)
@@ -228,31 +228,31 @@ function TansiqModal(props){
                         <tbody>
                             <tr>
                                 <td>{majors[0].name}</td>
-                                <td className="order" data-id={majors[0].id}>الرغبة 1</td>
+                                <td className="order" data-id={majors[0].uid}>الرغبة 1</td>
                             </tr>
                             <tr>
                                 <td>{majors[1].name}</td>
-                                <td className="order" data-id={majors[1].id}>الرغبة 2</td>
+                                <td className="order" data-id={majors[1].uid}>الرغبة 2</td>
                             </tr>
                             <tr>
                                 <td>{majors[2].name}</td>
-                                <td className="order" data-id={majors[2].id}>الرغبة 3</td>
+                                <td className="order" data-id={majors[2].uid}>الرغبة 3</td>
                             </tr>
                             <tr>
                                 <td>{majors[3].name}</td>
-                                <td className="order" data-id={majors[3].id}>الرغبة 4</td>
+                                <td className="order" data-id={majors[3].uid}>الرغبة 4</td>
                             </tr>
                             <tr>
                                 <td>{majors[4].name}</td>
-                                <td className="order" data-id={majors[4].id}>الرغبة 5</td>
+                                <td className="order" data-id={majors[4].uid}>الرغبة 5</td>
                             </tr>
                             <tr>
                                 <td>{majors[5].name}</td>
-                                <td className="order" data-id={majors[5].id}>الرغبة 6</td>
+                                <td className="order" data-id={majors[5].uid}>الرغبة 6</td>
                             </tr>
                             <tr>
                                 <td>{majors[6].name}</td>
-                                <td className="order" data-id={majors[6].id}>الرغبة 7</td>
+                                <td className="order" data-id={majors[6].uid}>الرغبة 7</td>
                             </tr>
                         {/* {majors.map( major =>(
                             <>

@@ -2,11 +2,21 @@
     background: #fff;
     border-radius: 5px;
     max-width: 1000px;
-    max-height: 520px;
-    height: 520px;
-    margin: 90px auto;
+    max-height: 535px;
+    height: 535px;
+    margin: 75px auto;
     border-radius: 3px;
     box-shadow: 0 1px 6px rgb(0 0 0 / 20%);
     box-sizing: border-box;
     overflow: auto;
+}
+
+.modal__groupNo__title {
+    font-size: 20px;
+    padding: 10px 25px 10px;
+    line-height: 20px;
+    color:navy;
+    font-weight:bolder;
+    font-family: 'Tajawal', sans-serif;
+    direction: rtl;
 }

@@ -14,7 +14,7 @@ function Navbar(props){
     return(
         <>
         <header >
-            <h1 className="navbar-header">جامعة بني سويف</h1>
+            <h1 className="navbar-header">  كلية التكنولوجيا و التعليم • جامعة بني سويف</h1>
         </header>
         {isLogged && <Link style={navStyle} to="/"><button className="logOut" onClick={logOut}>تسجيل الخروج</button></Link>}
 

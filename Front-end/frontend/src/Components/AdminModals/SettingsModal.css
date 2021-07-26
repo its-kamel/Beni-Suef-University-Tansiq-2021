@@ -18,7 +18,5 @@
     --ratio: 1; /* Default aspect ratio for buttons that are not loaded yet */
     padding-top:20px;
     max-width: 350px;
-    margin: auto;
-   
-   
+    margin: auto; 
 }

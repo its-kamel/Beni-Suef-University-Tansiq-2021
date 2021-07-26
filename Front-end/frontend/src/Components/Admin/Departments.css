@@ -33,13 +33,13 @@
 
 .form-layout {
   direction: rtl;
-  display: flex;
+  /* display: flex;
   gap: 5px;
-  font-size: 28px;
+  font-size: 28px; */
 }
 
 .button-layout{
-  padding: 10px 20px;
+  padding: 6px 20px;
   margin-left: 20px;
   border: none;
   border-radius: 5px;
@@ -54,4 +54,6 @@
   /* direction: rtl; */
 }
   
-  
+#new_cursor{
+  cursor:auto;
+}

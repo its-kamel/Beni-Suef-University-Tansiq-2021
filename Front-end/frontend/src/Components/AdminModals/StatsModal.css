@@ -32,6 +32,29 @@
     cursor: pointer;
 }
 
+
+/*charts close*/
+
+
+.close-charts{
+    color: #aaaaaa;
+    float: left;
+    font-size: 28px;
+    font-weight: bold;
+    font-family: 'Tajawal', sans-serif;
+    direction: rtl;
+    margin-left: 20px;
+    padding-top: 5px;
+    position: absolute;
+    z-index: 9999999;
+}
+
+.close-charts:hover,
+.close-charts:focus {
+    color: #f5ba13;
+    text-decoration: none;
+} 
+
 /* charts */
 .charts{
     /* display: 'flex';
