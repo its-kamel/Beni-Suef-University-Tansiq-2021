@@ -3,9 +3,10 @@ import 'react-dates/initialize';
 import { DateRangePicker } from 'react-dates';
 import 'react-dates/lib/css/_datepicker.css';
 import './SettingsModal.css'
+import { useHistory } from 'react-router-dom';
 
 function SettingsModal(props){
-
+    const history = useHistory();
     return(
         <>
         <div className="modal__backdrop" >
@@ -44,6 +45,13 @@ function SettingsModal(props){
 
                     <button type="submit" className="button-layout" onClick={props.onTansiq}>تنسيق الطلاب</button>
                 </div>
+
+                <div className='admin-layout'>
+
+                <button type="submit" className="button-layout" onClick={() => history.push('/addNewAdmin')}> اضافة مشرف جديد </button>
+
+                </div>
+
             </div>
         </div>
         </>
