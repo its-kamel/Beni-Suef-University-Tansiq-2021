@@ -31,9 +31,9 @@ function TableChart(){
         // })
 
         if (id==1){
-            setStudents([{name:'mech intag',id:1}])
+            setStudents([{name:'mech ',id:1}])
         }else{
-            setStudents([{name:'ay haga',id:111}])
+            setStudents([{name:'other',id:111}])
         }
     }
     

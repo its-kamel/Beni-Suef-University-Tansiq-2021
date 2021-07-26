@@ -14,14 +14,14 @@ function InfoModal(props){
                 <Departments/>
                 <br/>
                 <div dir='rtl'>
-                <h1>أدخل عدد المجموعات</h1>
+                <h1 className="modal__title">أدخل عدد المجموعات</h1>
                 <form className="groups-form-layout">
-                    <input value={props.input} type="text" onChange={props.onHandle}/>
+                    <input value={props.input} type="number" onChange={props.onHandle} placeholder="رجاء ادخال رقم"/>
                     <button className="button-layout" type="submit" onClick={props.onSubmit}  >
                         حفظ
                     </button>
                 </form>
-                <h3>عدد المجموعات المحددة حاليا: {props.number}</h3>
+                <h3 className="modal__groupNo__title">عدد المجموعات المحددة حاليا: {props.number}</h3>
                 </div>
             </div>
         </div>

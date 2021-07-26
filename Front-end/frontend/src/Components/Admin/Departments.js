@@ -85,16 +85,18 @@ const DepartmentsTable = () => {
   };
 
   return (
-    <div className="departments-container">
+    <>
       <form className="form-layout" onSubmit={handleEditFormSubmit}>
-        <table className="table-layout">
-          <thead className="table-header">
+      <div className="responsive-table">
+        <table className="draggable-table" id="new_cursor" >
+          <thead >
             <tr>
               <th>اسم القسم</th>
               <th>السعة الاستيعابية</th>
+              <th>اضغط للتعديل</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody >
             {Departments.map((department) => (
               // eslint-disable-next-line react/jsx-key
               <Fragment >
@@ -117,8 +119,9 @@ const DepartmentsTable = () => {
             ))}
           </tbody>
         </table>
+        </div>
       </form>
-    </div>
+    </>
   );
 };
 
