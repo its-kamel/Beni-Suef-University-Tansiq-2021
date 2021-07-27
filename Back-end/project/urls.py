@@ -29,19 +29,19 @@ schema_view = get_schema_view(
         contact=openapi.Contact(email="contact@snippets.local"),
         license=openapi.License(name="BSD License"),
     ),
-    url='https://www.fotone.me/',
+    url='https://www.fotone.me/api/',
     public=True,
     permission_classes=(permissions.AllowAny,),
 )
 urlpatterns = [
-    path('', schema_view.with_ui('swagger', cache_timeout=0),
+    path('api/', schema_view.with_ui('swagger', cache_timeout=0),
          name='schema-swagger-ui'),
-    path('postman/', schema_view.without_ui(cache_timeout=0),
+    path('api/postman', schema_view.without_ui(cache_timeout=0),
          name='schema-swagger-ui'),
-    path('redoc/', schema_view.with_ui('redoc', cache_timeout=0),
+    path('api/redoc/', schema_view.with_ui('redoc', cache_timeout=0),
          name='schema-redoc'),
-    path('admin/', admin.site.urls),
-    path('users/', include('users.urls', namespace='users')),
-    path('desires/', include('desires.urls', namespace='desires')),
+    path('api/admin/', admin.site.urls),
+    path('api/users/', include('users.urls', namespace='users')),
+    path('api/desires/', include('desires.urls', namespace='desires')),
     
 ]
