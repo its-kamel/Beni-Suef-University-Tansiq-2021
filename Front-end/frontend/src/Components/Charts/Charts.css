@@ -4,6 +4,7 @@
     box-shadow: 0 10px 25px rgba(0,0,0,.1);
     background-color: white;
     margin: auto;
+    margin-bottom: 15px;
   }
   
   .dropdown-header {
@@ -80,3 +81,20 @@
     border: 1px solid navy;
     margin-bottom: 40px;
   }
+
+#excel-button{
+  padding: 10px 20px;
+  margin-left: 55px;
+  float:left;
+  border: none;
+  border-radius: 5px;
+  background-color: #f5ba13;
+  position: relative;
+  margin-top: 20px;
+  cursor: pointer;
+  color: #fff;
+  font-size: 16px;
+  font-weight: bold;
+  font-family: 'Tajawal', sans-serif;
+  direction: rtl;
+}

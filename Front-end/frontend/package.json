@@ -31,6 +31,8 @@
     "react-dropzone-component": "^3.2.0",
     "react-excel-renderer": "^1.1.0",
     "react-google-charts": "^3.0.15",
+    "react-html-table-to-excel": "^2.0.0",
+    "react-html-to-excel": "^2.1.1",
     "react-icons": "^4.2.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",

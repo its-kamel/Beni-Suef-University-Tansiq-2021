@@ -1,7 +1,9 @@
 /* eslint-disable react/jsx-key */
 import React,{useState,useEffect} from "react";
 import './Charts.css';
+import ReactHTMLTableToExcel from 'react-html-table-to-excel';
 import { getTableData } from "../../Services/adminServices";
+import $ from "jquery"
 
 function TableChart(){
 
@@ -9,9 +11,9 @@ function TableChart(){
     const [students,setStudents] = useState([]);
     const [students1,setStudents1] = useState([{name:"سمر نبيل",email:"samarnabil22@gmail.com"}]);
     const [students2,setStudents2] = useState([{name:"منة نوار",email:"menna@gmail.com"},{name:" عبد الرحمن سليمان",email:"abdulrahman@gmail.com"}]);
-
-
     
+    const [fileName,setFileName] = useState("")
+    const [buttonName,setButtonName] = useState("تنزيل جدول البيانات")
     const [isOpen, setOpen] = useState(false);
     const [items, setItem] = useState(data);
     const [selectedItem, setSelectedItem] = useState(null);
@@ -26,9 +28,12 @@ function TableChart(){
     const toggleDropdown = () => setOpen(!isOpen);
     
     const handleItemClick = (id) => {
-        selectedItem == id ? setSelectedItem(null) : setSelectedItem(id);
+        selectedItem == id ? setSelectedItem(id) : setSelectedItem(id);
         toggleDropdown();
-        console.log(id)
+        var newName = (data.filter(object => object.uid == id))[0].name
+        setFileName(newName)
+        setButtonName("تنزيل جدول بيانات قسم "+newName)
+
         // get request, body: id
         // getTableData(id).then( response => {
         //     setData(response.data);
@@ -60,17 +65,17 @@ function TableChart(){
         </div>
         {/* table */}
         <div className="responsive-table-stats">
-            <table id="drag-table" className="draggable-table">
+            <table id="table-to-xls" className="draggable-table">
                 <thead>
                     <tr>
                         <th>الاسم</th>
                         <th>البريد الالكتروني</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody >
                 {students.map( student =>(
                     <>
-                    <tr>
+                    <tr id="new_cursor">
                     <td>{student.name}</td>
                     <td>{student.email}</td>
                     </tr>
@@ -78,6 +83,14 @@ function TableChart(){
                 ))}
                 </tbody>
             </table>
+            {/* export */}
+            <ReactHTMLTableToExcel
+                    id="excel-button"
+                    className="download-table-xls-button"
+                    table="table-to-xls"
+                    filename={fileName}
+                    sheet="tablexls"
+                    buttonText={buttonName}/>
         </div>
         </>
     )
