@@ -1,4 +1,4 @@
 {
-    "SERVER_URL": "www.fotone.me",
+    "SERVER_URL": "https://www.fotone.me/api/",
     "NODE_ENV": "production"
 }

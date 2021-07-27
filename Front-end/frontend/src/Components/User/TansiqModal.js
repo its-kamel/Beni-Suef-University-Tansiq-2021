@@ -9,6 +9,7 @@ function TansiqModal(props){
 
     const drag = <FontAwesomeIcon icon={faBars} color="#f5ba13"/>
     const [majors,setMajors] = useState([{name:"ميكانيكا انتاج",uid:1},{name:"ميكانيكا أجهزة",uid:2},{name:"كهرباء تحكم آلي",uid:3},{name:"كهرباء الكترونيات",uid:4},{name:"عمارة",uid:5},{name:"مدني",uid:6},{name:"غزل و نسيج",uid:7}])
+    // const [majors,setMajors] = useState([])
     const [majorsOrder,setMajorsOrder] = useState([])
     const array = [0,1,2,3,4,5,6]
     const [isEnabled , setIsEnabled] = useState(true)
@@ -254,14 +255,6 @@ function TansiqModal(props){
                                 <td>{majors[6].name}</td>
                                 <td className="order" data-id={majors[6].uid}>الرغبة 7</td>
                             </tr>
-                        {/* {majors.map( major =>(
-                            <>
-                            <tr>
-                            <td>{major.name}</td>
-                            <td className="order" data-id={major.id}>{major.id}</td>
-                            </tr>
-                            </>
-                        ))} */}
                         </tbody>
                     </table>
                 </div>

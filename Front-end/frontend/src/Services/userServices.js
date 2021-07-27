@@ -1,16 +1,19 @@
+import { hexToRgb } from "@material-ui/core";
 import axios from "axios"
 import configData from '../config/production.json'
 const SERVER_URL = configData.SERVER_URL ;
 //token handling
-// accessToken = response.data.token;
+// accessToken = response.data.tokens;
 // localStorage.token = accessToken;
 // delete localStorage.token;
+localStorage.token="eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6Im1vaGFtbWVkOTlrYW1lbEB5YWhvby5jb20iLCJuYXRpb25hbF9pZCI6MzAyMDEyNjE4MDIwMDcsImV4cCI6MTYyNzQ5NjA0OX0.csUwVNg06ujk0dkDld0P45YbQtjpGfbFkwnCH9cx5t0"
 
 //user
 export default async function getUserChoices (){
     try{
-        const response = await axios.get( SERVER_URL+'/endpoint',{headers:{token:localStorage.token}});
+        const response = await axios.get( SERVER_URL+'desires',{headers:{Token:localStorage.token}});
         //Success
+        console.log(response)
         return(response)
     } catch (error){
         if (error.response){
