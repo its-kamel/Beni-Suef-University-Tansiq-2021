@@ -10,6 +10,7 @@ import ChangeComplete from './Components/Login/Setnewpassword/ChangeComplete'
 import User from './Components/User/User'
 import Admin from "./Components/Admin/Admin";
 import addNewAdmin from './Components/Admin/AddAdmin'
+import deadline from './Components/Admin/Deadline'
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
           <Route path="/user" component={User}/>
           <Route path="/admin" component={Admin}/>
           <Route path="/addNewAdmin" component={addNewAdmin}/>
+          <Route path="/deadline" component={deadline}/>
         </Switch>
       </div>
     </Router>
