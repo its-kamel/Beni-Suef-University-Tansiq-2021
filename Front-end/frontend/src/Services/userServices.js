@@ -6,12 +6,13 @@ const SERVER_URL = configData.SERVER_URL ;
 // accessToken = response.data.tokens;
 // localStorage.token = accessToken;
 // delete localStorage.token;
-localStorage.token="eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6Im1vaGFtbWVkOTlrYW1lbEB5YWhvby5jb20iLCJuYXRpb25hbF9pZCI6MzAyMDEyNjE4MDIwMDcsImV4cCI6MTYyNzQ5NjA0OX0.csUwVNg06ujk0dkDld0P45YbQtjpGfbFkwnCH9cx5t0"
+// "SERVER_URL": "https://thingproxy.freeboard.io/fetch/https://www.fotone.me/api/"
+// localStorage.token="eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6Im1vaGFtbWVkOTlrYW1lbEB5YWhvby5jb20iLCJuYXRpb25hbF9pZCI6MzAyMDEyNjE4MDIwMDcsImV4cCI6MTYyNzU1MDY5NH0.sCBx2bgd1H1pjdc_Du704Adhd6uDiSCXuxeIJEAH_JE"
 
 //user
 export default async function getUserChoices (){
     try{
-        const response = await axios.get( SERVER_URL+'desires',{headers:{Token:localStorage.token}});
+        const response = await axios.get( SERVER_URL+'desires/',{headers:{token:localStorage.token}});
         //Success
         console.log(response)
         return(response)

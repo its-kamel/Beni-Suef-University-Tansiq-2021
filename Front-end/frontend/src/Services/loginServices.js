@@ -6,8 +6,9 @@ const history = useHistory();
 
 export default async function login (data){
     try{
-        const response = await axios.post( SERVER_URL+'/endpoint',{data});
+        const response = await axios.post( SERVER_URL+'/users/login/',{data});
         //Success
+        console.log(response)
         localStorage.setItem('access token', response.data.tokens.access);
         history.push('/user');
         return(response)
