@@ -49,10 +49,14 @@ const UseLoginform = (LoginValidate) => {
       console.log(user);
 
       login(user).then( response => {
-        if (response.status === 200) {
+        if (response.status === 200 && response.data.is_admin === false) {
 
           history.push('/user'); 
       
+        }else if (response.status === 200 && response.data.is_admin === true) {
+
+          history.push('/admin');
+
         }
       })
 

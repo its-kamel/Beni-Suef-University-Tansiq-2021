@@ -1,7 +1,8 @@
 import axios from "axios"
 import configData from '../config/production.json'
-const SERVER_URL = configData.SERVER_URL ;
+import $ from "jquery"
 
+const SERVER_URL = configData.SERVER_URL ;
 
 export default async function signUp (props){
   const {
@@ -92,6 +93,11 @@ export async function addAdmin (props){
 
     try{
         const response = await axios.post( SERVER_URL+'users/addAdmin',{
+
+          headers:{
+            'content-type': 'application/json',
+            'Authorization': `Bearer ${localStorage.token}`,
+          },
 
           email,
           national_id,

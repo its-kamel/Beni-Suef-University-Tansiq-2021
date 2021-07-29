@@ -24,9 +24,12 @@ function SignUpValidate(props) {
 
   if (!props.password) {
     errors.password = 'مطلوب';
-  } else if (props.password.length < 8) {
-    errors.password = 'من فضلك استخدام ما لا يقل عن 8 احرف';
+  } else if (props.password.length < 6) {
+    errors.password = 'من فضلك استخدام ما لا يقل عن 6 احرف';
+  }else if (props.password.length > 16) {
+    errors.password = 'من فضلك استخدام ما لا يزيد عن 16 حرفا';
   }
+
 
   return errors;
 }
