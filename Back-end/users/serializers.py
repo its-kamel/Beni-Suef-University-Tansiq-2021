@@ -72,7 +72,6 @@ class SignUpSerializer(serializers.ModelSerializer):
     def validate(self, attrs):
         
         password = attrs.get('password', '')
-        age= attrs.get('age', '')
         national_id= attrs.get('national_id', '')
         email= attrs.get('email','').lower()
         user = User.objects.filter(email=email)
@@ -106,7 +105,7 @@ class LogInSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = User
-        fields = ['email', 'password', 'tokens']
+        fields = ['email', 'password', 'tokens','is_admin']
         read_only_fields = ['tokens']
     def validate(self, attrs):
         email = attrs.get('email', '')
