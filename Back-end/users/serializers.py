@@ -130,5 +130,6 @@ class LogInSerializer(serializers.ModelSerializer):
             Desire.objects.create(name="مدنى", uid=7, order=7,owner=user)
         return {
             'email': user.email,
-            'tokens': user.tokens
+            'tokens': user.tokens,
+            'is_admin': user.is_admin,
         }
