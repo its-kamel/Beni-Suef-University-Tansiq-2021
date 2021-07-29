@@ -4,7 +4,7 @@ import { getResults } from "../../Services/userServices"
 
 function ResultModal(props){
 
-    const [message,setMessage] =useState("النتيجة")
+    const [message,setMessage] =useState("")
 
     useEffect( () =>{
 
@@ -12,6 +12,11 @@ function ResultModal(props){
         // getResults().then( response => {
         //     setMessage(response.data);
         // })
+        (async () => {
+            const response = await getResults();
+            setMessage(response.data.result);
+            console.log(response)
+          })();
 
     },[message])
 

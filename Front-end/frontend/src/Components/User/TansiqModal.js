@@ -8,12 +8,13 @@ import getIsEnabled from "../../Services/adminServices";
 function TansiqModal(props){
 
     const drag = <FontAwesomeIcon icon={faBars} color="#f5ba13"/>
-    const [majors,setMajors] = useState([{name:"ميكانيكا انتاج",uid:1},{name:"ميكانيكا أجهزة",uid:2},{name:"كهرباء تحكم آلي",uid:3},{name:"كهرباء الكترونيات",uid:4},{name:"عمارة",uid:5},{name:"مدني",uid:6},{name:"غزل و نسيج",uid:7}])
+    // const [majors,setMajors] = useState([{name:"ميكانيكا انتاج",uid:1},{name:"ميكانيكا أجهزة",uid:2},{name:"كهرباء تحكم آلي",uid:3},{name:"كهرباء الكترونيات",uid:4},{name:"عمارة",uid:5},{name:"مدني",uid:6},{name:"غزل و نسيج",uid:7}])
+    const [majors,setMajors] = useState([{name:" ",uid:1},{name:" ",uid:2},{name:"  ",uid:3},{name:" ",uid:4},{name:"",uid:5},{name:"",uid:6},{name:"  ",uid:7}])
     // const [majors,setMajors] = useState([])
     const [majorsOrder,setMajorsOrder] = useState([])
     const array = [0,1,2,3,4,5,6]
     const [isEnabled , setIsEnabled] = useState(true)
-    
+
     // dragging behaviour
     useEffect( () =>{
 
@@ -21,12 +22,21 @@ function TansiqModal(props){
         // getIsEnabled().then( response => {
         //     setIsEnabled(response.data);
         // })
+        // getUserChoices().then( response => {
+        //     setMajors(response.data);
+        // }) 
+        
+        (async () => {
+            const response = await getIsEnabled();
+            setIsEnabled(response.data.is_enabled);
+          })(); 
+
+        (async () => {
+            const response = await getUserChoices();
+            setMajors(response.data);
+          })();
 
         if (isEnabled == true){
-            // getUserChoices().then( response => {
-            //     setMajors(response.data);
-            // })
-        
 
         (function dragBehaviour() {
         "use strict";
@@ -195,7 +205,7 @@ function TansiqModal(props){
 
         
 
-    })//end of useEffect
+    },[isEnabled])//end of useEffect
 
     //get current order
     function getOrder(){
@@ -226,7 +236,7 @@ function TansiqModal(props){
                                 <th>الترتيب</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody >
                             <tr>
                                 <td>{majors[0].name}</td>
                                 <td className="order" data-id={majors[0].uid}>الرغبة 1</td>
