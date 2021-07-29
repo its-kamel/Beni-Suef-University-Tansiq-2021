@@ -67,6 +67,7 @@ export async function login (props){
         localStorage.removeItem('token')
         localStorage.setItem('token', response.data.tokens);
         console.log(localStorage);
+        return(response)
 
     } catch (error){
         if (error.response){

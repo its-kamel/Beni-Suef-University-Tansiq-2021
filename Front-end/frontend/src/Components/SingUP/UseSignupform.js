@@ -48,7 +48,13 @@ const useform = (SignUpValidate) => {
 
       console.log(newuser);
 
-      SignUp(newuser).then( response => {history.push('/CompleteSignup');})
+      SignUp(newuser).then( response => {
+        if (response.status === 201) {
+
+          history.push('/CompleteSignup'); 
+      
+        }
+      })
     }
   }, [errors]);
 

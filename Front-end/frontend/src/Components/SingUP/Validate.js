@@ -24,8 +24,8 @@ function SignUpValidate(props) {
 
   if (!props.password) {
     errors.password = 'مطلوب';
-  } else if (props.password.length < 12) {
-    errors.password = 'Please use at least: 12 characters';
+  } else if (props.password.length < 8) {
+    errors.password = 'من فضلك استخدام ما لا يقل عن 8 احرف';
   }
 
   return errors;

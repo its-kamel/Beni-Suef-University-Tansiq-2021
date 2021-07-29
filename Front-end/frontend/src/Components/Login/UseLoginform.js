@@ -45,10 +45,16 @@ const UseLoginform = (LoginValidate) => {
   };
   useEffect(() => {
     if (Object.keys(error).length === 0 && isSubmitting) {
-
+      
       console.log(user);
 
-      login(user);
+      login(user).then( response => {
+        if (response.status === 200) {
+
+          history.push('/user'); 
+      
+        }
+      })
 
     }
   }, [error]);
