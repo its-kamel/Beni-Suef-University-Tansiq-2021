@@ -26,10 +26,11 @@ function User() {
     function confirmChange(order){
         setIsTansiqOpen(false)
         console.log(order);
-        //put request
-        // putUserChoices(order).then( response => {
-        //     console.log(response);
-        // });
+        // put request
+        // (async () => {
+        //     const response = await putUserChoices(order);
+        //     console.log(response)
+        //   })(); 
     }
 
 
