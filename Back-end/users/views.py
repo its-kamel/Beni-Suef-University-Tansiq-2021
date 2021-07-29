@@ -114,7 +114,6 @@ class LoginView(generics.GenericAPIView):
 
 #Add admin
 class AddAdminView(generics.CreateAPIView):
-    authentication_classes=[]
     permission_classes = (IsAuthenticated,IsAdminUser)
     serializer_class = AddAdminSerializer
 
