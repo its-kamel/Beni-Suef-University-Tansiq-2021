@@ -8,7 +8,9 @@ function Navbar(props){
 
     function logOut(){
         // delete localStorage.token;
+        localStorage.removeItem('token')
         setIsLogged(false)
+        console.log(localStorage)
     }
 
     return(

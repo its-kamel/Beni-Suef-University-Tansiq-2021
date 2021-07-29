@@ -26,10 +26,10 @@ function TansiqModal(props){
         //     setMajors(response.data);
         // }) 
         
-        (async () => {
-            const response = await getIsEnabled();
-            setIsEnabled(response.data.is_enabled);
-          })(); 
+        // (async () => {
+        //     const response = await getIsEnabled();
+        //     setIsEnabled(response.data.is_enabled);
+        //   })(); 
 
         (async () => {
             const response = await getUserChoices();
