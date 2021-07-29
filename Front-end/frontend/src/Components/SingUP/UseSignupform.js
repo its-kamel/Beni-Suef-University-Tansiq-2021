@@ -1,6 +1,7 @@
 /* eslint-disable camelcase */
 import { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
+import SignUp from '../../Services/accountServices'
 
 /**
  * Useform
@@ -13,8 +14,8 @@ const useform = (SignUpValidate) => {
   const [newuser, setNewuser] = useState({
     email: '',
     password: '',
-    name: '',
     national_id: '',
+    name: '',
   });
 
   const [errors, setErrors] = useState({});
@@ -44,24 +45,10 @@ const useform = (SignUpValidate) => {
 
   useEffect(() => {
     if (Object.keys(errors).length === 0 && isSubmitting) {
-      // const {
-      //   email,
-      // } = newuser;
-      // localStorage.removeItem('ResendemailSignup');
-      // localStorage.setItem('ResendemailSignup', email);
-      // console.log(localStorage.getItem('ResendemailSignup'));
 
-      // const GotoComplete = AccountServices.addUser(newuser);
+      console.log(newuser);
 
-      // const goto = AccountServices.backaddUser(newuser);
-
-      // if (goto === false) {
-      //   console.log('account with this email already exist');
-      // }
-      // if (goto || GotoComplete) { history.push('/check-email/sign-up'); }
-
-      history.push('/CompleteSignup');
-
+      SignUp(newuser).then( response => {history.push('/CompleteSignup');})
     }
   }, [errors]);
 

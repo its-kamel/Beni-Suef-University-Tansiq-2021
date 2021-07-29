@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
+import { login } from '../../Services/accountServices'
+
 
 /**
  * UseLoginform
@@ -42,29 +44,12 @@ const UseLoginform = (LoginValidate) => {
     setIsSubmitting(true);
   };
   useEffect(() => {
-    if (Object.keys(error).length === 0 && isSubmitting && user.email == "menna.nawar@gmail.com") {
-      // console.log(user);
-      // const backLoginUser = async () => {
-      //   await axios
-      //     .post(`url`, { user, })
-      //     .then((response) => {
-      //       console.log(response);
-      //       if (response.status === 200) {
-      //         localStorage.setItem('access token', response.data.tokens.access);
-      //         history.push('/user');
-      //       } // else if (response.status === 401) {
-      //       //   // console.log(response.data.detail);
-      //       // }
-      //     });
-      // };
+    if (Object.keys(error).length === 0 && isSubmitting) {
 
-      history.push('/user');
+      console.log(user);
 
-    }
+      login(user);
 
-    else if (Object.keys(error).length === 0 && isSubmitting && user.email == "menna.nawar99@gmail.com")
-    {
-      history.push('/admin');
     }
   }, [error]);
 
