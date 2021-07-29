@@ -75,3 +75,4 @@ jobs:
             python manage.py makemigrations
             python manage.py migrate
             kill -HUP $(lsof -i:8000 -t)
+            python manage.py collectstatic --noinput
