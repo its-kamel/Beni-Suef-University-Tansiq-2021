@@ -14,6 +14,7 @@ const DepartmentsTable = () => {
     departmentCapacity: "",
   });
 
+
   const [editDepartmentId, setEditDepartmentId] = useState(null);
   
   useEffect( () =>{
@@ -30,6 +31,9 @@ const DepartmentsTable = () => {
   const handleSaveCapacity=()=>{
     console.log(editDepartmentId)
     console.log(editFormData.departmentCapacity)
+    // for(let i=0;i<7;i++)
+      // console.log(Departments[i].departmentCapacity)
+      console.log(Departments)
     // putNewDepartmentInfo(editFormData.departmentCapacity, editDepartmentId)
     // .then( response => {console.log(response);});
 
@@ -64,7 +68,7 @@ const DepartmentsTable = () => {
 
     setDepartments(newDepartments);
     setEditDepartmentId(null);
-  
+    // console.log(Departments);
   
   };
 
