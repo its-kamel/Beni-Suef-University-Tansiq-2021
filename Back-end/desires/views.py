@@ -40,6 +40,14 @@ def edit_dates(request):
         serializer.save()
         return Response(serializer.data, status= status.HTTP_200_OK )
 
+@api_view(['GET'])
+@permission_classes((IsAuthenticated,IsAdminUser))
+def get_capacity(request):
+    Desire_obj =Desire.objects.filter(owner=request.user)
+    # GET
+    desires = CapacitySerializer(Desire_obj,many=True)
+    return Response(desires.data)
+
 @api_view(['GET','PUT'])
 @permission_classes((IsAuthenticated,IsAdminUser))
 def edit_capacity(request,id):
