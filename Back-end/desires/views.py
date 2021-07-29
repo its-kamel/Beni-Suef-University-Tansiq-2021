@@ -120,6 +120,19 @@ def desires_list(request):
     desires = DesireSerializer(desires_list, many=True)
     return Response( desires.data, status= status.HTTP_200_OK)
 
+
+@api_view(['GET'])
+@permission_classes((IsAuthenticated,))
+def form_enable(request):
+    exist= Form.objects.filter(id=1)
+    if not exist :
+        Form.objects.create(id=1,is_enabled=False)
+    form_obj = Form.objects.get(id=1)
+    # GET
+    form = EnableSerializer(form_obj)
+    return Response(form.data)
+
+
 @api_view(['GET','PUT'])
 @permission_classes((IsAuthenticated,IsAdminUser))
 def form_info(request):
