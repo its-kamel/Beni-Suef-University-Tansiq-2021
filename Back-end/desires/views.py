@@ -40,6 +40,14 @@ def edit_dates(request):
         serializer.save()
         return Response(serializer.data, status= status.HTTP_200_OK )
 
+@api_view(['GET'])
+@permission_classes((IsAuthenticated,IsAdminUser))
+def get_capacity(request):
+    Desire_obj =Desire.objects.filter(owner=request.user)
+    # GET
+    desires = CapacitySerializer(Desire_obj,many=True)
+    return Response(desires.data)
+
 @api_view(['GET','PUT'])
 @permission_classes((IsAuthenticated,IsAdminUser))
 def edit_capacity(request,id):
@@ -119,6 +127,19 @@ def desires_list(request):
     desires_list = Desire.objects.filter(owner=request.user)
     desires = DesireSerializer(desires_list, many=True)
     return Response( desires.data, status= status.HTTP_200_OK)
+
+
+@api_view(['GET'])
+@permission_classes((IsAuthenticated,))
+def form_enable(request):
+    exist= Form.objects.filter(id=1)
+    if not exist :
+        Form.objects.create(id=1,is_enabled=False)
+    form_obj = Form.objects.get(id=1)
+    # GET
+    form = EnableSerializer(form_obj)
+    return Response(form.data)
+
 
 @api_view(['GET','PUT'])
 @permission_classes((IsAuthenticated,IsAdminUser))
