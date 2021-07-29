@@ -9,7 +9,7 @@ const SERVER_URL = configData.SERVER_URL ;
 // localStorage.token = accessToken;
 // delete localStorage.token;
 // "SERVER_URL": "https://thingproxy.freeboard.io/fetch/https://www.fotone.me/api/"
-localStorage.token="eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6Im1vaGFtbWVkOTlrYW1lbEB5YWhvby5jb20iLCJuYXRpb25hbF9pZCI6MzAyMDEyNjE4MDIwMDcsImV4cCI6MTYyNzY1MDQyOX0.MHHJau4-DG3FI69sqOUc6f7x2AsaCOTyXElF7NxY1t8"
+// localStorage.token="eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6Im1vaGFtbWVkOTlrYW1lbEB5YWhvby5jb20iLCJuYXRpb25hbF9pZCI6MzAyMDEyNjE4MDIwMDcsImV4cCI6MTYyNzY1MDQyOX0.MHHJau4-DG3FI69sqOUc6f7x2AsaCOTyXElF7NxY1t8"
 
 //user
 export default async function getUserChoices (){
