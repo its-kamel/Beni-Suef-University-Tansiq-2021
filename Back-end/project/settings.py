@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from os import path
+import os
 from pathlib import Path
 from decouple import config
 
@@ -198,4 +199,4 @@ EMAIL_USE_SSL = True
 
 # python manage.py check --deploy
 
-STATIC_ROOT = ''
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
