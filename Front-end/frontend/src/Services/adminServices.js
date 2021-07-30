@@ -91,9 +91,9 @@ export async function getTableData (){
 };
 
 //Excel sheet
-export async function putStudentsInfo (data){
+export async function postStudentsInfo (data){
   try{
-      const response = await axios.put( SERVER_URL+'endpoint',data,{headers:{'Authorization': `token ${localStorage.token}`}});
+      const response = await axios.post( SERVER_URL+'desires/grades-upload',data,{headers:{'Authorization': `token ${localStorage.token}`}});
       //Success
       return(response)
   } catch (error){
@@ -113,7 +113,25 @@ export async function putStudentsInfo (data){
 //Tanseeq status
 export async function putTanseeqStatus (data){
   try{
-      const response = await axios.put( SERVER_URL+'endpoint',data,{headers:{'Authorization': `token ${localStorage.token}`}});
+      const response = await axios.put( SERVER_URL+'desires/form',data,{headers:{'Authorization': `token ${localStorage.token}`}});
+      //Success
+      return(response)
+  } catch (error){
+      if (error.response){
+        console.log(error.response.data);
+        console.log(error.response.status);
+        console.log(error.response.headers);
+      } else if (error.request){
+        console.log(error.request);
+      } else {
+        console.log('Error', error.message);
+      }
+      console.log(error);
+  }
+};
+export async function putSortStatus (data){
+  try{
+      const response = await axios.put( SERVER_URL+'users/sort',data,{headers:{'Authorization': `token ${localStorage.token}`}});
       //Success
       return(response)
   } catch (error){
@@ -133,7 +151,26 @@ export async function putTanseeqStatus (data){
 //Number of groups
 export async function putNumberOfGroups (data){
   try{
-      const response = await axios.put( SERVER_URL+'endpoint',data,{headers:{'Authorization': `token ${localStorage.token}`}});
+      const response = await axios.put( SERVER_URL+'desires/groups',data,{headers:{'Authorization': `token ${localStorage.token}`}});
+      //Success
+      return(response)
+  } catch (error){
+      if (error.response){
+        console.log(error.response.data);
+        console.log(error.response.status);
+        console.log(error.response.headers);
+      } else if (error.request){
+        console.log(error.request);
+      } else {
+        console.log('Error', error.message);
+      }
+      console.log(error);
+  }
+}
+
+export async function getNumberOfGroups (){
+  try{
+      const response = await axios.get( SERVER_URL+'desires/groups/',{headers:{'Authorization': `token ${localStorage.token}`}});
       //Success
       return(response)
   } catch (error){
@@ -174,7 +211,7 @@ export async function getDepartmentsInfo (){
 //Edit department Capacity
 export async function putNewDepartmentInfo (data,id){
   try{
-      const response = await axios.put( SERVER_URL+'endpoint/'+id,data,{headers:{'Authorization': `token ${localStorage.token}`}});
+      const response = await axios.put( SERVER_URL+'desires'+ id,data,{headers:{'Authorization': `token ${localStorage.token}`}});
       //Success
       return(response)
   } catch (error){
@@ -194,7 +231,7 @@ export async function putNewDepartmentInfo (data,id){
 //put start and end dates
 export async function putDeadlineDates(data){
   try{
-      const response = await axios.put( SERVER_URL+'endpoint',data,{headers:{'Authorization': `token ${localStorage.token}`}});
+      const response = await axios.put( SERVER_URL+'desires/set-dates',data,{headers:{'Authorization': `token ${localStorage.token}`}});
       //Success
       return(response)
   } catch (error){

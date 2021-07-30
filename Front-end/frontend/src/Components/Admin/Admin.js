@@ -12,7 +12,7 @@ import StatsModal from "../AdminModals/StatsModal"
 import SettingsModal from "../AdminModals/SettingsModal"
 import InfoModal from "../AdminModals/InfoModal"
 import "../../Services/adminServices"
-import { putStudentsInfo, putTanseeqStatus } from "../../Services/adminServices"
+import {postStudentsInfo, putNumberOfGroups,getNumberOfGroups, putSortStatus} from "../../Services/adminServices"
 
 function Admin() {
     const upload = <FontAwesomeIcon icon={faUpload} color="#f5ba13"/>
@@ -44,20 +44,25 @@ function Admin() {
 
         
         // put number of groups
-        // putStudentsInfo(numberOfGroups)
+        // getNumberOfGroups()
         // .then(Response=>{console.log(Response);});
+        
+        // (async () => {
+        //     const response = await getNumberOfGroups();
+        //     setNumberOfGroups(response.data);
+        //   })();
 
     },[numberOfGroups])
 
 
     const handleUpload =(event) =>{
         const file=event.target.files[0];
-        setStudentsFile(event.target.files[0])
-        console.log(file)
+        setStudentsFile(event.target.files[0]);
+        // console.log(file)
         readFile(file)  
         .then((readedData)=>setInitialData(readedData))
         .catch((error)=>console.error(error));
-        console.log(studentsfile)
+                
     };
     const save = ()=>{
         //send students data to backend studentsFile
@@ -66,8 +71,15 @@ function Admin() {
         // console.log(result);
 
         // put students data
-        // putStudentsInfo(studentsfile)
+        // postStudentsInfo(studentsfile)
         // .then(Response=>{console.log(Response);});
+        console.log(studentsfile);
+
+        // (async () => {
+        //     const response = await postStudentsInfo(studentsfile);
+        //     console.log(response);
+        //   })();
+
 
     };
     
@@ -88,9 +100,22 @@ function Admin() {
         setNumberOfGroups(inputNumberOfGroups);
         setInputNumberOfGroups(" ");
 
+        //put number of groups
+        (async () => {
+            const response = await putNumberOfGroups(numberOfGroups);
+            console.log(response);
+          })();
+
+
     };
     const handleTanseeqButton=(event)=>{
         event.preventDefault();
+        (async () => {
+            const response = await putSortStatus(true);
+            console.log(response);
+          })();
+
+
     }
 
     // modals functions

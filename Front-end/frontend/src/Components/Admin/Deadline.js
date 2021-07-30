@@ -6,7 +6,7 @@ import 'react-dates/lib/css/_datepicker.css';
 import './Deadline.css'
 import "../../Services/adminServices"
 import { useHistory } from 'react-router-dom';
-import { putDeadlineDates } from '../../Services/adminServices';
+import { putDeadlineDates, putTanseeqStatus } from '../../Services/adminServices';
 
 function deadline(props)  {
     const history=useHistory();
@@ -18,20 +18,27 @@ function deadline(props)  {
 
         // get dates -> string
         
-        if (todaysDate == startDate){
+        if (todaysDate >= startDate &&todaysDate <= endDate){
             // put request -> isEnabled = true
             // putTanseeqStatus(true)
             //     .then(Response=>{console.log(Response);});
+            (async () => {
+            const response = await putTanseeqStatus(true);
+            console.log(response);
+          })();
         }
-
-        if (todaysDate == endDate){
+        else{
             // put request -> isEnabled = false
             // putTanseeqStatus(false)
             //     .then(Response=>{console.log(Response);});
+            (async () => {
+                const response = await putTanseeqStatus(false);
+                console.log(response);
+            })();
 
         }
 
-    },[todaysDate.getDay()])
+    },[todaysDate.getDate()])
 
     const handleSaveDates=()=>{
         const start= new Date(startDate);
@@ -51,7 +58,12 @@ function deadline(props)  {
         //     end_date:end.toUTCString()
         // })
         // .then(Response=>{console.log(Response);});
-
+        
+        
+        // (async () => {
+        //     const response = await putDeadlineDates({start_date:start.toUTCString(),end_date:end.toUTCString()});
+        //     console.log(response);
+        // })();
         }
 
     return (

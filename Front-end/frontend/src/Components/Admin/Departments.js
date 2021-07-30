@@ -24,18 +24,27 @@ const DepartmentsTable = () => {
     // .then( response => {
     //     setDepartments(response.data);
     // })
+    // (async () => {
+    //   const response = await getDepartmentsInfo();
+    //   setDepartments(response.data);
+    // })();
+
 
 },[Departments])
 
   
   const handleSaveCapacity=()=>{
-    console.log(editDepartmentId)
-    console.log(editFormData.departmentCapacity)
-    // for(let i=0;i<7;i++)
-      // console.log(Departments[i].departmentCapacity)
-      console.log(Departments)
+    // console.log(editDepartmentId)
+    // console.log(editFormData.departmentCapacity)
     // putNewDepartmentInfo(editFormData.departmentCapacity, editDepartmentId)
     // .then( response => {console.log(response);});
+
+
+    // (async () => {
+    //   const response = await putNewDepartmentInfo(editFormData.departmentCapacity, editDepartmentId);
+    //   console.log(response);
+    // })();
+
 
   }
   const handleEditFormChange = (event) => {
