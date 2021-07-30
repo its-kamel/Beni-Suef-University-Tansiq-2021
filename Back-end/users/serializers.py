@@ -106,7 +106,7 @@ class LogInSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ['email', 'password', 'tokens','is_admin']
-        read_only_fields = ['tokens']
+        read_only_fields = ['tokens','is_admin']
     def validate(self, attrs):
         email = attrs.get('email', '')
         password = attrs.get('password', '')
