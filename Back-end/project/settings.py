@@ -197,3 +197,5 @@ EMAIL_HOST_PASSWORD=config('EMAIL_HOST_PASSWORD')
 EMAIL_USE_SSL = True
 
 # python manage.py check --deploy
+
+STATIC_ROOT = ''
