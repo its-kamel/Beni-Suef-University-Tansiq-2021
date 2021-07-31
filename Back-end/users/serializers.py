@@ -55,7 +55,7 @@ class ResultSerializer(serializers.ModelSerializer):
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['result', 'grade','email','national_id','is_admin']
+        fields = ['name','result', 'grade','email','national_id','is_admin']
 
 
 #Sign up serializer
@@ -128,6 +128,7 @@ class LogInSerializer(serializers.ModelSerializer):
             Desire.objects.create(name="كهرباء الكترونيات", uid=5, order=5,owner=user)
             Desire.objects.create(name="عمارة", uid=6, order=6,owner=user)
             Desire.objects.create(name="مدنى", uid=7, order=7,owner=user)
+
         return {
             'email': user.email,
             'tokens': user.tokens,

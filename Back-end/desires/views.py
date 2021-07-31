@@ -163,7 +163,10 @@ def form_info(request):
 @permission_classes((IsAuthenticated,IsAdminUser))
 def upload_grade(request):
     if request.method == 'POST':
-        (User.objects.filter(is_admin=True)).delete()
+        users_list=User.objects.all()
+        for user in users_list:
+            if not user.is_admin:
+                user.delete()
         exist= Form.objects.filter(id=1)
         if not exist :
             Form.objects.create(id=1,is_enabled=False)
