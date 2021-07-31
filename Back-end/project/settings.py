@@ -199,4 +199,4 @@ EMAIL_USE_SSL = True
 
 # python manage.py check --deploy
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_ROOT = '/home/ubuntu/Back-end/assets/static/'
