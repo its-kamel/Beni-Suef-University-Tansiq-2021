@@ -1,9 +1,10 @@
 import axios from "axios"
 import configData from '../config/production.json'
+import $ from "jquery"
 const SERVER_URL = configData.SERVER_URL ;
 
 // admin
-export default async function getIsEnabled (){
+export default async function getIsEnable(){
   try{
       const response = await axios.get( SERVER_URL+'desires/form',{headers:{'Authorization': `token ${localStorage.token}`}});
       //Success
@@ -35,7 +36,7 @@ export default async function getIsEnabled (){
 // charts
 export async function getPieData (){
   try{
-      const response = await axios.get( SERVER_URL+'endpoint',data,{headers:{'Authorization': `token ${localStorage.token}`}});
+      const response = await axios.get( SERVER_URL+'desires/department-students',{headers:{'Authorization': `token ${localStorage.token}`}});
       //Success
       return(response)
   } catch (error){
@@ -54,7 +55,7 @@ export async function getPieData (){
 
 export async function getBarData (){
   try{
-      const response = await axios.get( SERVER_URL+'endpoint',data,{headers:{'Authorization': `token ${localStorage.token}`}});
+      const response = await axios.get( SERVER_URL+'desires/departments',{headers:{'Authorization': `token ${localStorage.token}`}});
       //Success
       return(response)
   } catch (error){
@@ -71,9 +72,9 @@ export async function getBarData (){
   }
 };
 
-export async function getTableData (){
+export async function getTableData (id){
   try{
-      const response = await axios.get( SERVER_URL+'endpoint',data,{headers:{'Authorization': `token ${localStorage.token}`}});
+      const response = await axios.get( SERVER_URL+'desires/'+id+'/students-list',{headers:{'Authorization': `token ${localStorage.token}`}});
       //Success
       return(response)
   } catch (error){

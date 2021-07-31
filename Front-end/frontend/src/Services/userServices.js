@@ -42,9 +42,9 @@ export default async function getUserChoices (){
     }
 };
 
-export async function putUserChoices (data){
+export async function putUserChoices (ids){
     try{
-        const response = await axios.put( SERVER_URL+'desires/edit',data,{headers:{'Authorization': `token ${localStorage.token}`}});
+        const response = await axios.put( SERVER_URL+'desires/edit',ids,{headers:{'Authorization': `token ${localStorage.token}`}});
         //Success
         return(response)
     } catch (error){
@@ -78,4 +78,24 @@ export async function getResults (){
         }
         console.log(error);
     }
+};
+
+export async function getIsEnabled (){
+  try{
+      const response = await axios.get( SERVER_URL+'desires/enable',{headers:{'Authorization': `token ${localStorage.token}`}});
+      //Success
+      console.log(response)
+      return(response)
+  } catch (error){
+      if (error.response){
+        console.log(error.response.data);
+        console.log(error.response.status);
+        console.log(error.response.headers);
+      } else if (error.request){
+        console.log(error.request);
+      } else {
+        console.log('Error', error.message);
+      }
+      console.log(error);
+  }
 };

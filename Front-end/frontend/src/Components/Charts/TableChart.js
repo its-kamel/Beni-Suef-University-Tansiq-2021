@@ -7,7 +7,7 @@ import $ from "jquery"
 
 function TableChart(){
 
-    const [data,setData] = useState([{name:"ميكانيكا انتاج",uid:1},{name:"ميكانيكا أجهزة",uid:2},{name:"كهرباء تحكم آلي",uid:3},{name:"كهرباء الكترونيات",uid:4},{name:"عمارة",uid:5},{name:"مدني",uid:6},{name:"غزل و نسيج",uid:7}]);
+    const [data,setData] = useState([{name:"غزل و نسيج",uid:1},{name:"ميكانيكا انتاج",uid:2},{name:"ميكانيكا أجهزة",uid:3},{name:"كهرباء تحكم آلي",uid:4},{name:"كهرباء الكترونيات",uid:5},{name:"عمارة",uid:6},{name:"مدني",uid:7}]);
     const [students,setStudents] = useState([]);
     const [students1,setStudents1] = useState([{name:"سمر نبيل",email:"samarnabil22@gmail.com"}]);
     const [students2,setStudents2] = useState([{name:"منة نوار",email:"menna@gmail.com"},{name:" عبد الرحمن سليمان",email:"abdulrahman@gmail.com"}]);
@@ -17,33 +17,21 @@ function TableChart(){
     const [isOpen, setOpen] = useState(false);
     const [items, setItem] = useState(data);
     const [selectedItem, setSelectedItem] = useState(null);
-
-    // useEffect( () =>{
-    //     // get request
-    //     // getTableData().then( response => {
-    //     //     setData(response.data);
-    //     // })
-    // },[data])
     
     const toggleDropdown = () => setOpen(!isOpen);
     
     const handleItemClick = (id) => {
         selectedItem == id ? setSelectedItem(id) : setSelectedItem(id);
         toggleDropdown();
-        var newName = (data.filter(object => object.uid == id))[0].name
-        setFileName(newName)
-        setButtonName("تنزيل جدول بيانات قسم "+newName)
+        var newName = (data.filter(object => object.uid == id))[0].name;
+        setFileName(newName);
+        setButtonName("تنزيل جدول بيانات قسم "+newName);
 
-        // get request, body: id
-        // getTableData(id).then( response => {
-        //     setData(response.data);
-        // })
-
-        if (id==1){
-            setStudents(students1)
-        }else{
-            setStudents(students2)
-        }
+        // get request
+        (async () => {
+            const response = await getTableData(id);
+            setStudents(response.data);
+          })();
     }
     
     return (
@@ -76,7 +64,7 @@ function TableChart(){
                 {students.map( student =>(
                     <>
                     <tr id="new_cursor">
-                    <td>{student.name}</td>
+                    <td>{student.result}</td>
                     <td>{student.email}</td>
                     </tr>
                     </>

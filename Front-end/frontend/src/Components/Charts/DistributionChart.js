@@ -4,19 +4,22 @@ import { getPieData } from "../../Services/adminServices";
 
 function DistributionChart(){
 
-    const [data,setData] = useState([{uid:1,name:"غزل و نسيج",students_count:20},{uid:2,name:"ميكانيكا انتاج",students_count:30},{uid:3,name:"ميكانيكا أجهزة",students_count:12},{uid:4,name:"كهرباء تحكم آلي",students_count:40},{uid:5,name:"كهرباء الكترونيات",students_count:30},{uid:6,name:"عمارة",students_count:15},{uid:7,name:"مدني",students_count:20}])
+    // const [data,setData] = useState([{uid:1,name:"غزل و نسيج",students_count:20},{uid:2,name:"ميكانيكا انتاج",students_count:30},{uid:3,name:"ميكانيكا أجهزة",students_count:12},{uid:4,name:"كهرباء تحكم آلي",students_count:40},{uid:5,name:"كهرباء الكترونيات",students_count:30},{uid:6,name:"عمارة",students_count:15},{uid:7,name:"مدني",students_count:20}])
+    const [data,setData] = useState([{uid:1,name:"غزل و نسيج",students_count:0},{uid:2,name:"ميكانيكا انتاج",students_count:0},{uid:3,name:"ميكانيكا أجهزة",students_count:0},{uid:4,name:"كهرباء تحكم آلي",students_count:0},{uid:5,name:"كهرباء الكترونيات",students_count:0},{uid:6,name:"عمارة",students_count:0},{uid:7,name:"مدني",students_count:0}])
     
     useEffect( () =>{
 
         // get request
-        // getPieData().then( response => {
-        //     setData(response.data);
-        // })
+        (async () => {
+            const response = await getPieData();
+            setData(response.data);
+          })();
 
-    },[data])
+    },[])
     
     
     return(
+        <>
         <Chart
             width={'1100px'}
             height={'500px'}
@@ -39,6 +42,7 @@ function DistributionChart(){
             }}
             rootProps={{ 'data-testid': '2' }}
         />
+        </>
     )
 }
 

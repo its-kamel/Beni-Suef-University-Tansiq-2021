@@ -4,21 +4,30 @@ import { getBarData } from "../../Services/adminServices";
 
 function ChoicesChart(){
 
-    const [data,setData]=useState([{uid:1,name:"غزل و نسيج",first_count:20,second_count:10,third_count:3,fourth_count:9,fifth_count:13,sixth_count:40,seventh_count:15},
-                                    {uid:2,name:"ميكانيكا انتاج",first_count:10,second_count:0,third_count:25,fourth_count:7,fifth_count:3,sixth_count:45,seventh_count:20},
-                                    {uid:3,name:"ميكانيكا أجهزة",first_count:30,second_count:10,third_count:9,fourth_count:15,fifth_count:13,sixth_count:20,seventh_count:13},
-                                    {uid:4,name:"كهرباء تحكم آلي",first_count:14,second_count:10,third_count:16,fourth_count:10,fifth_count:25,sixth_count:30,seventh_count:5},
-                                    {uid:5,name:"كهرباء الكترونيات",first_count:2,second_count:30,third_count:7,fourth_count:40,fifth_count:13,sixth_count:4,seventh_count:14},
-                                    {uid:6,name:"عمارة",first_count:20,second_count:10,third_count:28,fourth_count:20,fifth_count:13,sixth_count:4,seventh_count:15},
-                                    {uid:7,name:"مدني",first_count:50,second_count:18,third_count:3,fourth_count:17,fifth_count:13,sixth_count:4,seventh_count:5}])
+    // const [data,setData]=useState([{uid:1,name:"غزل و نسيج",first_count:20,second_count:10,third_count:3,fourth_count:9,fifth_count:13,sixth_count:40,seventh_count:15},
+    //                                 {uid:2,name:"ميكانيكا انتاج",first_count:10,second_count:0,third_count:25,fourth_count:7,fifth_count:3,sixth_count:45,seventh_count:20},
+    //                                 {uid:3,name:"ميكانيكا أجهزة",first_count:30,second_count:10,third_count:9,fourth_count:15,fifth_count:13,sixth_count:20,seventh_count:13},
+    //                                 {uid:4,name:"كهرباء تحكم آلي",first_count:14,second_count:10,third_count:16,fourth_count:10,fifth_count:25,sixth_count:30,seventh_count:5},
+    //                                 {uid:5,name:"كهرباء الكترونيات",first_count:2,second_count:30,third_count:7,fourth_count:40,fifth_count:13,sixth_count:4,seventh_count:14},
+    //                                 {uid:6,name:"عمارة",first_count:20,second_count:10,third_count:28,fourth_count:20,fifth_count:13,sixth_count:4,seventh_count:15},
+    //                                 {uid:7,name:"مدني",first_count:50,second_count:18,third_count:3,fourth_count:17,fifth_count:13,sixth_count:4,seventh_count:5}])
+
+    const [data,setData]=useState([{uid:1,name:"غزل و نسيج",first_count:0,second_count:0,third_count:0,fourth_count:0,fifth_count:0,sixth_count:0,seventh_count:0},
+                                    {uid:2,name:"ميكانيكا انتاج",first_count:0,second_count:0,third_count:0,fourth_count:0,fifth_count:0,sixth_count:0,seventh_count:0},
+                                    {uid:3,name:"ميكانيكا أجهزة",first_count:0,second_count:0,third_count:0,fourth_count:0,fifth_count:0,sixth_count:0,seventh_count:0},
+                                    {uid:4,name:"كهرباء تحكم آلي",first_count:0,second_count:0,third_count:0,fourth_count:0,fifth_count:0,sixth_count:0,seventh_count:0},
+                                    {uid:5,name:"كهرباء الكترونيات",first_count:0,second_count:0,third_count:0,fourth_count:0,fifth_count:0,sixth_count:0,seventh_count:0},
+                                    {uid:6,name:"عمارة",first_count:0,second_count:0,third_count:0,fourth_count:0,fifth_count:0,sixth_count:0,seventh_count:0},
+                                    {uid:7,name:"مدني",first_count:0,second_count:0,third_count:0,fourth_count:0,fifth_count:0,sixth_count:0,seventh_count:0}])
     
 
     useEffect( () =>{
         // get request
-        // getBarData().then( response => {
-        //     setData(response.data);
-        // })
-    },[data])
+        (async () => {
+            const response = await getBarData();
+            setData(response.data);
+          })();
+    },[])
     
     return(
         <Chart

@@ -27,10 +27,10 @@ function User() {
         setIsTansiqOpen(false)
         console.log(order);
         // put request
-        // (async () => {
-        //     const response = await putUserChoices(order);
-        //     console.log(response)
-        //   })(); 
+        (async () => {
+            const response = await putUserChoices(order);
+            console.log(response)
+          })(); 
     }
 
 
