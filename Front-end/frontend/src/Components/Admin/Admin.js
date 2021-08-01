@@ -47,12 +47,12 @@ function Admin() {
         // getNumberOfGroups()
         // .then(Response=>{console.log(Response);});
         
-        // (async () => {
-        //     const response = await getNumberOfGroups();
-        //     setNumberOfGroups(response.data);
-        //   })();
+        (async () => {
+            const response = await getNumberOfGroups();
+            setNumberOfGroups(response.data.groups_count);
+          })();
 
-    },[numberOfGroups])
+    },[inputNumberOfGroups])
 
 
     const handleUpload =(event) =>{
@@ -95,14 +95,14 @@ function Admin() {
         setInputNumberOfGroups(event.target.value);
         console.log(event.target.value);
     }
-    const handleSubmitNumberOfGroups=(event)=>{
+    function handleSubmitNumberOfGroups(event){
         event.preventDefault();
-        setNumberOfGroups(inputNumberOfGroups);
+        // setNumberOfGroups(inputNumberOfGroups);
         setInputNumberOfGroups(" ");
 
         //put number of groups
         (async () => {
-            const response = await putNumberOfGroups(numberOfGroups);
+            const response = await putNumberOfGroups({ groups_count: inputNumberOfGroups});
             console.log(response);
           })();
 

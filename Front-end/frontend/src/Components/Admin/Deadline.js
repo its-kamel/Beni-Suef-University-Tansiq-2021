@@ -6,7 +6,9 @@ import 'react-dates/lib/css/_datepicker.css';
 import './Deadline.css'
 import "../../Services/adminServices"
 import { useHistory } from 'react-router-dom';
-import { putDeadlineDates, putTanseeqStatus } from '../../Services/adminServices';
+import { getDeadlineDates, putDeadlineDates, putTanseeqStatus } from '../../Services/adminServices';
+import { DateRangeSharp } from '@material-ui/icons';
+import { data } from 'jquery';
 
 function deadline(props)  {
     const history=useHistory();
@@ -17,7 +19,10 @@ function deadline(props)  {
     useEffect( () =>{
 
         // get dates -> string
-        
+        // console.log(todaysDate >= startDate &&todaysDate <= endDate);
+        // console.log(todaysDate)
+        // console.log(startDate)
+        // console.log(endDate)
         if (todaysDate >= startDate &&todaysDate <= endDate){
             // put request -> isEnabled = true
             // putTanseeqStatus(true)
@@ -37,8 +42,23 @@ function deadline(props)  {
             })();
 
         }
+        
+        
+    },)
+    useEffect(()=>{
+        (async () => {
+            const response = await getDeadlineDates();
+            const start= new Date(response.data.start_date)
+            const end= new Date(response.data.end_date)
+            // setEndDate(end);
+            
+            // setStartDate(start);
+            console.log(start)
+            console.log(startDate)
+           
+          })();
 
-    },[todaysDate.getDate()])
+    })
 
     const handleSaveDates=()=>{
         const start= new Date(startDate);
@@ -50,20 +70,22 @@ function deadline(props)  {
         // console.log(todaysDate.getDate());
         // console.log(todaysDate.getMonth()+1);
         // console.log(todaysDate.getFullYear())
-
+        // console.log(start.toISOString());
+        // console.log(todaysDate.toISOString());
+        console.log(startDate);
         // put dates
-        console.log(start.toUTCString());
-        console.log(end.toUTCString());
+        // console.log(start.toUTCString());
+        // console.log(end.toUTCString());
         // putDeadlineDates({start_date:start.toUTCString(),
         //     end_date:end.toUTCString()
         // })
         // .then(Response=>{console.log(Response);});
         
         
-        // (async () => {
-        //     const response = await putDeadlineDates({start_date:start.toUTCString(),end_date:end.toUTCString()});
-        //     console.log(response);
-        // })();
+        (async () => {
+            const response = await putDeadlineDates({start_date:start.toISOString(),end_date:end.toISOString()});
+            console.log(response);
+        })();
         }
 
     return (

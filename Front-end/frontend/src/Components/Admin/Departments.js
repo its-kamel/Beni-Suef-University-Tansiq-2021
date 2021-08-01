@@ -27,6 +27,8 @@ const DepartmentsTable = () => {
     // (async () => {
     //   const response = await getDepartmentsInfo();
     //   setDepartments(response.data);
+
+
     // })();
 
 
@@ -64,14 +66,14 @@ const DepartmentsTable = () => {
     event.preventDefault();
 
     const editedDepartment = {
-      id: editDepartmentId,
+      uid: editDepartmentId,
       departmentName: editFormData.departmentName,
       departmentCapacity: editFormData.departmentCapacity,
     };
 
     const newDepartments = [...Departments];
 
-    const index = Departments.findIndex((department) => department.id === editDepartmentId);
+    const index = Departments.findIndex((department) => department.uid === editDepartmentId);
 
     newDepartments[index] = editedDepartment;
 
@@ -83,7 +85,7 @@ const DepartmentsTable = () => {
 
   const handleEditClick = (event, department) => {
     event.preventDefault();
-    setEditDepartmentId(department.id);
+    setEditDepartmentId(department.uid);
 
     const formValues = {
       departmentName: department.departmentName,
@@ -113,7 +115,7 @@ const DepartmentsTable = () => {
             {Departments.map((department) => (
               // eslint-disable-next-line react/jsx-key
               <Fragment >
-                {editDepartmentId === department.id ? (
+                {editDepartmentId === department.uid ? (
                   <RowsToEdit
                     department={department}
                     editFormData={editFormData}
