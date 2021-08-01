@@ -13,6 +13,7 @@ function TansiqModal(props){
     const [majorsOrder,setMajorsOrder] = useState([])
     const array = [0,1,2,3,4,5,6]
     const [isEnabled , setIsEnabled] = useState()
+    const [isLoaded , setIsLoaded] = useState(false)
     var isEn = false
 
     // dragging behaviour
@@ -23,15 +24,15 @@ function TansiqModal(props){
             const response = await getIsEnabled();
             setIsEnabled(response.data.is_enabled);
             isEn = response.data.is_enabled;
-            console.log(response)
           })(); 
 
         (async () => {
             const response = await getUserChoices();
             setMajors(response.data);
+            setIsLoaded(true);
           })();
 
-        if (isEnabled == true){
+        if (isEnabled == true && isLoaded == true){
 
         (function dragBehaviour() {
         "use strict";
@@ -221,6 +222,7 @@ function TansiqModal(props){
                 {/* Header */}
                 <h1 className="modal__title">يرجي ترتيب الرغبات حسب الاولوية</h1>
                 {/* body */}
+                {isLoaded?<> 
                 {isEnabled? 
                 <>
                 <div className="responsive-table">
@@ -272,7 +274,7 @@ function TansiqModal(props){
                 </>
                 :
                 <p id="para">تم غلق التنسيق</p>
-                }
+                } </> : <p id="para">برجاء الانتظار</p>}
             </div>
         </div>
     );

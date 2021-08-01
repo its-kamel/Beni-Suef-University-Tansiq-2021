@@ -64,7 +64,7 @@ function TableChart(){
                 {students.map( student =>(
                     <>
                     <tr id="new_cursor">
-                    <td>{student.result}</td>
+                    <td>{student.name}</td>
                     <td>{student.email}</td>
                     </tr>
                     </>

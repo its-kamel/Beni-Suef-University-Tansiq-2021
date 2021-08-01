@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import Navbar from "../Navbar/Navbar";
 import './User.css'
 import Button from '../../Constants/Button'
@@ -7,7 +7,7 @@ import ResultModal from "./ResultModal";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChartBar, faGraduationCap } from '@fortawesome/free-solid-svg-icons'
 import { putUserChoices } from "../../Services/userServices";
-
+import Notification from "../../Constants/Notification";
 
 function User() {
     const tansiqIcon = <FontAwesomeIcon icon={faChartBar} color="#f5ba13"/>
@@ -25,14 +25,14 @@ function User() {
 
     function confirmChange(order){
         setIsTansiqOpen(false)
-        console.log(order);
+        const orderToString = order.toString()
+        console.log(orderToString);
         // put request
-        (async () => {
-            const response = await putUserChoices(order);
-            console.log(response)
-          })(); 
+        // (async () => {
+        //     const response = await putUserChoices(orderToString);
+        //     console.log(response)
+        //   })(); 
     }
-
 
     return( 
         <>
@@ -52,6 +52,7 @@ function User() {
 
                 </div>
             </div>
+            {/* <Notification type="info"/>    */}
             {isTansiqOpen && <TansiqModal onConfirm={confirmChange} onClose={toggleTansiqModal}/>}
             {isResultOpen && <ResultModal onClose={toggleResultModal}/>}
         </>

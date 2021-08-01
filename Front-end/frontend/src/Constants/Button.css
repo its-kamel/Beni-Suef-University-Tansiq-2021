@@ -17,3 +17,11 @@
 #icon_btn{
     font-size: 100px;
 }
+
+.notify{
+    bottom:0;
+    background-color: #f5ba13;
+    width: 200px;
+    height: 100px;
+    float:right;
+}
