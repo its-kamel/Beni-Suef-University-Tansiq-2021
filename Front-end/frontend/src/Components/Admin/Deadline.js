@@ -15,15 +15,35 @@ function deadline(props)  {
     const [startDate, setStartDate] = useState(null);
     const [endDate, setEndDate] = useState(null);
     const [focusedInput, setFocusedInput] = useState(null);
+    const [startDategetter,setStartDategetter]= useState(null)
+    const [endDategetter,setEndDategetter]= useState(null)
     const todaysDate= new Date();
-    useEffect( () =>{
+    useEffect(()=>{
+        (async () => {
+            const response = await getDeadlineDates();
+            const start= new Date(response.data.start_date)
+            const end= new Date(response.data.end_date)
+            // setEndDate(end);
+            
+            // setStartDate(start);
+            setStartDategetter(start.toLocaleDateString())
+            setEndDategetter(end.toLocaleDateString())
+            // console.log(start)
+            // console.log(end)           
+          })();
 
+    })
+
+    useEffect( () =>{
+        const start=new Date(startDategetter)
+        const end= new Date(endDategetter)
         // get dates -> string
-        // console.log(todaysDate >= startDate &&todaysDate <= endDate);
         // console.log(todaysDate)
-        // console.log(startDate)
-        // console.log(endDate)
-        if (todaysDate >= startDate &&todaysDate <= endDate){
+        console.log(start)
+        console.log(end)
+        console.log(todaysDate >= start &&todaysDate <= end)
+        if (todaysDate.getFullYear() >= start.getFullYear()&&todaysDate.getMonth() >= start.getMonth()&&todaysDate.getDate() >= start.getDate() &&
+        todaysDate.getFullYear() <= end.getFullYear()&&todaysDate.getMonth() <= end.getMonth()&&todaysDate.getDate() <= end.getDate()){
             // put request -> isEnabled = true
             // putTanseeqStatus(true)
             //     .then(Response=>{console.log(Response);});
@@ -45,20 +65,6 @@ function deadline(props)  {
         
         
     },)
-    useEffect(()=>{
-        (async () => {
-            const response = await getDeadlineDates();
-            const start= new Date(response.data.start_date)
-            const end= new Date(response.data.end_date)
-            // setEndDate(end);
-            
-            // setStartDate(start);
-            console.log(start)
-            console.log(startDate)
-           
-          })();
-
-    })
 
     const handleSaveDates=()=>{
         const start= new Date(startDate);
@@ -108,9 +114,10 @@ function deadline(props)  {
             onFocusChange={e => setFocusedInput(e)}
             displayFormat="DD/MM/YYYY"
             />
-        <div>Start Date: {startDate && startDate.format('ll')}<br />
-        
-        End Date: {endDate && endDate.format('ll')}</div>
+        <div>
+            Start date: {startDategetter} <br/>
+            end date: {endDategetter}
+        </div>
         <div className='admin-layout'>
             <button className="button-layout" onClick={handleSaveDates}>حفظ</button>
             <button className="button-layout" onClick={() => history.push('/admin')}>عودة</button>

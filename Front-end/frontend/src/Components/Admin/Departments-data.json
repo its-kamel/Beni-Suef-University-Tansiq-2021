@@ -1,38 +1,38 @@
 [
     {
       "uid": 1,
-      "departmentName": "ميكانيكا إنتاج",
-      "departmentCapacity": 100
+      "name": "ميكانيكا إنتاج",
+      "Capacity": 100
     },
     {
       "uid": 2,
-      "departmentName": "ميكانيكا أجهزة",
-      "departmentCapacity": 100
+      "name": "ميكانيكا أجهزة",
+      "Capacity": 100
     },
     {
       "uid": 3,
-      "departmentName": "كهرباء تحكم آلي",
-      "departmentCapacity": 100
+      "name": "كهرباء تحكم آلي",
+      "Capacity": 100
     },
     {
       "uid": 4,
-      "departmentName": "كهرباء إلكترونيات",
-      "departmentCapacity": 100
+      "name": "كهرباء إلكترونيات",
+      "Capacity": 100
     },
     {
       "uid": 5,
-      "departmentName": "عمارة",
-      "departmentCapacity": 100
+      "name": "عمارة",
+      "Capacity": 100
     },
     {
       "uid": 6,
-      "departmentName": "مدني",
-      "departmentCapacity": 100
+      "name": "مدني",
+      "Capacity": 100
     },
     {
       "uid": 7,
-      "departmentName": "غزل ونسيج",
-      "departmentCapacity": 100
+      "name": "غزل ونسيج",
+      "Capacity": 100
     }
   ]
   

@@ -10,8 +10,8 @@ const DepartmentsTable = () => {
   const [Departments, setDepartments] = useState(data);
 
   const [editFormData, setEditFormData] = useState({
-    departmentName: "",
-    departmentCapacity: "",
+    name: "",
+    Capacity: "",
   });
 
 
@@ -24,12 +24,12 @@ const DepartmentsTable = () => {
     // .then( response => {
     //     setDepartments(response.data);
     // })
-    // (async () => {
-    //   const response = await getDepartmentsInfo();
-    //   setDepartments(response.data);
+    (async () => {
+      const response = await getDepartmentsInfo();
+      setDepartments(response.data);
 
 
-    // })();
+    })();
 
 
 },[Departments])
@@ -37,15 +37,15 @@ const DepartmentsTable = () => {
   
   const handleSaveCapacity=()=>{
     // console.log(editDepartmentId)
-    // console.log(editFormData.departmentCapacity)
-    // putNewDepartmentInfo(editFormData.departmentCapacity, editDepartmentId)
+    // console.log(editFormData.Capacity)
+    // putNewDepartmentInfo(editFormData.Capacity, editDepartmentId)
     // .then( response => {console.log(response);});
 
 
-    // (async () => {
-    //   const response = await putNewDepartmentInfo(editFormData.departmentCapacity, editDepartmentId);
-    //   console.log(response);
-    // })();
+    (async () => {
+      const response = await putNewDepartmentInfo(editFormData.Capacity, editDepartmentId);
+      console.log(response);
+    })();
 
 
   }
@@ -67,8 +67,8 @@ const DepartmentsTable = () => {
 
     const editedDepartment = {
       uid: editDepartmentId,
-      departmentName: editFormData.departmentName,
-      departmentCapacity: editFormData.departmentCapacity,
+      name: editFormData.name,
+      Capacity: editFormData.Capacity,
     };
 
     const newDepartments = [...Departments];
@@ -88,8 +88,8 @@ const DepartmentsTable = () => {
     setEditDepartmentId(department.uid);
 
     const formValues = {
-      departmentName: department.departmentName,
-      departmentCapacity: department.departmentCapacity,
+      name: department.name,
+      Capacity: department.Capacity,
     };
 
     setEditFormData(formValues);

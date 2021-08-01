@@ -11,15 +11,15 @@ const RowsToEdit = ({
   return (
     <tr >
       <td >
-      {department.departmentName}
+      {department.name}
       </td>
       <td >
         <input 
           type="number"
           required="required"
           placeholder="أدخل السعة"
-          name="departmentCapacity"
-          value={editFormData.departmentCapacity}
+          name="Capacity"
+          value={editFormData.Capacity}
           onChange={handleEditFormChange}
         ></input>
       </td>

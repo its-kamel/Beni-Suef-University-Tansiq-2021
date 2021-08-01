@@ -3,8 +3,8 @@ import "./Departments.css"
 const RowsToRead = ({ department, handleEditClick, handleDeleteClick }) => {
   return (
     <tr id="new_cursor">
-      <td >{department.departmentName}</td>
-      <td >{department.departmentCapacity}</td>
+      <td >{department.name}</td>
+      <td >{department.Capacity}</td>
       <td >
         <button
             className="button-layout"
