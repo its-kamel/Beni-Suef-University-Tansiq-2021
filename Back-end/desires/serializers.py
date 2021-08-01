@@ -46,13 +46,13 @@ class CapacitySerializer(serializers.ModelSerializer):
     class Meta:
         model = Desire
         # total info for a comment on a gallery
-        fields = ['uid','name','capacity']   
+        fields = ['uid','name','Capacity']   
 
 class EditCapacitySerializer(serializers.ModelSerializer):
     class Meta:
         model = Desire
         # total info for a comment on a gallery
-        fields = ['capacity']   
+        fields = ['Capacity']   
 
 class DepartmentCountSerializer(serializers.ModelSerializer):
     class Meta:
