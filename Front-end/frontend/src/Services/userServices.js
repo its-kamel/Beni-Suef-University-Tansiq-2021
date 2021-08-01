@@ -42,9 +42,9 @@ export default async function getUserChoices (){
     }
 };
 
-export async function putUserChoices (ids){
+export async function putUserChoices (data){
     try{
-        const response = await axios.put( SERVER_URL+'desires/edit',ids,{headers:{'Authorization': `token ${localStorage.token}`}});
+        const response = await axios.put( SERVER_URL+'desires/edit',{ids:data},{headers:{'Authorization': `token ${localStorage.token}`}});
         //Success
         return(response)
     } catch (error){
