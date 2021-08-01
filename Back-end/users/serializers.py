@@ -119,15 +119,26 @@ class LogInSerializer(serializers.ModelSerializer):
             raise AuthenticationFailed('Account disabled, contact admin')
         if not user.is_verified:
             raise AuthenticationFailed('Email is not verified')
-        exist= Desire.objects.filter(name="غزل ونسيج", uid=1, order=1,owner=user)  
-        if not exist:  
-            Desire.objects.create(name="غزل ونسيج", uid=1, order=1,owner=user)
-            Desire.objects.create(name="ميكانيكا انتاج", uid=2, order=2,owner=user)
-            Desire.objects.create(name="ميكانيكا اجهزة", uid=3, order=3,owner=user)
-            Desire.objects.create(name="كهرباء تحكم آلى", uid=4, order=4,owner=user)
-            Desire.objects.create(name="كهرباء الكترونيات", uid=5, order=5,owner=user)
-            Desire.objects.create(name="عمارة", uid=6, order=6,owner=user)
-            Desire.objects.create(name="مدنى", uid=7, order=7,owner=user)
+    
+        exist= Desire.objects.filter(name="غزل ونسيج", uid=1,owner=user)  
+
+        if not exist:
+            if user.is_admin:
+                Desire.objects.create(name="غزل ونسيج", uid=1, order=0,owner=user)
+                Desire.objects.create(name="ميكانيكا انتاج", uid=2, order=0,owner=user)
+                Desire.objects.create(name="ميكانيكا اجهزة", uid=3, order=0,owner=user)
+                Desire.objects.create(name="كهرباء تحكم آلى", uid=4, order=0,owner=user)
+                Desire.objects.create(name="كهرباء الكترونيات", uid=5, order=0,owner=user)
+                Desire.objects.create(name="عمارة", uid=6, order=0,owner=user)
+                Desire.objects.create(name="مدنى", uid=7, order=0,owner=user)   
+            else:
+                Desire.objects.create(name="غزل ونسيج", uid=1, order=1,owner=user)
+                Desire.objects.create(name="ميكانيكا انتاج", uid=2, order=2,owner=user)
+                Desire.objects.create(name="ميكانيكا اجهزة", uid=3, order=3,owner=user)
+                Desire.objects.create(name="كهرباء تحكم آلى", uid=4, order=4,owner=user)
+                Desire.objects.create(name="كهرباء الكترونيات", uid=5, order=5,owner=user)
+                Desire.objects.create(name="عمارة", uid=6, order=6,owner=user)
+                Desire.objects.create(name="مدنى", uid=7, order=7,owner=user)
 
         return {
             'email': user.email,
