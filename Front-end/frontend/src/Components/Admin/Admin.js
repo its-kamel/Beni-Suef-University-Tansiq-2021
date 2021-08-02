@@ -62,6 +62,7 @@ function Admin() {
         readFile(file)  
         .then((readedData)=>setInitialData(readedData))
         .catch((error)=>console.error(error));
+        
                 
     };
     const save = ()=>{
@@ -74,11 +75,15 @@ function Admin() {
         // postStudentsInfo(studentsfile)
         // .then(Response=>{console.log(Response);});
         console.log(studentsfile);
+        
+        var data = new FormData();
+        data.append('excel_file', studentsfile)
+        console.log(data);
 
-        // (async () => {
-        //     const response = await postStudentsInfo(studentsfile);
-        //     console.log(response);
-        //   })();
+        (async () => {
+            const response = await postStudentsInfo(data);
+            console.log(response);
+          })();
 
 
     };

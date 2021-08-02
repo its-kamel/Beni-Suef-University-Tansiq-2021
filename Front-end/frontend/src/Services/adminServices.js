@@ -94,7 +94,7 @@ export async function getTableData (id){
 //Excel sheet
 export async function postStudentsInfo (data){
   try{
-      const response = await axios.post( SERVER_URL+'desires/grades-upload',data,{headers:{'Authorization': `token ${localStorage.token}`}});
+      const response = await axios.post( SERVER_URL+'desires/grades-upload',data,{headers:{ 'Content-Type': 'multipart/form-data','Authorization': `token ${localStorage.token}`}});
       //Success
       return(response)
   } catch (error){

@@ -1,4 +1,4 @@
-import React ,{useState,useEffect}from 'react';
+import React ,{useRef,useState,useEffect}from 'react';
 import Navbar from "../Navbar/Navbar";
 import 'react-dates/initialize';
 import { DateRangePicker } from 'react-dates';
@@ -17,6 +17,15 @@ function deadline(props)  {
     const [focusedInput, setFocusedInput] = useState(null);
     const [startDategetter,setStartDategetter]= useState(null)
     const [endDategetter,setEndDategetter]= useState(null)
+    const [changeTime,toogleChangeTime]=useState(false);
+    
+    const[startTimerDays,setStartTimerDays]=useState('00')
+    const[startTimerHours,setStartTimerHours]=useState('00')
+    const[startTimerMinutes,setStartTimerMinutes]=useState('00')
+    const[startTimerSeconds,setStartTimerSeconds]=useState('00')
+
+    let StartInterval=useRef();    
+
     const todaysDate= new Date();
     useEffect(()=>{
         (async () => {
@@ -29,42 +38,86 @@ function deadline(props)  {
             setStartDategetter(start.toLocaleDateString())
             setEndDategetter(end.toLocaleDateString())
             // console.log(start)
-            // console.log(end)           
+            // console.log(end)         
+            startTimer();
+            return()=>{
+                clearInterval(StartInterval.current);
+            };  
           })();
+          
 
-    })
+    },[startDate])
 
-    useEffect( () =>{
-        const start=new Date(startDategetter)
-        const end= new Date(endDategetter)
-        // get dates -> string
-        // console.log(todaysDate)
-        console.log(start)
-        console.log(end)
-        console.log(todaysDate >= start &&todaysDate <= end)
-        if (todaysDate.getFullYear() >= start.getFullYear()&&todaysDate.getMonth() >= start.getMonth()&&todaysDate.getDate() >= start.getDate() &&
-        todaysDate.getFullYear() <= end.getFullYear()&&todaysDate.getMonth() <= end.getMonth()&&todaysDate.getDate() <= end.getDate()){
-            // put request -> isEnabled = true
-            // putTanseeqStatus(true)
-            //     .then(Response=>{console.log(Response);});
-            (async () => {
-            const response = await putTanseeqStatus(true);
-            console.log(response);
-          })();
-        }
-        else{
-            // put request -> isEnabled = false
-            // putTanseeqStatus(false)
-            //     .then(Response=>{console.log(Response);});
-            (async () => {
-                const response = await putTanseeqStatus(false);
-                console.log(response);
-            })();
+    let key=1;
+    const startTimer=()=>{
+        const startCountdownDate= new Date('August 2,2021 18:10:00').getTime();
+        StartInterval=setInterval(()=>{
+            const now=new Date().getTime();
+            const distance=startCountdownDate-now;
 
-        }
+
+            const startDays=Math.floor(distance/(1000*60*60*24));
+            const startHours=Math.floor((distance % (1000*60*60*24) / (1000*60*60)));
+            const startMinutes=Math.floor((distance % (1000*60*60) / (1000*60)));
+            const startSeconds=Math.floor((distance % (1000*60) / (1000)));
+
+            if(distance<0 && key==1 )
+            {
+                
+                (async () => {
+                    const response = await putTanseeqStatus(true);
+                    console.log(response);
+                })();
+                clearInterval(StartInterval.current)
+                key=0;
+                
+
+            }
+            else{
+                setStartTimerDays(startDays)
+                setStartTimerHours(startHours)
+                setStartTimerMinutes(startMinutes)
+                setStartTimerSeconds(startSeconds)
+            }
+            
+        } , 1000)
+
+    }
+
+
+
+    // useEffect( () =>{
+    //     const start=new Date(startDategetter)
+    //     const end= new Date(endDategetter)
+    //     // get dates -> string
+    //     // console.log(todaysDate)
+    //     console.log(start)
+    //     console.log(end)
+    //     console.log(todaysDate >= start &&todaysDate <= end)
+    //     if (todaysDate.getFullYear() >= start.getFullYear()&&todaysDate.getMonth() >= start.getMonth()&&todaysDate.getDate() >= start.getDate() &&
+    //     todaysDate.getFullYear() <= end.getFullYear()&&todaysDate.getMonth() <= end.getMonth()&&todaysDate.getDate() <= end.getDate()){
+    //         // put request -> isEnabled = true
+    //         // putTanseeqStatus(true)
+    //         //     .then(Response=>{console.log(Response);});
+    //         (async () => {
+    //         const response = await putTanseeqStatus(true);
+    //         console.log(response);
+    //       })();
+    //     }
+    //     else{
+    //         // put request -> isEnabled = false
+    //         // putTanseeqStatus(false)
+    //         //     .then(Response=>{console.log(Response);});
+    //         (async () => {
+    //             const response = await putTanseeqStatus(false);
+    //             console.log(response);
+    //         })();
+
+    //     }
         
         
-    },)
+    // },)
+    
 
     const handleSaveDates=()=>{
         const start= new Date(startDate);
@@ -92,6 +145,8 @@ function deadline(props)  {
             const response = await putDeadlineDates({start_date:start.toISOString(),end_date:end.toISOString()});
             console.log(response);
         })();
+       key=1;
+
         }
 
     return (
@@ -116,7 +171,9 @@ function deadline(props)  {
             />
         <div>
             Start date: {startDategetter} <br/>
-            end date: {endDategetter}
+            end date: {endDategetter}<br/>
+            {/* {changeTime && <h1> success </h1>} */}
+            start in : {startTimerDays}:{startTimerHours}:{startTimerMinutes}:{startTimerSeconds}
         </div>
         <div className='admin-layout'>
             <button className="button-layout" onClick={handleSaveDates}>حفظ</button>
