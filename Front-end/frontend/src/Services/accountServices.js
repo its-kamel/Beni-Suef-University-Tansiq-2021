@@ -34,6 +34,9 @@ export default async function signUp (props){
         console.log(error.response.data);
         console.log(error.response.status);
         console.log(error.response.headers);
+
+        var error = error.response.data;
+        
       } else if (error.request){
         /*
         * The request was made but no response was received, `error.request`
@@ -92,15 +95,12 @@ export async function addAdmin (props){
   } = props;
 
     try{
-        const response = await axios.post( SERVER_URL+'users/addAdmin',{
+        const response = await axios.post( SERVER_URL+'users/addAdmin',props,{
 
           headers:{
-            'content-type': 'application/json',
-            'Authorization': `Bearer ${localStorage.token}`,
+            'Authorization': `token ${localStorage.token}`,
           },
 
-          email,
-          national_id,
         });
         console.log(response)
         return(response)

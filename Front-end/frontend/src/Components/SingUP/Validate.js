@@ -12,7 +12,7 @@ function SignUpValidate(props) {
 
   if (!props.national_id) {
     errors.national_id = 'مطلوب';
-  } else if (props.national_id.length < 14) {
+  } else if (props.national_id.length != 14) {
     errors.national_id = 'الرقم القومي غير صحيح';
   }
 
