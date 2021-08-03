@@ -41,11 +41,14 @@ const DepartmentsTable = () => {
     // putNewDepartmentInfo(editFormData.Capacity, editDepartmentId)
     // .then( response => {console.log(response);});
 
+    if(editFormData.Capacity)
+    {
+      (async () => {
+        const response = await putNewDepartmentInfo(editFormData.Capacity, editDepartmentId);
+        console.log(response);
+      })();
 
-    (async () => {
-      const response = await putNewDepartmentInfo(editFormData.Capacity, editDepartmentId);
-      console.log(response);
-    })();
+    }
 
 
   }

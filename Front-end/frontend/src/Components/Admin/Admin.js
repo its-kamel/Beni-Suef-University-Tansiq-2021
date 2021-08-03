@@ -75,15 +75,19 @@ function Admin() {
         // postStudentsInfo(studentsfile)
         // .then(Response=>{console.log(Response);});
         console.log(studentsfile);
-        
-        var data = new FormData();
-        data.append('excel_file', studentsfile)
-        console.log(data);
+        if(studentsfile)
+        {
+            var data = new FormData();
+            data.append('excel_file', studentsfile)
+            console.log(data);
+    
+            (async () => {
+                const response = await postStudentsInfo(data);
+                console.log(response);
+              })();
 
-        (async () => {
-            const response = await postStudentsInfo(data);
-            console.log(response);
-          })();
+        }
+        
 
 
     };
@@ -104,12 +108,15 @@ function Admin() {
         event.preventDefault();
         // setNumberOfGroups(inputNumberOfGroups);
         setInputNumberOfGroups(" ");
+        if(inputNumberOfGroups)
+        {
+            //put number of groups
+            (async () => {
+                const response = await putNumberOfGroups({ groups_count: inputNumberOfGroups});
+                console.log(response);
+              })();
 
-        //put number of groups
-        (async () => {
-            const response = await putNumberOfGroups({ groups_count: inputNumberOfGroups});
-            console.log(response);
-          })();
+        }
 
 
     };
