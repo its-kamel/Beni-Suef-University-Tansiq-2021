@@ -21,18 +21,18 @@ function deadline(props)  {
     const [changeTime,toggleChangeTime]=useState(false);
     const [isChanged,toggleIsChanged]=useState(false);
     
-    const[startTimerDays,setStartTimerDays]=useState('00')
-    const[startTimerHours,setStartTimerHours]=useState('00')
-    const[startTimerMinutes,setStartTimerMinutes]=useState('00')
-    const[startTimerSeconds,setStartTimerSeconds]=useState('00')
+    // const[startTimerDays,setStartTimerDays]=useState('00')
+    // const[startTimerHours,setStartTimerHours]=useState('00')
+    // const[startTimerMinutes,setStartTimerMinutes]=useState('00')
+    // const[startTimerSeconds,setStartTimerSeconds]=useState('00')
     
-    const[endTimerDays,setEndTimerDays]=useState('00')
-    const[endTimerHours,setEndTimerHours]=useState('00')
-    const[endTimerMinutes,setEndTimerMinutes]=useState('00')
-    const[endTimerSeconds,setEndTimerSeconds]=useState('00')
+    // const[endTimerDays,setEndTimerDays]=useState('00')
+    // const[endTimerHours,setEndTimerHours]=useState('00')
+    // const[endTimerMinutes,setEndTimerMinutes]=useState('00')
+    // const[endTimerSeconds,setEndTimerSeconds]=useState('00')
 
-    let StartInterval=useRef(0);    
-    let EndInterval=useRef(0);    
+    // let StartInterval=useRef(0);    
+    // let EndInterval=useRef(0);    
 
     useEffect(()=>{
         (async () => {
@@ -52,104 +52,104 @@ function deadline(props)  {
 
     },[isChanged])
 
-    useEffect(()=>{
-        startTimer();
-        return()=>{
-            clearInterval(StartInterval.current);
-        };  
-    },[changeTime])
-
-    
-
-    let key=1;
-    const startTimer=()=>{
-        console.log(StartInterval);
-        const startCountdownDate= new Date(startDategetter).getTime();
-        StartInterval.current=setInterval(()=>{
-            const now=new Date().getTime();
-            const distance=startCountdownDate-now;
+    // useEffect(()=>{
+    //     startTimer();
+    //     return()=>{
+    //         clearInterval(StartInterval.current);
+    //     };  
+    // },[changeTime])
 
 
-            const startDays=Math.floor(distance/(1000*60*60*24));
-            const startHours=Math.floor((distance % (1000*60*60*24) / (1000*60*60)));
-            const startMinutes=Math.floor((distance % (1000*60*60) / (1000*60)));
-            const startSeconds=Math.floor((distance % (1000*60) / (1000)));
 
-            if(distance<0 && key==1 )
-            {
+    // let key=1;
+    // const startTimer=()=>{
+    //     console.log(StartInterval);
+    //     const startCountdownDate= new Date(startDategetter).getTime();
+    //     StartInterval.current=setInterval(()=>{
+    //         const now=new Date().getTime();
+    //         const distance=startCountdownDate-now;
+
+
+    //         const startDays=Math.floor(distance/(1000*60*60*24));
+    //         const startHours=Math.floor((distance % (1000*60*60*24) / (1000*60*60)));
+    //         const startMinutes=Math.floor((distance % (1000*60*60) / (1000*60)));
+    //         const startSeconds=Math.floor((distance % (1000*60) / (1000)));
+
+    //         if(distance<0 && key==1 )
+    //         {
                 
-                (async () => {
-                    const response = await putTanseeqStatus(true);
-                    console.log(response);
-                })();
-                clearInterval(StartInterval.current)
-                key=0;
+    //             (async () => {
+    //                 const response = await putTanseeqStatus(true);
+    //                 console.log(response);
+    //             })();
+    //             clearInterval(StartInterval.current)
+    //             key=0;
                 
 
-            }
-            else if(distance<0 && key==0){
-                clearInterval(StartInterval.current)
-            }
-            else{
-                setStartTimerDays(startDays)
-                setStartTimerHours(startHours)
-                setStartTimerMinutes(startMinutes)
-                setStartTimerSeconds(startSeconds)
-            }
+    //         }
+    //         else if(distance<0 && key==0){
+    //             clearInterval(StartInterval.current)
+    //         }
+    //         else{
+    //             setStartTimerDays(startDays)
+    //             setStartTimerHours(startHours)
+    //             setStartTimerMinutes(startMinutes)
+    //             setStartTimerSeconds(startSeconds)
+    //         }
             
-        } , 1000)
+    //     } , 1000)
 
-    }
-
-
+    // }
 
 
-    useEffect(()=>{
-        endTimer();
-        return()=>{
-            clearInterval(EndInterval.current);
-        };  
-    },[changeTime])
-
-    let key_2=1;
-    const endTimer=()=>{
-        console.log(EndInterval);
-        const endCountdownDate= new Date(endDategetter).getTime();
-        EndInterval.current=setInterval(()=>{
-            const now=new Date().getTime();
-            const distance=endCountdownDate-now;
 
 
-            const endDays=Math.floor(distance/(1000*60*60*24));
-            const endHours=Math.floor((distance % (1000*60*60*24) / (1000*60*60)));
-            const endMinutes=Math.floor((distance % (1000*60*60) / (1000*60)));
-            const endSeconds=Math.floor((distance % (1000*60) / (1000)));
+    // useEffect(()=>{
+    //     endTimer();
+    //     return()=>{
+    //         clearInterval(EndInterval.current);
+    //     };  
+    // },[changeTime])
 
-            if(distance<0 && key_2==1 )
-            {
+    // let key_2=1;
+    // const endTimer=()=>{
+    //     console.log(EndInterval);
+    //     const endCountdownDate= new Date(endDategetter).getTime();
+    //     EndInterval.current=setInterval(()=>{
+    //         const now=new Date().getTime();
+    //         const distance=endCountdownDate-now;
+
+
+    //         const endDays=Math.floor(distance/(1000*60*60*24));
+    //         const endHours=Math.floor((distance % (1000*60*60*24) / (1000*60*60)));
+    //         const endMinutes=Math.floor((distance % (1000*60*60) / (1000*60)));
+    //         const endSeconds=Math.floor((distance % (1000*60) / (1000)));
+
+    //         if(distance<0 && key_2==1 )
+    //         {
                 
-                (async () => {
-                    const response = await putTanseeqStatus(false);
-                    console.log(response);
-                })();
-                clearInterval(EndInterval.current)
-                key_2=0;
+    //             (async () => {
+    //                 const response = await putTanseeqStatus(false);
+    //                 console.log(response);
+    //             })();
+    //             clearInterval(EndInterval.current)
+    //             key_2=0;
                 
 
-            }
-            else if(distance<0 && key_2==0){
-                clearInterval(EndInterval.current)
-            }
-            else{
-                setEndTimerDays(endDays)
-                setEndTimerHours(endHours)
-                setEndTimerMinutes(endMinutes)
-                setEndTimerSeconds(endSeconds)
-            }
+    //         }
+    //         else if(distance<0 && key_2==0){
+    //             clearInterval(EndInterval.current)
+    //         }
+    //         else{
+    //             setEndTimerDays(endDays)
+    //             setEndTimerHours(endHours)
+    //             setEndTimerMinutes(endMinutes)
+    //             setEndTimerSeconds(endSeconds)
+    //         }
             
-        } , 1000)
+    //     } , 1000)
 
-    }
+    // }
     // useEffect( () =>{
     //     const start=new Date(startDategetter)
     //     const end= new Date(endDategetter)
@@ -240,8 +240,8 @@ function deadline(props)  {
         <div>
             Start date: {startDategetter} <br/>
             end date: {endDategetter}<br/>
-            starts in : {startTimerDays}:{startTimerHours}:{startTimerMinutes}:{startTimerSeconds}<br/>
-            Ends in : {endTimerDays}:{endTimerHours}:{endTimerMinutes}:{endTimerSeconds}
+            {/* starts in : {startTimerDays}:{startTimerHours}:{startTimerMinutes}:{startTimerSeconds}<br/>
+            Ends in : {endTimerDays}:{endTimerHours}:{endTimerMinutes}:{endTimerSeconds} */}
         </div>
         <div className='admin-layout'>
             <button className="button-layout" onClick={handleSaveDates}>حفظ</button>
