@@ -4,12 +4,15 @@ import configData from '../config/production.json'
 import $ from "jquery"
 import { ResponsiveEmbed } from "react-bootstrap";
 const SERVER_URL = configData.SERVER_URL ;
-//token handling
-// accessToken = response.data.tokens;
-// localStorage.token = accessToken;
-// delete localStorage.token;
-// "SERVER_URL": "https://thingproxy.freeboard.io/fetch/https://www.fotone.me/api/"
-// localStorage.token="eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6Im1vaGFtbWVkOTlrYW1lbEB5YWhvby5jb20iLCJuYXRpb25hbF9pZCI6MzAyMDEyNjE4MDIwMDcsImV4cCI6MTYyNzY1MDQyOX0.MHHJau4-DG3FI69sqOUc6f7x2AsaCOTyXElF7NxY1t8"
+//login data
+//users
+// email:Caroline.magdy012@gmail.com
+// pass: oGIAw85s
+// email: mohammed99kamel@yahoo.com
+// pass: TlyIdF8r
+// admins
+// email:samarnabil22@gmail.com
+// pass: H8wZ4sTA
 
 //user
 export default async function getUserChoices (){

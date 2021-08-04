@@ -32,7 +32,7 @@ function TansiqModal(props){
             setIsLoaded(true);
           })();
 
-        if (isEnabled == true && isLoaded == true){
+        if (isLoaded == true && isEnabled == true){
 
         (function dragBehaviour() {
         "use strict";
@@ -201,7 +201,7 @@ function TansiqModal(props){
 
         
 
-    },[isEnabled])//end of useEffect
+    },[isLoaded,isEnabled])//end of useEffect
 
     //get current order
     function getOrder(){
