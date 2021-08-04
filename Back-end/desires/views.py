@@ -142,7 +142,7 @@ def form_enable(request):
 
 
 @api_view(['GET','PUT'])
-@permission_classes((IsAuthenticated,IsAdminUser))
+@permission_classes((IsAuthenticated,))
 def form_info(request):
     exist= Form.objects.filter(id=1)
     if not exist :
