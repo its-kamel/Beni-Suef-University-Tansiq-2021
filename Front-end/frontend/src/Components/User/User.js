@@ -65,6 +65,8 @@ function User() {
     const [changeTime,toggleChangeTime]=useState(false);
     const [startDategetter,setStartDategetter]= useState(null)
     const [endDategetter,setEndDategetter]= useState(null)
+    const [isStartTimer,setIsStartTimer]= useState(false)
+    const [isEndTimer,setIsEndTimer]= useState(false)
 
     let StartInterval=useRef(0);    
     let EndInterval=useRef(0);    
@@ -96,6 +98,8 @@ function User() {
 
     let key=1;
     const startTimer=()=>{
+        setIsEndTimer(false);
+        setIsStartTimer(true);
         console.log(StartInterval);
         const startCountdownDate= new Date(startDategetter).getTime();
         StartInterval.current=setInterval(()=>{
@@ -117,11 +121,14 @@ function User() {
                 })();
                 clearInterval(StartInterval.current)
                 key=0;
+                setIsStartTimer(false);
+        
                 
 
             }
             else if(distance<0 && key==0){
                 clearInterval(StartInterval.current)
+                setIsStartTimer(false);
             }
             else{
                 setStartTimerDays(startDays)
@@ -144,6 +151,8 @@ function User() {
 
     let key_2=1;
     const endTimer=()=>{
+        // setIsStartTimer(false);
+        setIsEndTimer(true);
         console.log(EndInterval);
         const endCountdownDate= new Date(endDategetter).getTime();
         EndInterval.current=setInterval(()=>{
@@ -165,11 +174,13 @@ function User() {
                 })();
                 clearInterval(EndInterval.current)
                 key_2=0;
+                setIsEndTimer(false);
                 
 
             }
             else if(distance<0 && key_2==0){
                 clearInterval(EndInterval.current)
+                setIsEndTimer(false);
             }
             else{
                 setEndTimerDays(endDays)
@@ -202,14 +213,15 @@ function User() {
                     />
 
                 </div>
-                <div className="Endsin">
-                {startTimerDays} : المتبقي من الايام حتى فتح التنسيق
-                </div>
-                <div className="Endsin">
-                {endTimerDays} : المتبقي من الايام حتى غلق التنسيق
-                </div>
-            starts in : {startTimerDays}:{startTimerHours}:{startTimerMinutes}:{startTimerSeconds}<br/>
-            Ends in : {endTimerDays}:{endTimerHours}:{endTimerMinutes}:{endTimerSeconds}
+                {isStartTimer  ?(<div className="Endsin">
+                {startTimerDays}:{startTimerHours}:{startTimerMinutes}:{startTimerSeconds} : المتبقي من الزمن حتى فتح التنسيق
+                </div>):("")}
+
+                {isEndTimer && !isStartTimer?(<div className="Endsin">
+                {endTimerDays}:{endTimerHours}:{endTimerMinutes}:{endTimerSeconds} : المتبقي من الزمن حتى غلق التنسيق
+                </div>):("")}
+                
+                
             </div>
             {isSucces && <PopUp type="success" title="نجحت العملية" message="تم حفظ التغيرات" onEnd={handlePopUp} interval={7000}/>}
             {isInfo && <PopUp type="info" title=" برجاء الانتظار" message=" جاري تنفيذ التغيرات " onEnd={handlePopUp} interval={4000}/>}
