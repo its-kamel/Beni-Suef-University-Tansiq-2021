@@ -1,16 +1,15 @@
 .fucltyLogoStart
 {
   content: url("../Login/fuc_logo.png");
-  margin: 20px;
+  margin-left: 70%;
   width: 160px;
   height: 160px;
-  float: right;
   margin-top: 15%;
 }
 .pContainer {
     position: absolute;
     top: 40%;
-    left: 65%;
+    left: 50%;
     transform: translate(-50%, -50%);
     height: 240px;
     width: 600px;
@@ -38,8 +37,8 @@
 
 .loginStart{
   position: absolute;
-  top: 55%;
-  left: 30%;
+  top: 70%;
+  left: 50%;
   transform: translate(-50%, -50%);
   border-radius: 5px;
   width: 180px;

@@ -62,13 +62,13 @@ import './Login.css';
           تسجيل الدخول
         </button>
 
-        <span className="formSignUp">
+        {/* <span className="formSignUp">
           <Link to="/forgotPassword">نسيت كلمة المرور</Link>
 
           <hr className="line" />
           ليس لدي حساب
           <Link to="/signup"> انشاء حساب جديد </Link>
-        </span>
+        </span> */}
 
       </form>
 

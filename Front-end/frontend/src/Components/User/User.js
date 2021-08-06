@@ -202,6 +202,12 @@ function User() {
                     />
 
                 </div>
+                <div className="Endsin">
+                {startTimerDays} : المتبقي من الايام حتى فتح التنسيق
+                </div>
+                <div className="Endsin">
+                {endTimerDays} : المتبقي من الايام حتى غلق التنسيق
+                </div>
             starts in : {startTimerDays}:{startTimerHours}:{startTimerMinutes}:{startTimerSeconds}<br/>
             Ends in : {endTimerDays}:{endTimerHours}:{endTimerMinutes}:{endTimerSeconds}
             </div>

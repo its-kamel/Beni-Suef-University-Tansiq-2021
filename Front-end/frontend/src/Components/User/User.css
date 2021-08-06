@@ -14,3 +14,15 @@
     margin: auto;
 }
 
+.Endsin {
+
+    margin: auto;
+    margin-top: 30px;
+    margin-left: 40%;
+    height: 35px;
+    width: 245px;
+    border-radius: 2px;
+    background: red;
+    color: white;
+    text-align: center;
+}
