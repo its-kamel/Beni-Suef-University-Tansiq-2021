@@ -1,9 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { login } from '../../Services/accountServices'
-import PopUp from "../../Constants/PopUp";
-
-
 
 /**
  * UseLoginform
@@ -53,19 +50,18 @@ const UseLoginform = (LoginValidate) => {
       console.log(user);
 
       login(user).then( response => {
-        if (response.status === 200 && response.data.is_admin === false) {
+        if (response.status == 200 && response.data.is_admin === false) {
+          // setIsError(true);
 
           history.push('/user'); 
       
-        }else if (response.status === 200 && response.data.is_admin === true) {
+        }else if (response.status == 200 && response.data.is_admin === true) {
 
           history.push('/admin');
 
-        }else if (response.status === 403) {
+        }else if (response.status == 403) {
 
           setIsError(true);
-          return ()=> 
-            {isError && <PopUp type="error" title="خطأ في تسجيل الدخول" message="البريد الإلكتروني او كلمة المرور غير صحيحه" interval={7000}/>};
         }
 
       })
@@ -73,10 +69,10 @@ const UseLoginform = (LoginValidate) => {
     }
   }, [error]);
 
-  return {
-    handleChange, user, handleSubmit, error,
-
-  };
+  return (
+    
+    {handleChange, user, handleSubmit, error,isError,}
+  );
 };
 
 export default UseLoginform;

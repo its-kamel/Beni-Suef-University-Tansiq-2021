@@ -6,6 +6,8 @@ import { RiLockPasswordFill } from 'react-icons/ri';
 
 import LoginValidate from './LoginValidate';
 import UseLoginform from './UseLoginform';
+import PopUp from "../../Constants/PopUp";
+
 // import Navbar from "../Navbar/Navbar";
 import './Login.css';
 /**
@@ -14,7 +16,7 @@ import './Login.css';
  */
  function Login  () {
   const {
-    handleChange, user, handleSubmit, error,
+    handleChange, user, handleSubmit, error,isError,
   } = UseLoginform(LoginValidate);
 
   return (
@@ -71,6 +73,7 @@ import './Login.css';
         </span> */}
 
       </form>
+      {isError && <PopUp type="error" title="خطأ في تسجيل الدخول" message="البريد الإلكتروني او كلمة المرور غير صحيحه" interval={7000}/>};
 
     </div>
 
