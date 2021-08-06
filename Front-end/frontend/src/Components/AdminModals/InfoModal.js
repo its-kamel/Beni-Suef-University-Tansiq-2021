@@ -1,8 +1,12 @@
 import React from "react"
 import './InfoModal.css'
 import Departments from "../Admin/Departments"
+import PopUp from "../../Constants/PopUp";
+
 
 function InfoModal(props){
+    
+
 
     return(
         <>
@@ -24,6 +28,9 @@ function InfoModal(props){
                 <h3 className="modal__groupNo__title">عدد المجموعات المحددة حاليا: {props.number}</h3>
                 </div>
             </div>
+
+            {props.isSucces && <PopUp type="success" title="نجحت العملية" message="تم حفظ التغيرات" onEnd={props.handlePopUp} interval={7000}/>}
+            {props.isInfo && <PopUp type="info" title=" برجاء الانتظار" message=" جاري تنفيذ التغيرات " onEnd={props.handlePopUp} interval={4000}/>}
         </div>
         </>
     )

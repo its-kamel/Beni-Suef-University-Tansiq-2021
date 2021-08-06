@@ -13,6 +13,7 @@ import SettingsModal from "../AdminModals/SettingsModal"
 import InfoModal from "../AdminModals/InfoModal"
 import "../../Services/adminServices"
 import {postStudentsInfo, putNumberOfGroups,getNumberOfGroups, putSortStatus} from "../../Services/adminServices"
+import PopUp from "../../Constants/PopUp";
 
 function Admin() {
     const upload = <FontAwesomeIcon icon={faUpload} color="#f5ba13"/>
@@ -34,6 +35,12 @@ function Admin() {
     const [studentsfile, setStudentsFile]=useState(undefined)
     const [initialData, setInitialData]=useState(undefined);
     const [currentSheet,setCurrentSheet]=useState({});
+
+
+    const [isSucces , setIsSuccess] = useState(false);
+    const [isError , setIsError] = useState(false);
+    const [isInfo , setIsInfo] = useState(false)
+
 
     
     
@@ -66,6 +73,7 @@ function Admin() {
                 
     };
     const save = ()=>{
+        setIsInfo(true);
         //send students data to backend studentsFile
         // console.log(initialData)
         // const result=generateObjects(currentSheet);
@@ -80,10 +88,17 @@ function Admin() {
             var data = new FormData();
             data.append('excel_file', studentsfile)
             console.log(data);
+            handlePopUp ()
+            setIsInfo(true);
     
             (async () => {
                 const response = await postStudentsInfo(data);
                 console.log(response);
+                if (response.status == 200){
+                    handlePopUp ()
+                    console.log(response.status)
+                    setIsSuccess(true);
+                }
               })();
 
         }
@@ -104,16 +119,30 @@ function Admin() {
         setInputNumberOfGroups(event.target.value);
         console.log(event.target.value);
     }
+
+    function handlePopUp (){
+        setIsSuccess(false);
+        setIsError(false);
+        setIsInfo(false);
+    }
+
     function handleSubmitNumberOfGroups(event){
         event.preventDefault();
+        handlePopUp ()
         // setNumberOfGroups(inputNumberOfGroups);
         setInputNumberOfGroups(" ");
+        setIsInfo(true);
         if(inputNumberOfGroups)
         {
             //put number of groups
             (async () => {
                 const response = await putNumberOfGroups({ groups_count: inputNumberOfGroups});
                 console.log(response);
+                if (response.status == 200){
+                    handlePopUp ()
+                    console.log(response.status)
+                    setIsSuccess(true);
+                }
               })();
 
         }
@@ -122,9 +151,16 @@ function Admin() {
     };
     const handleTanseeqButton=(event)=>{
         event.preventDefault();
+        handlePopUp ()
+        setIsInfo(true);
         (async () => {
             const response = await putSortStatus(true);
             console.log(response);
+            if (response.status == 202){
+                handlePopUp ()
+                console.log(response.status)
+                setIsSuccess(true);
+            }
           })();
 
 
@@ -133,15 +169,18 @@ function Admin() {
     // modals functions
     function toggleUploadModal(){
         setIsUpload(!isUpload);
+        handlePopUp();
     }
     function toggleStatsModal(){
         setIsStatsOpen(!isStatsOpen);
     }
     function toggleSettingsModal(){
         setIsSettings(!isSettings);
+        handlePopUp();
     }
     function toggleInfoModal(){
         setIsInfoOpen(!isInfoOpen);
+        handlePopUp();
     }
 
     return( 
@@ -212,10 +251,13 @@ function Admin() {
         </div> */}
 
         {/* {isExcelOpen && <DataTable initialData={initialData} setInitialData={setInitialData} currentSheet={currentSheet} setCurrentSheet={setCurrentSheet} toggleExcelMode={toggleExcelMode} save={save} />} */}
+        {/* {isSucces && <PopUp type="success" title="نجحت العملية" message="تم حفظ التغيرات" onEnd={handlePopUp} interval={7000}/>}
+        {isInfo && <PopUp type="info" title=" برجاء الانتظار" message=" جاري تنفيذ التغيرات " onEnd={handlePopUp} interval={4000}/>} */}
+
         {isUpload && <UploadModal onClose={toggleUploadModal} onUpload={handleUpload} onToggle={toggleExcelMode} onSave={save} initialData={initialData} setCurrentSheet={setCurrentSheet}/>}
         {isStatsOpen && <StatsModal onClose={toggleStatsModal}/>}
-        {isSettings && <SettingsModal onClose={toggleSettingsModal}  onTansiq={handleTanseeqButton} />}
-        {isInfoOpen && <InfoModal onClose={toggleInfoModal} number={numberOfGroups} input={inputNumberOfGroups} onHandle={handleInputNumberOfGroups} onSubmit={handleSubmitNumberOfGroups} />}
+        {isSettings && <SettingsModal setIsInfo={setIsInfo} setIsSuccess={setIsSuccess} isSucces={isSucces} isInfo={isInfo} handlePopUp={handlePopUp} onClose={toggleSettingsModal}  onTansiq={handleTanseeqButton} />}
+        {isInfoOpen && <InfoModal setIsInfo={setIsInfo} setIsSuccess={setIsSuccess} isSucces={isSucces} isInfo={isInfo} handlePopUp={handlePopUp} onClose={toggleInfoModal} number={numberOfGroups} input={inputNumberOfGroups} onHandle={handleInputNumberOfGroups} onSubmit={handleSubmitNumberOfGroups} />}
 
     </>
     );

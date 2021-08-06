@@ -5,6 +5,8 @@ import data from "./Departments-data.json";
 import RowsToEdit from "./RowsToEdit";
 import RowsToRead from "./RowsToRead";
 import { getDepartmentsInfo, putNewDepartmentInfo } from "../../Services/adminServices";
+import PopUp from "../../Constants/PopUp";
+
 
 const DepartmentsTable = () => {
   const [Departments, setDepartments] = useState(data);
@@ -13,6 +15,10 @@ const DepartmentsTable = () => {
     name: "",
     Capacity: "",
   });
+
+  const [isSucces , setIsSuccess] = useState(false);
+  const [isError , setIsError] = useState(false);
+  const [isInfo , setIsInfo] = useState(false)
 
 
   const [editDepartmentId, setEditDepartmentId] = useState(null);
@@ -34,18 +40,31 @@ const DepartmentsTable = () => {
 
 },[Departments])
 
-  
+function handlePopUp (){
+  setIsSuccess(false);
+  setIsError(false);
+  setIsInfo(false);
+}
+
   const handleSaveCapacity=()=>{
     // console.log(editDepartmentId)
     // console.log(editFormData.Capacity)
     // putNewDepartmentInfo(editFormData.Capacity, editDepartmentId)
     // .then( response => {console.log(response);});
+    handlePopUp ()
+    setIsInfo(true);
+
 
     if(editFormData.Capacity)
     {
       (async () => {
         const response = await putNewDepartmentInfo(editFormData.Capacity, editDepartmentId);
         console.log(response);
+        if (response.status == 200){
+          handlePopUp ()
+          console.log(response.status)
+          setIsSuccess(true);
+      }
       })();
 
     }
@@ -139,6 +158,9 @@ const DepartmentsTable = () => {
         </table>
         </div>
       </form>
+      {isSucces && <PopUp type="success" title="نجحت العملية" message="تم حفظ التغيرات" onEnd={handlePopUp} interval={7000}/>}
+      {isInfo && <PopUp type="info" title=" برجاء الانتظار" message=" جاري تنفيذ التغيرات " onEnd={handlePopUp} interval={4000}/>}
+
     </>
   );
 };

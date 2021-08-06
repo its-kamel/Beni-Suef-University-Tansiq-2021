@@ -4,9 +4,11 @@ import { DateRangePicker } from 'react-dates';
 import 'react-dates/lib/css/_datepicker.css';
 import './SettingsModal.css'
 import { useHistory } from 'react-router-dom';
+import PopUp from "../../Constants/PopUp";
 
 function SettingsModal(props){
     const history = useHistory();
+    
     return(
         <>
         <div className="modal__backdrop" >
@@ -33,6 +35,10 @@ function SettingsModal(props){
                 </div>
 
             </div>
+            {props.isSucces && <PopUp type="success" title="نجحت العملية" message="تم حفظ التغيرات" onEnd={props.handlePopUp} interval={7000}/>}
+            {props.isInfo && <PopUp type="info" title=" برجاء الانتظار" message=" جاري تنفيذ التغيرات " onEnd={props.handlePopUp} interval={4000}/>}
+            
+
         </div>
         </>
     )

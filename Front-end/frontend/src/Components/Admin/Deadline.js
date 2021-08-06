@@ -10,6 +10,7 @@ import { getDeadlineDates, putDeadlineDates, putTanseeqStatus } from '../../Serv
 import { DateRangeSharp } from '@material-ui/icons';
 import { data } from 'jquery';
 import moment from "moment";
+import PopUp from "../../Constants/PopUp";
 
 function deadline(props)  {
     const history=useHistory();
@@ -20,6 +21,11 @@ function deadline(props)  {
     const [endDategetter,setEndDategetter]= useState(null)
     const [changeTime,toggleChangeTime]=useState(false);
     const [isChanged,toggleIsChanged]=useState(false);
+
+
+    const [isSucces , setIsSuccess] = useState(false);
+    const [isError , setIsError] = useState(false);
+    const [isInfo , setIsInfo] = useState(false)
     
     // const[startTimerDays,setStartTimerDays]=useState('00')
     // const[startTimerHours,setStartTimerHours]=useState('00')
@@ -51,6 +57,14 @@ function deadline(props)  {
           
 
     },[isChanged])
+
+    function handlePopUp (){
+        setIsSuccess(false);
+        setIsError(false);
+        setIsInfo(false);
+    }
+
+
 
     // useEffect(()=>{
     //     startTimer();
@@ -186,25 +200,22 @@ function deadline(props)  {
     const handleSaveDates=()=>{
         if(startDate && endDate)
         {
-
-        
+            handlePopUp ()
+            setIsInfo(true);
             const start= new Date(startDate);
             const end= new Date(endDate);
-            // const todaysDate= new Date();
-            // console.log(start.getMonth()+1)
-            // console.log(start.getDate())
-            // console.log(start.getFullYear())
-            // console.log(todaysDate.getDate());
-            // console.log(todaysDate.getMonth()+1);
-            // console.log(todaysDate.getFullYear())
-            // console.log(start.toISOString());
-            // console.log(todaysDate.toISOString());
+           
             console.log(startDate);
             
             
             (async () => {
                 const response = await putDeadlineDates({start_date:start.toISOString(),end_date:end.toISOString()});
                 console.log(response);
+                if (response.status == 200){
+                    handlePopUp ()
+                    console.log(response.status)
+                    setIsSuccess(true);
+                }
             })();
             // key=1;
             toggleIsChanged(!isChanged);
