@@ -51,7 +51,6 @@ const UseLoginform = (LoginValidate) => {
 
       login(user).then( response => {
         if (response.status == 200 && response.data.is_admin === false) {
-          // setIsError(true);
 
           history.push('/user'); 
       
@@ -59,13 +58,11 @@ const UseLoginform = (LoginValidate) => {
 
           history.push('/admin');
 
-        }else if (response.status == 403) {
-
-          setIsError(true);
         }
-
       })
-
+      .catch( response => {
+          setIsError(true);
+      })
     }
   }, [error]);
 

@@ -14,7 +14,7 @@ function LoginValidate(props) {
 
   if (!props.password) {
     error.password = 'مطلوب';
-  } else if (props.password.length < 8) {
+  } else if (props.password.length < 6 || props.password.length > 16) {
     error.password = 'كلمة المرور غير صحيحه';
   }
 
