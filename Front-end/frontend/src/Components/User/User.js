@@ -21,7 +21,7 @@ function User() {
     const [isError , setIsError] = useState(false);
     const [isInfo , setIsInfo] = useState(false);
     const [isLogged , setIsLogged] = useState(false);
-    const [name , setName] = useState("سمر")
+    const [name , setName] = useState("")
  
     function toggleTansiqModal(){
         setIsTansiqOpen(!isTansiqOpen);
