@@ -30,6 +30,7 @@ export default async function getUserChoices (){
           console.log(error.response.data);
           console.log(error.response.status);
           console.log(error.response.headers);
+          return(error.response);
         } else if (error.request){
           /*
           * The request was made but no response was received, `error.request`
@@ -55,6 +56,7 @@ export async function putUserChoices (data){
           console.log(error.response.data);
           console.log(error.response.status);
           console.log(error.response.headers);
+          return(error.response);
         } else if (error.request){
           console.log(error.request);
         } else {
@@ -74,6 +76,7 @@ export async function getResults (){
           console.log(error.response.data);
           console.log(error.response.status);
           console.log(error.response.headers);
+          return(error.response);
         } else if (error.request){
           console.log(error.request);
         } else {
@@ -94,6 +97,28 @@ export async function getIsEnabled (){
         console.log(error.response.data);
         console.log(error.response.status);
         console.log(error.response.headers);
+        return(error.response);
+      } else if (error.request){
+        console.log(error.request);
+      } else {
+        console.log('Error', error.message);
+      }
+      console.log(error);
+  }
+};
+
+export async function getUser (){
+  try{
+      const response = await axios.get( SERVER_URL+'users/user',{headers:{'Authorization': `token ${localStorage.token}`}});
+      //Success
+      console.log(response)
+      return(response)
+  } catch (error){
+      if (error.response){
+        console.log(error.response.data);
+        console.log(error.response.status);
+        console.log(error.response.headers);
+        return(error.response);
       } else if (error.request){
         console.log(error.request);
       } else {

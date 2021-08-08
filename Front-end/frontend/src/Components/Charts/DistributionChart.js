@@ -2,7 +2,7 @@ import React, { useState,useEffect } from "react";
 import Chart from "react-google-charts";
 import { getPieData } from "../../Services/adminServices";
 
-function DistributionChart(){
+function DistributionChart(props){
 
     // const [data,setData] = useState([{uid:1,name:"غزل و نسيج",students_count:20},{uid:2,name:"ميكانيكا انتاج",students_count:30},{uid:3,name:"ميكانيكا أجهزة",students_count:12},{uid:4,name:"كهرباء تحكم آلي",students_count:40},{uid:5,name:"كهرباء الكترونيات",students_count:30},{uid:6,name:"عمارة",students_count:15},{uid:7,name:"مدني",students_count:20}])
     const [data,setData] = useState([{uid:1,name:"غزل و نسيج",students_count:0},{uid:2,name:"ميكانيكا انتاج",students_count:0},{uid:3,name:"ميكانيكا أجهزة",students_count:0},{uid:4,name:"كهرباء تحكم آلي",students_count:0},{uid:5,name:"كهرباء الكترونيات",students_count:0},{uid:6,name:"عمارة",students_count:0},{uid:7,name:"مدني",students_count:0}])
@@ -12,7 +12,11 @@ function DistributionChart(){
         // get request
         (async () => {
             const response = await getPieData();
-            setData(response.data);
+            if (response.status == 200){
+                setData(response.data);
+            }else{
+                props.onError();
+            }
           })();
 
     },[])

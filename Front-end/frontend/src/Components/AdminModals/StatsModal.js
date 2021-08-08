@@ -4,8 +4,18 @@ import Chart from "react-google-charts";
 import DistributionChart from "../Charts/DistributionChart";
 import ChoicesChart from "../Charts/ChoicesChart";
 import TableChart from "../Charts/TableChart";
+import PopUp from "../../Constants/PopUp";
 
 function StatsModal(props){
+
+    const [isInfo , setIsInfo] = useState(true);
+
+    function handlePopUp (){
+        setIsSuccess(false);
+        setIsError(false);
+        setIsInfo(false);
+        setIsLogged(false)
+    }
 
     return(
         <div className="modal__backdrop" >
@@ -16,17 +26,18 @@ function StatsModal(props){
                 <div className="charts">
 
                     {/* pie chart */}
-                    <DistributionChart /><hr className="separator"/>
+                    <DistributionChart onError={props.onError}/><hr className="separator"/>
 
                     {/* stacked bar chart */}
-                    <ChoicesChart /><hr className="separator2"/>
+                    <ChoicesChart onError={props.onError}/><hr className="separator2"/>
 
                     {/* table chart */}
-                    <TableChart />
+                    <TableChart onError={props.onError}/>
                     
                     {/* <div style={{ display: 'flex', maxWidth: 1500 }}></div> */}
                 </div>
             </div>
+            {isInfo && <PopUp type="info" title=" برجاء الانتظار" message=" جاري حساب الإحصاءات  " onEnd={handlePopUp} interval={8000}/>}
         </div>
     );
 }

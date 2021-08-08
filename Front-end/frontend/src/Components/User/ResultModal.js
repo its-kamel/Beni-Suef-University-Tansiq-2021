@@ -9,13 +9,13 @@ function ResultModal(props){
     useEffect( () =>{
 
         // get request
-        // getResults().then( response => {
-        //     setMessage(response.data);
-        // })
         (async () => {
             const response = await getResults();
-            setMessage(response.data.result);
-            console.log(response)
+            if (response.status == 200){
+                setMessage(response.data.result);
+            } else{
+                props.onError();
+            }
           })();
 
     },[message])

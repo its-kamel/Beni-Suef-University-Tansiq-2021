@@ -22,8 +22,14 @@ function TansiqModal(props){
         // get requests
         (async () => {
             const response = await getIsEnabled();
-            setIsEnabled(response.data.is_enabled);
-            isEn = response.data.is_enabled;
+            if (response.status == 200){
+                setIsEnabled(response.data.is_enabled);
+                isEn = response.data.is_enabled;
+            }
+            else{
+                props.onError();
+            }
+            
           })(); 
 
         (async () => {

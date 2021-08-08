@@ -9,6 +9,8 @@ import { faChartBar, faGraduationCap } from '@fortawesome/free-solid-svg-icons'
 import { putUserChoices } from "../../Services/userServices";
 import { getDeadlineDates,putTanseeqStatus } from '../../Services/adminServices';
 import PopUp from "../../Constants/PopUp";
+import CountDown from "./CountDown"
+import {getUser} from "../../Services/userServices"
 
 function User() {
     const tansiqIcon = <FontAwesomeIcon icon={faChartBar} color="#f5ba13"/>
@@ -17,17 +19,32 @@ function User() {
     const [isResultOpen, setIsResultOpen] = useState(false);   
     const [isSucces , setIsSuccess] = useState(false);
     const [isError , setIsError] = useState(false);
-    const [isInfo , setIsInfo] = useState(false)
+    const [isInfo , setIsInfo] = useState(false);
+    const [isLogged , setIsLogged] = useState(false);
+    const [name , setName] = useState("سمر")
  
     function toggleTansiqModal(){
-        setIsTansiqOpen(!isTansiqOpen)
+        setIsTansiqOpen(!isTansiqOpen);
+    }
+
+    function toggleErrorTansiq(){
+        setIsTansiqOpen(!isTansiqOpen);
+        handlePopUp();
+        setIsError(true);
     }
 
     function toggleResultModal(){
         setIsResultOpen(!isResultOpen)
     }
 
+    function toggleErrorResult(){
+        setIsResultOpen(!isResultOpen)
+        handlePopUp();
+        setIsError(true);
+    }
+
     function confirmChange(order){
+        handlePopUp ()
         setIsTansiqOpen(false)
         setIsInfo(true);
         const orderToString = order.toString()
@@ -36,19 +53,24 @@ function User() {
         (async () => {
             const response = await putUserChoices(orderToString);
             console.log(response)
+            handlePopUp ()
+            console.log(isInfo)
             if (response.status == 200){
-                handlePopUp ()
-                console.log(response.status)
+                handlePopUp ();
                 setIsSuccess(true);
             }
+            else{
+                handlePopUp ();
+                setIsError(true);
+            }
           })(); 
-          console.log(isSucces)
     }
 
     function handlePopUp (){
         setIsSuccess(false);
         setIsError(false);
         setIsInfo(false);
+        setIsLogged(false)
     }
 
     //Timer Section//////////////////////////////////////
@@ -81,7 +103,17 @@ function User() {
             setEndDategetter(end.toLocaleDateString())      
            toggleChangeTime(!changeTime);
           })();
-          
+
+          (async () => {
+            const response = await getUser();
+            if (response.status == 200){
+                setName(response.data.User.name);
+                setIsLogged(true);
+            } else{
+                handlePopUp()
+                setIsError(true);
+            }
+          })();
 
     },[])
 
@@ -211,22 +243,24 @@ function User() {
                         text = "تسجيل الرغبات"
                         onOpen = {toggleTansiqModal}
                     />
-
                 </div>
-                {isStartTimer  ?(<div className="Endsin">
-                {startTimerDays}:{startTimerHours}:{startTimerMinutes}:{startTimerSeconds} : المتبقي من الزمن حتى فتح التنسيق
-                </div>):("")}
 
-                {isEndTimer && !isStartTimer?(<div className="Endsin">
-                {endTimerDays}:{endTimerHours}:{endTimerMinutes}:{endTimerSeconds} : المتبقي من الزمن حتى غلق التنسيق
-                </div>):("")}
-                
+                {isStartTimer?(
+                <CountDown message=" المتبقي من الزمن حتي فتح التنسيق" days={startTimerDays} hours={startTimerHours} minutes={startTimerMinutes} seconds={startTimerSeconds} />
+                ):("")}
+
+                {isEndTimer && !isStartTimer?(
+                <CountDown message="المتبقي من الزمن حتي غلق التنسيق" days={endTimerDays} hours={endTimerHours} minutes={endTimerMinutes} seconds={endTimerSeconds} /> 
+                ):("")} 
                 
             </div>
+            
             {isSucces && <PopUp type="success" title="نجحت العملية" message="تم حفظ التغيرات" onEnd={handlePopUp} interval={7000}/>}
             {isInfo && <PopUp type="info" title=" برجاء الانتظار" message=" جاري تنفيذ التغيرات " onEnd={handlePopUp} interval={4000}/>}
-            {isTansiqOpen && <TansiqModal onConfirm={confirmChange} onClose={toggleTansiqModal}/>}
-            {isResultOpen && <ResultModal onClose={toggleResultModal}/>}
+            {isLogged &&  <PopUp type="info" title="مرحبا بك!" message={name} onEnd={handlePopUp} interval={5000}/>}
+            {isError &&  <PopUp type="error" title="لم تنجح العملية" message=" برجاء الانتظار، ثم المحاولة لاحقا" onEnd={handlePopUp} interval={5000}/>}
+            {isTansiqOpen && <TansiqModal onConfirm={confirmChange} onClose={toggleTansiqModal} onError={toggleErrorTansiq}/>}
+            {isResultOpen && <ResultModal onClose={toggleResultModal} onError={toggleErrorResult}/>}
         </>
     );
 }

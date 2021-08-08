@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react"
 import Chart from "react-google-charts";
 import { getBarData } from "../../Services/adminServices";
 
-function ChoicesChart(){
+function ChoicesChart(props){
 
     // const [data,setData]=useState([{uid:1,name:"غزل و نسيج",first_count:20,second_count:10,third_count:3,fourth_count:9,fifth_count:13,sixth_count:40,seventh_count:15},
     //                                 {uid:2,name:"ميكانيكا انتاج",first_count:10,second_count:0,third_count:25,fourth_count:7,fifth_count:3,sixth_count:45,seventh_count:20},
@@ -25,7 +25,13 @@ function ChoicesChart(){
         // get request
         (async () => {
             const response = await getBarData();
-            setData(response.data);
+            if (response.status == 200){
+                setData(response.data);
+            }
+            else{
+                props.onError();
+            }
+            
           })();
     },[])
     

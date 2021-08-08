@@ -1,0 +1,58 @@
+.countdown
+{
+    margin:auto;
+    display:table;
+    font-size:18px;
+    font-weight:500;
+
+}
+.coming-soon-info .number
+{
+       font-family: Poppins;
+}
+
+.coming-soon-info .countdown>div
+{
+    float: left;
+    min-width:100px;
+    margin:40px 10px 0 0;
+    font-size:50px;
+    line-height:70px;
+    font-weight:700;
+    color:navy;
+    padding:0px 15px;
+    text-align:center;
+    font-family: 'Tajawal', sans-serif;
+    direction: rtl;
+}
+.coming-soon-info .countdown>div:last-child
+{
+    border-right:none;
+}
+ 
+.coming-soon-info p
+{
+    color:navy;
+    margin-top: 6%;
+    font-size:30px;
+    line-height:26px;
+    font-weight:700;
+    text-align:center;
+    font-family: 'Tajawal', sans-serif;
+    direction: rtl;
+}
+.coming-soon-info .countdown span
+{
+    position:relative;
+    display:block;
+    font-size:12px;
+    line-height:28px;
+    text-align:center;
+    text-transform:uppercase;
+    font-weight:600;
+    letter-spacing:1px;
+    color:navy;
+    font-family: 'Tajawal', sans-serif;
+    direction: rtl;
+
+}

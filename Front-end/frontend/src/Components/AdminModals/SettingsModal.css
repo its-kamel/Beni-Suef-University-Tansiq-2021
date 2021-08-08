@@ -14,9 +14,20 @@
 .admin-settings-layout {
     display: flex;
     flex-wrap: wrap; 
-    --height: 402px;  /* Minimal row height */
-    --ratio: 1; /* Default aspect ratio for buttons that are not loaded yet */
-    padding-top:20px;
-    max-width: 350px;
-    margin: auto; 
+    margin:auto;
+    max-width: 400px;
+    direction: rtl;
+}
+
+.define_btn{
+    color: #aaaaaa;
+    float: right;
+    font-size: 20px;
+    margin-left: 5px;
+    margin-right: 20px;
+    padding-top: 5px;
+    font-weight: bold;
+    color:navy;
+    font-family: 'Tajawal', sans-serif;
+    direction: rtl;
 }

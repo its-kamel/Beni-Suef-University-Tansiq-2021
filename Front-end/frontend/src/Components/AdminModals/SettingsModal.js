@@ -16,24 +16,20 @@ function SettingsModal(props){
                 <span className="close" onClick={props.onClose}>&times;</span>
                 <h1 className="modal__title">الإعدادات</h1>
                 {/* settings div */}                
-                <div className='admin-layout'>
- 
-                <button type="submit" className="button-layout" onClick={() => history.push('/deadline')}> تحديد فترة تسجيل الرغبات </button>
-
-                </div>
-
-                
-                <div className='admin-layout'>
-
+                <div className='admin-settings-layout'>
+                    <span className="define_btn">اضغط هنا ل  : </span>
+                    <button type="submit" className="button-layout" onClick={() => history.push('/deadline')}> تحديد فترة تسجيل الرغبات </button>
+                </div><hr className="separator2"/>
+        
+                <div className='admin-settings-layout'>
+                    <span className="define_btn">اضغط هنا ل  : </span>
                     <button type="submit" className="button-layout" onClick={props.onTansiq}>تنسيق الطلاب</button>
+                </div><hr className="separator2"/>
+
+                <div className='admin-settings-layout'>
+                    <span className="define_btn">اضغط هنا ل  : </span>
+                    <button type="submit" className="button-layout" onClick={() => history.push('/addNewAdmin')}> اضافة مشرف جديد </button>
                 </div>
-
-                <div className='admin-layout'>
-
-                <button type="submit" className="button-layout" onClick={() => history.push('/addNewAdmin')}> اضافة مشرف جديد </button>
-
-                </div>
-
             </div>
             {props.isSucces && <PopUp type="success" title="نجحت العملية" message="تم حفظ التغيرات" onEnd={props.handlePopUp} interval={7000}/>}
             {props.isInfo && <PopUp type="info" title=" برجاء الانتظار" message=" جاري تنفيذ التغيرات " onEnd={props.handlePopUp} interval={4000}/>}

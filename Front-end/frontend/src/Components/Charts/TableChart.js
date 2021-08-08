@@ -5,7 +5,7 @@ import ReactHTMLTableToExcel from 'react-html-table-to-excel';
 import { getTableData } from "../../Services/adminServices";
 import $ from "jquery"
 
-function TableChart(){
+function TableChart(props){
 
     const [data,setData] = useState([{name:"غزل و نسيج",uid:1},{name:"ميكانيكا انتاج",uid:2},{name:"ميكانيكا أجهزة",uid:3},{name:"كهرباء تحكم آلي",uid:4},{name:"كهرباء الكترونيات",uid:5},{name:"عمارة",uid:6},{name:"مدني",uid:7}]);
     const [students,setStudents] = useState([]);
@@ -30,7 +30,11 @@ function TableChart(){
         // get request
         (async () => {
             const response = await getTableData(id);
-            setStudents(response.data);
+            if (response.status == 200){
+                setStudents(response.data);
+            }else {
+                props.onError();
+            }
           })();
     }
     

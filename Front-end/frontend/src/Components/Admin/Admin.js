@@ -40,12 +40,7 @@ function Admin() {
     const [isSucces , setIsSuccess] = useState(false);
     const [isError , setIsError] = useState(false);
     const [isInfo , setIsInfo] = useState(false)
-
-
     
-    
-    
-
 
     useEffect( () =>{
 
@@ -182,6 +177,15 @@ function Admin() {
         setIsInfoOpen(!isInfoOpen);
         handlePopUp();
     }
+    // handle modals error
+    function handleModalsError(){
+        setIsSettings(false);
+        setIsStatsOpen(false);
+        setIsInfoOpen(false);
+        handlePopUp()
+        setIsError(true);
+        console.log('hi')
+    }
 
     return( 
         <>
@@ -255,9 +259,10 @@ function Admin() {
         {isInfo && <PopUp type="info" title=" برجاء الانتظار" message=" جاري تنفيذ التغيرات " onEnd={handlePopUp} interval={4000}/>} */}
 
         {isUpload && <UploadModal onClose={toggleUploadModal} onUpload={handleUpload} onToggle={toggleExcelMode} onSave={save} initialData={initialData} setCurrentSheet={setCurrentSheet}/>}
-        {isStatsOpen && <StatsModal onClose={toggleStatsModal}/>}
+        {isStatsOpen && <StatsModal onClose={toggleStatsModal} onError={handleModalsError}/>}
         {isSettings && <SettingsModal setIsInfo={setIsInfo} setIsSuccess={setIsSuccess} isSucces={isSucces} isInfo={isInfo} handlePopUp={handlePopUp} onClose={toggleSettingsModal}  onTansiq={handleTanseeqButton} />}
         {isInfoOpen && <InfoModal setIsInfo={setIsInfo} setIsSuccess={setIsSuccess} isSucces={isSucces} isInfo={isInfo} handlePopUp={handlePopUp} onClose={toggleInfoModal} number={numberOfGroups} input={inputNumberOfGroups} onHandle={handleInputNumberOfGroups} onSubmit={handleSubmitNumberOfGroups} />}
+        {isError &&  <PopUp type="error" title="لم تنجح العملية" message=" برجاء الانتظار، ثم المحاولة لاحقا" onEnd={handlePopUp} interval={5000}/>}
 
     </>
     );
