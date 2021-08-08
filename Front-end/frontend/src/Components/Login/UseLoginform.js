@@ -44,6 +44,12 @@ const UseLoginform = (LoginValidate) => {
     e.preventDefault();
     setIsSubmitting(true);
   };
+
+  function handlePopUp (){
+    setIsError(false);
+
+  }
+
   useEffect(() => {
     if (Object.keys(error).length === 0 && isSubmitting) {
       
@@ -58,17 +64,18 @@ const UseLoginform = (LoginValidate) => {
 
           history.push('/admin');
 
-        }
-      })
-      .catch( response => {
+        }else {
+
+          handlePopUp ();
           setIsError(true);
+      }
       })
     }
   }, [error]);
 
   return (
     
-    {handleChange, user, handleSubmit, error,isError,}
+    {handleChange, user, handleSubmit, error,isError,handlePopUp,}
   );
 };
 

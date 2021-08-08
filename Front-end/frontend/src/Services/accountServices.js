@@ -34,8 +34,8 @@ export default async function signUp (props){
         console.log(error.response.data);
         console.log(error.response.status);
         console.log(error.response.headers);
+        return(error.response);
 
-        var error = error.response.data;
         
       } else if (error.request){
         /*
@@ -49,6 +49,7 @@ export default async function signUp (props){
         console.log('Error', error.message);
       }
       console.log(error);
+      return(response);
   }
 };
 
@@ -79,6 +80,8 @@ export async function login (props){
           console.log(error.response.data);
           console.log(error.response.status);
           console.log(error.response.headers);
+          return(error.response);
+
         } else if (error.request){
 
           console.log(error.request);
@@ -86,6 +89,8 @@ export async function login (props){
           console.log('Error', error.message);
         }
         console.log(error);
+        return(response);
+
     }
 };
 
@@ -111,6 +116,8 @@ export async function addAdmin (props){
           console.log(error.response.data);
           console.log(error.response.status);
           console.log(error.response.headers);
+          return(error.response);
+
 
         } else if (error.request){
 
@@ -120,5 +127,7 @@ export async function addAdmin (props){
           console.log('Error', error.message);
         }
         console.log(error);
+        return(response);
+
     }
 };
