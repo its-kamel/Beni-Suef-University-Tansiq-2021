@@ -65,6 +65,12 @@ function handlePopUp (){
           console.log(response.status)
           setIsSuccess(true);
       }
+      else{
+        handlePopUp ()
+        console.log(response.status)
+        setIsError(true);
+      }
+
       })();
 
     }
@@ -160,6 +166,7 @@ function handlePopUp (){
       </form>
       {isSucces && <PopUp type="success" title="نجحت العملية" message="تم حفظ التغيرات" onEnd={handlePopUp} interval={7000}/>}
       {isInfo && <PopUp type="info" title=" برجاء الانتظار" message=" جاري تنفيذ التغيرات " onEnd={handlePopUp} interval={4000}/>}
+      {isError &&  <PopUp type="error" title="لم تنجح العملية" message=" برجاء الانتظار، ثم المحاولة لاحقا" onEnd={handlePopUp} interval={5000}/>}
 
     </>
   );

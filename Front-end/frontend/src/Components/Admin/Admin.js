@@ -94,6 +94,13 @@ function Admin() {
                     console.log(response.status)
                     setIsSuccess(true);
                 }
+                else
+                {
+                    handlePopUp ()
+                    console.log(response.status)
+                    setIsError(true);
+   
+                }
               })();
 
         }
@@ -126,9 +133,9 @@ function Admin() {
         handlePopUp ()
         // setNumberOfGroups(inputNumberOfGroups);
         setInputNumberOfGroups(" ");
-        setIsInfo(true);
-        if(inputNumberOfGroups)
+        if(inputNumberOfGroups!=" ")
         {
+            setIsInfo(true);
             //put number of groups
             (async () => {
                 const response = await putNumberOfGroups({ groups_count: inputNumberOfGroups});
@@ -137,6 +144,11 @@ function Admin() {
                     handlePopUp ()
                     console.log(response.status)
                     setIsSuccess(true);
+                }
+                else{
+                    handlePopUp ()
+                    console.log(response.status)
+                    setIsError(true);
                 }
               })();
 
@@ -155,6 +167,11 @@ function Admin() {
                 handlePopUp ()
                 console.log(response.status)
                 setIsSuccess(true);
+            }
+            else{
+                handlePopUp ()
+                console.log(response.status)
+                setIsError(true);
             }
           })();
 
@@ -260,10 +277,9 @@ function Admin() {
 
         {isUpload && <UploadModal onClose={toggleUploadModal} onUpload={handleUpload} onToggle={toggleExcelMode} onSave={save} initialData={initialData} setCurrentSheet={setCurrentSheet}/>}
         {isStatsOpen && <StatsModal onClose={toggleStatsModal} onError={handleModalsError}/>}
-        {isSettings && <SettingsModal setIsInfo={setIsInfo} setIsSuccess={setIsSuccess} isSucces={isSucces} isInfo={isInfo} handlePopUp={handlePopUp} onClose={toggleSettingsModal}  onTansiq={handleTanseeqButton} />}
+        {isSettings && <SettingsModal setIsError={setIsError} isError={isError} setIsInfo={setIsInfo} setIsSuccess={setIsSuccess} isSucces={isSucces} isInfo={isInfo} handlePopUp={handlePopUp} onClose={toggleSettingsModal}  onTansiq={handleTanseeqButton} />}
         {isInfoOpen && <InfoModal setIsInfo={setIsInfo} setIsSuccess={setIsSuccess} isSucces={isSucces} isInfo={isInfo} handlePopUp={handlePopUp} onClose={toggleInfoModal} number={numberOfGroups} input={inputNumberOfGroups} onHandle={handleInputNumberOfGroups} onSubmit={handleSubmitNumberOfGroups} />}
-        {isError &&  <PopUp type="error" title="لم تنجح العملية" message=" برجاء الانتظار، ثم المحاولة لاحقا" onEnd={handlePopUp} interval={5000}/>}
-
+        
     </>
     );
 }

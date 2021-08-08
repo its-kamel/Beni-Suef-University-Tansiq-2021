@@ -20,7 +20,7 @@ function InfoModal(props){
                 <div dir='rtl'>
                 <h1 className="modal__title">أدخل عدد المجموعات</h1>
                 <form className="groups-form-layout">
-                    <input value={props.input} type="number" onChange={props.onHandle} placeholder="رجاء ادخال رقم"/>
+                    <input value={props.input} type="number" required="required" min="0"  onChange={props.onHandle} placeholder="رجاء ادخال رقم"/>
                     <button className="button-layout" type="submit" onClick={props.onSubmit}  >
                         حفظ
                     </button>
