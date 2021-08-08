@@ -2,7 +2,9 @@ from django.shortcuts import render
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, authentication_classes, permission_classes
-
+from rest_framework.parsers import MultiPartParser, FormParser
+from rest_framework.parsers import FormParser
+from rest_framework.decorators import parser_classes
 from project.permissions import IsAdminUser
 from .models import *
 from users.models import *
@@ -14,6 +16,8 @@ import openpyxl
 from rest_framework import exceptions
 from .functions import password_generator,prepare_password_email
 from project.utils import Util
+from drf_yasg.utils import swagger_auto_schema
+from drf_yasg import openapi
 # Create your views here.
 
 @api_view(['GET'])
@@ -26,7 +30,8 @@ def get_dates(request):
     # GET
     serializer = DateSerializer(form_obj)
     return Response(serializer.data)
-    
+
+@swagger_auto_schema( methods = ['PUT'] , request_body = DateSerializer )    
 @api_view(['PUT'])
 @permission_classes((IsAuthenticated,IsAdminUser))
 def edit_dates(request):
@@ -48,6 +53,8 @@ def get_capacity(request):
     desires = CapacitySerializer(Desire_obj,many=True)
     return Response(desires.data)
 
+@swagger_auto_schema( methods = ['PUT'] , request_body = CapacitySerializer )    
+
 @api_view(['GET','PUT'])
 @permission_classes((IsAuthenticated,IsAdminUser))
 def edit_capacity(request,id):
@@ -65,6 +72,8 @@ def edit_capacity(request,id):
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status= status.HTTP_200_OK )  
+
+@swagger_auto_schema( methods = ['PUT'] , request_body = GroupSerializer )    
 
 @api_view(['GET','PUT'])
 @permission_classes((IsAuthenticated,IsAdminUser))
@@ -98,12 +107,21 @@ def students_list(request,id):
     students = UserSerializer(students_list, many=True)
     return Response(students.data, status= status.HTTP_200_OK)
 
+user_response = openapi.Response('response description', DesireSerializer)
+
+@swagger_auto_schema(method='PUT', request_body=openapi.Schema(
+                             type=openapi.TYPE_OBJECT,
+                             required=['ids'],
+                             properties={
+                                 'ids': openapi.Schema(type=openapi.TYPE_STRING)
+                             },
+                         ), responses={200: user_response})
 
 @api_view(['PUT'])
 @permission_classes((IsAuthenticated,))
 def edit_desires(request):
     # PUT
-    
+    print(request.data)
     list= request.data["ids"]
     new_list=[]
     for char in list:
@@ -140,6 +158,7 @@ def form_enable(request):
     form = EnableSerializer(form_obj)
     return Response(form.data)
 
+@swagger_auto_schema( methods = ['PUT'] , request_body = EnableSerializer )    
 
 @api_view(['GET','PUT'])
 @permission_classes((IsAuthenticated,))
@@ -159,8 +178,18 @@ def form_info(request):
             serializer.save()
             return Response(serializer.data, status= status.HTTP_200_OK )
 
+user_response = openapi.Response('response description', DesireSerializer)
+
+@swagger_auto_schema(method='POST',manual_parameters=[openapi.Parameter(
+                            name="excel_file",
+                            in_=openapi.IN_FORM,
+                            type=openapi.TYPE_FILE,
+                            required=True,
+                            description="excel_file"
+                            )], responses={200: user_response})
 @api_view(['POST'])
 @permission_classes((IsAuthenticated,IsAdminUser))
+@parser_classes((FormParser,MultiPartParser,))
 def upload_grade(request):
     if request.method == 'POST':
         users_list=User.objects.all()

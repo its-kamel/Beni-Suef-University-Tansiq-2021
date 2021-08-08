@@ -10,7 +10,8 @@ from .serializers import *
 from rest_framework.permissions import  IsAuthenticated
 from project.permissions import IsAdminUser
 from django.core.exceptions import ObjectDoesNotExist
-
+from drf_yasg.utils import swagger_auto_schema
+from drf_yasg import openapi
 # from rest_framework_simplejwt.tokens import RefreshToken
 
 # Create your views here.
@@ -22,6 +23,7 @@ def result_info(request):
     result = ResultSerializer(request.user)
     return Response( result.data, status= status.HTTP_200_OK)
 
+@swagger_auto_schema( methods = ['PUT'] , request_body = ResultSerializer )    
 @api_view(['PUT'])
 @permission_classes((IsAuthenticated,IsAdminUser))
 def edit_result(request,id):
@@ -119,7 +121,7 @@ class AddAdminView(generics.CreateAPIView):
 
 #test
 class AuthUserAPIView(generics.GenericAPIView):
-    permission_classes = (permissions.IsAuthenticated,IsAdminUser)
+    permission_classes = (permissions.IsAuthenticated,)
 
     def get(self,request):
         user = request.user

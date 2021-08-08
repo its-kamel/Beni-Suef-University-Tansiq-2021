@@ -31,7 +31,7 @@ schema_view = get_schema_view(
         contact=openapi.Contact(email="contact@snippets.local"),
         license=openapi.License(name="BSD License"),
     ),
-    # url='https://www.fotone.me/api/',
+    url='https://www.fotone.me/api/',
     public=True,
     permission_classes=(permissions.AllowAny,),
     authentication_classes=(),
