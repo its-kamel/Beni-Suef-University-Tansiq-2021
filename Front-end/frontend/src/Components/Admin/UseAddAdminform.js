@@ -11,6 +11,10 @@ import { addAdmin } from '../../Services/accountServices'
  */
 const useform = (addValidate) => {
   const history = useHistory();
+  const [isError , setIsError] = useState(false);
+  const [isSucces , setIsSuccess] = useState(false);
+
+
 
   const [newadmin, setNewadmin] = useState({
     email: '',
@@ -42,19 +46,37 @@ const useform = (addValidate) => {
     setIsSubmitting(true);
   };
 
+  function handlePopUp (){
+    setIsSuccess(false);
+    setIsError(false);
+  }
+
   useEffect(() => {
     if (Object.keys(errors).length === 0 && isSubmitting) {
 
       console.log(newadmin);
 
-      addAdmin(newadmin);
+      addAdmin(newadmin).then (Response => {
+        if (Response.status == 201) {
 
+          handlePopUp ();
+
+          setIsSuccess(true);
+
+        }else {
+          handlePopUp ();
+
+
+          setIsError(true);
+
+        }
+      });
     }
   }, [errors]);
 
-  return {
-    handleChange, newadmin, handleSubmit, errors,
-  };
+  return (
+  {handleChange, newadmin, handleSubmit, errors,isError,isSucces,handlePopUp,}
+  );
 };
 
 export default useform;

@@ -16,7 +16,7 @@ import './Login.css';
  */
  function Login  () {
   const {
-    handleChange, user, handleSubmit, error,isError,
+    handleChange, user, handleSubmit, error,isError,handlePopUp,
   } = UseLoginform(LoginValidate);
 
   return (
@@ -73,7 +73,7 @@ import './Login.css';
         </span> */}
 
       </form>
-      {isError && <PopUp type="error" title="خطأ في تسجيل الدخول" message="البريد الإلكتروني او كلمة المرور غير صحيحه" interval={7000}/>};
+      {isError && <PopUp type="error" title="خطأ في تسجيل الدخول" message="البريد الإلكتروني او كلمة المرور غير صحيحه" onEnd={handlePopUp} interval={7000}/>};
 
     </div>
 

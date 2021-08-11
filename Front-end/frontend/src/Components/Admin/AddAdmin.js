@@ -3,6 +3,7 @@ import useform from './UseAddAdminform';
 import addValidate from './addValidate.js';
 import Navbar from "../Navbar/Navbar";
 import './AddAdmin.css';
+import PopUp from "../../Constants/PopUp";
 
 /**
  * FormaddNewAdmin
@@ -10,7 +11,7 @@ import './AddAdmin.css';
  */
 const addNewAdmin = () => {
   const {
-    handleChange, newadmin, handleSubmit, errors,
+    handleChange, newadmin, handleSubmit, errors,isError,isSucces,handlePopUp,
   } = useform(addValidate);
 
   return (
@@ -58,7 +59,9 @@ const addNewAdmin = () => {
 
 
       </form>
-
+    
+      {isSucces && <PopUp type="success" title="نجحت العملية" message="تمت الاضافة " onEnd={handlePopUp} interval={4000}/>}
+      {isError &&  <PopUp type="error" title="لم تنجح العملية" message=" هذا المشرف موجود بالفعل" onEnd={handlePopUp} interval={4000}/>}
     </div>
   );
 };
