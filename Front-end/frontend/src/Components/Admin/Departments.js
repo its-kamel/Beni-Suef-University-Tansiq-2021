@@ -8,7 +8,7 @@ import { getDepartmentsInfo, putNewDepartmentInfo } from "../../Services/adminSe
 import PopUp from "../../Constants/PopUp";
 
 
-const DepartmentsTable = (props) => {
+const DepartmentsTable = () => {
   const [Departments, setDepartments] = useState(data);
 
   const [editFormData, setEditFormData] = useState({
@@ -16,13 +16,8 @@ const DepartmentsTable = (props) => {
     Capacity: "",
   });
 
-  const [isSucces , setIsSuccess] = useState(false);
-  const [isError , setIsError] = useState(false);
-  const [isInfo , setIsInfo] = useState(false)
-  const [isNumberOfGroups , setIsNumberOfGroups] = useState(props.isNumberOfGroups)
-//   useEffect(()=>{
-//     setIsNumberOfGroups(props.isNumberOfGroups);
-// });
+ 
+
 
 
   const [editDepartmentId, setEditDepartmentId] = useState(null);
@@ -34,7 +29,6 @@ const DepartmentsTable = (props) => {
     // .then( response => {
     //     setDepartments(response.data);
     // })
-    setIsNumberOfGroups(props.isNumberOfGroups);
     (async () => {
       const response = await getDepartmentsInfo();
       setDepartments(response.data);
@@ -45,20 +39,12 @@ const DepartmentsTable = (props) => {
 
 },[Departments])
 
-function handlePopUp (){
-  setIsSuccess(false);
-  setIsError(false);
-  setIsInfo(false);
-}
 
   const handleSaveCapacity=()=>{
     // console.log(editDepartmentId)
     // console.log(editFormData.Capacity)
     // putNewDepartmentInfo(editFormData.Capacity, editDepartmentId)
     // .then( response => {console.log(response);});
-    setIsNumberOfGroups(false);
-    handlePopUp ()
-    setIsInfo(true);
 
 
     if(editFormData.Capacity)
@@ -67,13 +53,9 @@ function handlePopUp (){
         const response = await putNewDepartmentInfo(editFormData.Capacity, editDepartmentId);
         console.log(response);
         if (response && response.status == 200){
-          handlePopUp ()
+          
           console.log(response.status)
-          setIsSuccess(true);
-      }
-      else{
-        handlePopUp ()
-        setIsError(true);
+          
       }
 
       })();
@@ -169,10 +151,6 @@ function handlePopUp (){
         </table>
         </div>
       </form>
-      {!isNumberOfGroups && isSucces && <PopUp type="success" title="نجحت العملية" message="تم حفظ التغيرات" onEnd={handlePopUp} interval={7000}/>}
-      {!isNumberOfGroups &&isInfo && <PopUp type="info" title=" برجاء الانتظار" message=" جاري تنفيذ التغيرات " onEnd={handlePopUp} interval={4000}/>}
-      {!isNumberOfGroups &&isError &&  <PopUp type="error" title="لم تنجح العملية" message=" برجاء الانتظار، ثم المحاولة لاحقا" onEnd={handlePopUp} interval={5000}/>}
-
     </>
   );
 };

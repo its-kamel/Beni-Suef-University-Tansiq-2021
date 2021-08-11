@@ -2,14 +2,10 @@ import React,{useState,useEffect} from "react"
 import './InfoModal.css'
 import Departments from "../Admin/Departments"
 import PopUp from "../../Constants/PopUp";
+import DepartmentsTable from "../Admin/Departments";
 
 
 function InfoModal(props){
-    const [isNumberOfGroups , setIsNumberOfGroups] = useState(props.isNumberOfGroups)
-    
-    useEffect(()=>{
-        setIsNumberOfGroups(props.isNumberOfGroups);
-    })
 
     return(
         <>
@@ -18,7 +14,7 @@ function InfoModal(props){
                 <span className="close" onClick={props.onClose}>&times;</span>
                 <h1 className="modal__title">بيانات الأقسام</h1>
                 {/* table */}
-                <Departments isNumberOfGroups={isNumberOfGroups} />
+                <DepartmentsTable  />
                 <br/>
                 <div dir='rtl'>
                 <h1 className="modal__title">أدخل عدد المجموعات</h1>
@@ -32,9 +28,9 @@ function InfoModal(props){
                 </div>
             </div>
 
-            {props.isNumberOfGroups && props.isSucces && <PopUp type="success" title="نجحت العملية" message="تم حفظ التغيرات" onEnd={props.handlePopUp} interval={7000}/>}
-            {props.isNumberOfGroups && props.isInfo && <PopUp type="info" title=" برجاء الانتظار" message=" جاري تنفيذ التغيرات " onEnd={props.handlePopUp} interval={4000}/>}
-            {props.isNumberOfGroups && props.isError &&  <PopUp type="error" title="لم تنجح العملية" message=" برجاء الانتظار، ثم المحاولة لاحقا" onEnd={props.handlePopUp} interval={5000}/>}
+            {props.isSucces && <PopUp type="success" title="نجحت العملية" message="تم حفظ التغيرات" onEnd={props.handlePopUp} interval={7000}/>}
+            {props.isInfo && <PopUp type="info" title=" برجاء الانتظار" message=" جاري تنفيذ التغيرات " onEnd={props.handlePopUp} interval={4000}/>}
+            {props.isError &&  <PopUp type="error" title="لم تنجح العملية" message=" برجاء الانتظار، ثم المحاولة لاحقا" onEnd={props.handlePopUp} interval={5000}/>}
         </div>
         </>
     )

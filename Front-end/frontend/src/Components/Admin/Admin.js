@@ -40,7 +40,6 @@ function Admin() {
     const [isSucces , setIsSuccess] = useState(false);
     const [isError , setIsError] = useState(false);
     const [isInfo , setIsInfo] = useState(false)
-    const [isNumberOfGroups , setIsNumberOfGroups] = useState(false)
     
 
     useEffect( () =>{
@@ -131,10 +130,8 @@ function Admin() {
     }
 
     function handleSubmitNumberOfGroups(event){
-        setIsNumberOfGroups(true);
         event.preventDefault();
         handlePopUp ()
-        // setNumberOfGroups(inputNumberOfGroups);
         setInputNumberOfGroups(" ");
         if(inputNumberOfGroups!=" ")
         {
@@ -282,7 +279,7 @@ function Admin() {
         {isUpload && <UploadModal onClose={toggleUploadModal} onUpload={handleUpload} onToggle={toggleExcelMode} onSave={save} initialData={initialData} setCurrentSheet={setCurrentSheet}/>}
         {isStatsOpen && <StatsModal onClose={toggleStatsModal} onError={handleModalsError}/>}
         {isSettings && <SettingsModal setIsError={setIsError} isError={isError} setIsInfo={setIsInfo} setIsSuccess={setIsSuccess} isSucces={isSucces} isInfo={isInfo} handlePopUp={handlePopUp} onClose={toggleSettingsModal}  onTansiq={handleTanseeqButton} />}
-        {isInfoOpen && <InfoModal isNumberOfGroups={isNumberOfGroups} setIsError={setIsError} isError={isError} setIsInfo={setIsInfo} setIsSuccess={setIsSuccess} isSucces={isSucces} isInfo={isInfo} handlePopUp={handlePopUp} onClose={toggleInfoModal} number={numberOfGroups} input={inputNumberOfGroups} onHandle={handleInputNumberOfGroups} onSubmit={handleSubmitNumberOfGroups} />}
+        {isInfoOpen && <InfoModal  setIsError={setIsError} isError={isError} setIsInfo={setIsInfo} setIsSuccess={setIsSuccess} isSucces={isSucces} isInfo={isInfo} handlePopUp={handlePopUp} onClose={toggleInfoModal} number={numberOfGroups} input={inputNumberOfGroups} onHandle={handleInputNumberOfGroups} onSubmit={handleSubmitNumberOfGroups} />}
         
     </>
     );
