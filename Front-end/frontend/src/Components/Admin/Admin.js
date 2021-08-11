@@ -40,6 +40,7 @@ function Admin() {
     const [isSucces , setIsSuccess] = useState(false);
     const [isError , setIsError] = useState(false);
     const [isInfo , setIsInfo] = useState(false)
+    const [isNumberOfGroups , setIsNumberOfGroups] = useState(false)
     
 
     useEffect( () =>{
@@ -53,6 +54,7 @@ function Admin() {
             const response = await getNumberOfGroups();
             setNumberOfGroups(response.data.groups_count);
           })();
+
 
     },[inputNumberOfGroups])
 
@@ -89,7 +91,7 @@ function Admin() {
             (async () => {
                 const response = await postStudentsInfo(data);
                 console.log(response);
-                if (response.status == 200){
+                if (response && response.status == 200){
                     handlePopUp ()
                     console.log(response.status)
                     setIsSuccess(true);
@@ -97,7 +99,7 @@ function Admin() {
                 else
                 {
                     handlePopUp ()
-                    console.log(response.status)
+                    
                     setIsError(true);
    
                 }
@@ -129,6 +131,7 @@ function Admin() {
     }
 
     function handleSubmitNumberOfGroups(event){
+        setIsNumberOfGroups(true);
         event.preventDefault();
         handlePopUp ()
         // setNumberOfGroups(inputNumberOfGroups);
@@ -140,19 +143,20 @@ function Admin() {
             (async () => {
                 const response = await putNumberOfGroups({ groups_count: inputNumberOfGroups});
                 console.log(response);
-                if (response.status == 200){
+                if (response && response.status == 200){
                     handlePopUp ()
                     console.log(response.status)
                     setIsSuccess(true);
                 }
                 else{
                     handlePopUp ()
-                    console.log(response.status)
+                   
                     setIsError(true);
                 }
               })();
 
         }
+       
 
 
     };
@@ -163,14 +167,14 @@ function Admin() {
         (async () => {
             const response = await putSortStatus(true);
             console.log(response);
-            if (response.status == 202){
+            if (response && response.status == 202){
                 handlePopUp ()
                 console.log(response.status)
                 setIsSuccess(true);
             }
             else{
                 handlePopUp ()
-                console.log(response.status)
+                
                 setIsError(true);
             }
           })();
@@ -201,7 +205,7 @@ function Admin() {
         setIsInfoOpen(false);
         handlePopUp()
         setIsError(true);
-        console.log('hi')
+        
     }
 
     return( 
@@ -278,7 +282,7 @@ function Admin() {
         {isUpload && <UploadModal onClose={toggleUploadModal} onUpload={handleUpload} onToggle={toggleExcelMode} onSave={save} initialData={initialData} setCurrentSheet={setCurrentSheet}/>}
         {isStatsOpen && <StatsModal onClose={toggleStatsModal} onError={handleModalsError}/>}
         {isSettings && <SettingsModal setIsError={setIsError} isError={isError} setIsInfo={setIsInfo} setIsSuccess={setIsSuccess} isSucces={isSucces} isInfo={isInfo} handlePopUp={handlePopUp} onClose={toggleSettingsModal}  onTansiq={handleTanseeqButton} />}
-        {isInfoOpen && <InfoModal setIsInfo={setIsInfo} setIsSuccess={setIsSuccess} isSucces={isSucces} isInfo={isInfo} handlePopUp={handlePopUp} onClose={toggleInfoModal} number={numberOfGroups} input={inputNumberOfGroups} onHandle={handleInputNumberOfGroups} onSubmit={handleSubmitNumberOfGroups} />}
+        {isInfoOpen && <InfoModal isNumberOfGroups={isNumberOfGroups} setIsError={setIsError} isError={isError} setIsInfo={setIsInfo} setIsSuccess={setIsSuccess} isSucces={isSucces} isInfo={isInfo} handlePopUp={handlePopUp} onClose={toggleInfoModal} number={numberOfGroups} input={inputNumberOfGroups} onHandle={handleInputNumberOfGroups} onSubmit={handleSubmitNumberOfGroups} />}
         
     </>
     );

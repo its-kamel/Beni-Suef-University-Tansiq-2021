@@ -8,7 +8,7 @@ import { getDepartmentsInfo, putNewDepartmentInfo } from "../../Services/adminSe
 import PopUp from "../../Constants/PopUp";
 
 
-const DepartmentsTable = () => {
+const DepartmentsTable = (props) => {
   const [Departments, setDepartments] = useState(data);
 
   const [editFormData, setEditFormData] = useState({
@@ -19,6 +19,10 @@ const DepartmentsTable = () => {
   const [isSucces , setIsSuccess] = useState(false);
   const [isError , setIsError] = useState(false);
   const [isInfo , setIsInfo] = useState(false)
+  const [isNumberOfGroups , setIsNumberOfGroups] = useState(props.isNumberOfGroups)
+//   useEffect(()=>{
+//     setIsNumberOfGroups(props.isNumberOfGroups);
+// });
 
 
   const [editDepartmentId, setEditDepartmentId] = useState(null);
@@ -30,6 +34,7 @@ const DepartmentsTable = () => {
     // .then( response => {
     //     setDepartments(response.data);
     // })
+    setIsNumberOfGroups(props.isNumberOfGroups);
     (async () => {
       const response = await getDepartmentsInfo();
       setDepartments(response.data);
@@ -51,6 +56,7 @@ function handlePopUp (){
     // console.log(editFormData.Capacity)
     // putNewDepartmentInfo(editFormData.Capacity, editDepartmentId)
     // .then( response => {console.log(response);});
+    setIsNumberOfGroups(false);
     handlePopUp ()
     setIsInfo(true);
 
@@ -60,14 +66,13 @@ function handlePopUp (){
       (async () => {
         const response = await putNewDepartmentInfo(editFormData.Capacity, editDepartmentId);
         console.log(response);
-        if (response.status == 200){
+        if (response && response.status == 200){
           handlePopUp ()
           console.log(response.status)
           setIsSuccess(true);
       }
       else{
         handlePopUp ()
-        console.log(response.status)
         setIsError(true);
       }
 
@@ -164,9 +169,9 @@ function handlePopUp (){
         </table>
         </div>
       </form>
-      {isSucces && <PopUp type="success" title="نجحت العملية" message="تم حفظ التغيرات" onEnd={handlePopUp} interval={7000}/>}
-      {isInfo && <PopUp type="info" title=" برجاء الانتظار" message=" جاري تنفيذ التغيرات " onEnd={handlePopUp} interval={4000}/>}
-      {isError &&  <PopUp type="error" title="لم تنجح العملية" message=" برجاء الانتظار، ثم المحاولة لاحقا" onEnd={handlePopUp} interval={5000}/>}
+      {!isNumberOfGroups && isSucces && <PopUp type="success" title="نجحت العملية" message="تم حفظ التغيرات" onEnd={handlePopUp} interval={7000}/>}
+      {!isNumberOfGroups &&isInfo && <PopUp type="info" title=" برجاء الانتظار" message=" جاري تنفيذ التغيرات " onEnd={handlePopUp} interval={4000}/>}
+      {!isNumberOfGroups &&isError &&  <PopUp type="error" title="لم تنجح العملية" message=" برجاء الانتظار، ثم المحاولة لاحقا" onEnd={handlePopUp} interval={5000}/>}
 
     </>
   );
