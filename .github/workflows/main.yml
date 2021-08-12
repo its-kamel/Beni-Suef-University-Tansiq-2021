@@ -70,14 +70,17 @@ jobs:
       - name: Builds project
         run: npm run build
         
+      - name: Renames build directory
+        run: mv build bsu-front
+        
       - name: SCP files
         uses: appleboy/scp-action@master
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_KEY }}
-          source: "build"
-          target: "bsu-front"
+          source: "Front-end/frontend/bsu-front"
+          target: "."
           
   Back:
     runs-on: ubuntu-latest
