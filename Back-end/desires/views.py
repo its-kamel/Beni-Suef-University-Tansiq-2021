@@ -121,7 +121,6 @@ user_response = openapi.Response('response description', DesireSerializer)
 @permission_classes((IsAuthenticated,))
 def edit_desires(request):
     # PUT
-    print(request.data)
     list= request.data["ids"]
     new_list=[]
     for char in list:
