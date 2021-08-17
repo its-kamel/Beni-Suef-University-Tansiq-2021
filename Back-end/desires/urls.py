@@ -7,6 +7,7 @@ urlpatterns = [
     path('edit', edit_desires, name='edit_desires'),
     path('groups', edit_groups, name='edit_groups'),
     path('capacity', get_capacity , name='get_capacity'),
+    path('threshold', get_threshold , name='get_threshold'),
     path('<int:id>/capacity', edit_capacity , name='edit_capacity'),
     path('form', form_info, name='form_info'),
     path('enable', form_enable, name='form_enable'),

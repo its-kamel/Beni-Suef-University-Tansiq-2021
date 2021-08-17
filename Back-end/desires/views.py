@@ -263,6 +263,16 @@ def department_students(request):
     desires = StudentsCountSerializer(desires_list, many=True)
     return Response(desires.data, status= status.HTTP_200_OK)
 
+@api_view(['GET'])
+@permission_classes((IsAuthenticated,))
+def get_threshold(request):
+    # GET
+    #first_desire =Desire.objects.filter(owner=request.user,uid=1)
+    #first_desire.min_threshold=number
+    #first_desire.save()
+    Desire_obj =Desire.objects.filter(owner=request.user)
+    desires = ThresholdSerializer(Desire_obj,many=True)
+    return Response(desires.data)
 
 @api_view(['GET'])
 @permission_classes((IsAuthenticated,IsAdminUser))

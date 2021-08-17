@@ -21,7 +21,11 @@ from drf_yasg import openapi
 def result_info(request):
     # GET
     result = ResultSerializer(request.user)
-    return Response( result.data, status= status.HTTP_200_OK)
+    if result == " لم تظهر بعد" :
+        is_out= False
+    else:
+        is_out=True    
+    return Response( {"Result": result.data,"is_out": is_out }, status= status.HTTP_200_OK)
 
 @swagger_auto_schema( methods = ['PUT'] , request_body = ResultSerializer )    
 @api_view(['PUT'])
