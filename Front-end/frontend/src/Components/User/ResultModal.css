@@ -2,9 +2,9 @@
     background: #fff;
     border-radius: 5px;
     max-width: 900px;
-    max-height: 200px;
-    height: 200px;
-    margin: 200px auto;
+    max-height: 500px;
+    height: 500px;
+    margin: 100px auto;
     border-radius: 3px;
     box-shadow: 0 1px 6px rgb(0 0 0 / 20%);
     box-sizing: border-box;
@@ -23,6 +23,18 @@
     color: #fff;
     font-size: 16px;
     font-weight: bold;
+    font-family: 'Tajawal', sans-serif;
+    direction: rtl;
+}
+
+#thresholds {
+    padding-right: 20px;
+    min-height: 20px;
+    overflow-y: auto;
+    padding-top: 0;
+    font-size: 20px;
+    color:navy;
+    font-weight:medium;
     font-family: 'Tajawal', sans-serif;
     direction: rtl;
 }

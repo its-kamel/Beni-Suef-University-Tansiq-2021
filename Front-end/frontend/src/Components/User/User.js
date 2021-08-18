@@ -48,13 +48,13 @@ function User() {
         setIsTansiqOpen(false)
         setIsInfo(true);
         const orderToString = order.toString()
-        console.log(orderToString);
+        // console.log(orderToString);
         // put request
         (async () => {
             const response = await putUserChoices(orderToString);
-            console.log(response)
+            // console.log(response)
             handlePopUp ()
-            console.log(isInfo)
+            // console.log(isInfo)
             if (response.status == 200){
                 handlePopUp ();
                 setIsSuccess(true);
@@ -132,7 +132,7 @@ function User() {
     const startTimer=()=>{
         setIsEndTimer(false);
         setIsStartTimer(true);
-        console.log(StartInterval);
+        // console.log(StartInterval);
         const startCountdownDate= new Date(startDategetter).getTime();
         StartInterval.current=setInterval(()=>{
             const now=new Date().getTime();
@@ -149,7 +149,7 @@ function User() {
                 
                 (async () => {
                     const response = await putTanseeqStatus(true);
-                    console.log(response);
+                    // console.log(response);
                 })();
                 clearInterval(StartInterval.current)
                 key=0;
@@ -185,7 +185,7 @@ function User() {
     const endTimer=()=>{
         // setIsStartTimer(false);
         setIsEndTimer(true);
-        console.log(EndInterval);
+        // console.log(EndInterval);
         const endCountdownDate= new Date(endDategetter).getTime();
         EndInterval.current=setInterval(()=>{
             const now=new Date().getTime();
@@ -202,7 +202,7 @@ function User() {
                 
                 (async () => {
                     const response = await putTanseeqStatus(false);
-                    console.log(response);
+                    // console.log(response);
                 })();
                 clearInterval(EndInterval.current)
                 key_2=0;

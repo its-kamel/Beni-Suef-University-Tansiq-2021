@@ -6,10 +6,8 @@ import { ResponsiveEmbed } from "react-bootstrap";
 const SERVER_URL = configData.SERVER_URL ;
 //login data
 //users
-// email:Caroline.magdy012@gmail.com
-// pass: oGIAw85s
-// email: mohammed99kamel@yahoo.com
-// pass: TlyIdF8r
+// email: Mohammed99kamel@gmail.com
+// pass: 5Q2uUgG8
 // admins
 // email:samarnabil22@gmail.com
 // pass: H8wZ4sTA
@@ -27,9 +25,9 @@ export default async function getUserChoices (){
           * The request was made and the server responded with a
           * status code that falls out of the range of 2xx
           */
-          console.log(error.response.data);
-          console.log(error.response.status);
-          console.log(error.response.headers);
+          // console.log(error.response.data);
+          // console.log(error.response.status);
+          // console.log(error.response.headers);
           return(error.response);
         } else if (error.request){
           /*
@@ -53,9 +51,9 @@ export async function putUserChoices (data){
         return(response)
     } catch (error){
         if (error.response){
-          console.log(error.response.data);
-          console.log(error.response.status);
-          console.log(error.response.headers);
+          // console.log(error.response.data);
+          // console.log(error.response.status);
+          // console.log(error.response.headers);
           return(error.response);
         } else if (error.request){
           console.log(error.request);
@@ -73,9 +71,9 @@ export async function getResults (){
         return(response)
     } catch (error){
         if (error.response){
-          console.log(error.response.data);
-          console.log(error.response.status);
-          console.log(error.response.headers);
+          // console.log(error.response.data);
+          // console.log(error.response.status);
+          // console.log(error.response.headers);
           return(error.response);
         } else if (error.request){
           console.log(error.request);
@@ -90,13 +88,12 @@ export async function getIsEnabled (){
   try{
       const response = await axios.get( SERVER_URL+'desires/enable',{headers:{'Authorization': `token ${localStorage.token}`}});
       //Success
-      console.log(response)
       return(response)
   } catch (error){
       if (error.response){
-        console.log(error.response.data);
-        console.log(error.response.status);
-        console.log(error.response.headers);
+        // console.log(error.response.data);
+        // console.log(error.response.status);
+        // console.log(error.response.headers);
         return(error.response);
       } else if (error.request){
         console.log(error.request);
@@ -111,13 +108,32 @@ export async function getUser (){
   try{
       const response = await axios.get( SERVER_URL+'users/user',{headers:{'Authorization': `token ${localStorage.token}`}});
       //Success
-      console.log(response)
       return(response)
   } catch (error){
       if (error.response){
-        console.log(error.response.data);
-        console.log(error.response.status);
-        console.log(error.response.headers);
+        // console.log(error.response.data);
+        // console.log(error.response.status);
+        // console.log(error.response.headers);
+        return(error.response);
+      } else if (error.request){
+        console.log(error.request);
+      } else {
+        console.log('Error', error.message);
+      }
+      console.log(error);
+  }
+};
+
+export async function getThreshold (){
+  try{
+      const response = await axios.get( SERVER_URL+'desires/threshold',{headers:{'Authorization': `token ${localStorage.token}`}});
+      //Success
+      return(response)
+  } catch (error){
+      if (error.response){
+        // console.log(error.response.data);
+        // console.log(error.response.status);
+        // console.log(error.response.headers);
         return(error.response);
       } else if (error.request){
         console.log(error.request);
