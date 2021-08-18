@@ -47,8 +47,8 @@ function User() {
         handlePopUp ()
         setIsTansiqOpen(false)
         setIsInfo(true);
-        const orderToString = order.toString()
-        console.log(orderToString);
+        const orderToString = order.toString();
+        // console.log(orderToString);
         // put request
         (async () => {
             const response = await putUserChoices(orderToString);
@@ -255,7 +255,7 @@ function User() {
                 
             </div>
             
-            {isSucces && <PopUp type="success" title="نجحت العملية" message="تم حفظ التغيرات" onEnd={handlePopUp} interval={7000}/>}
+            {isSucces && <PopUp type="success" title="نجحت العملية" message="تم حفظ التغيرات" onEnd={handlePopUp} interval={10000}/>}
             {isInfo && <PopUp type="info" title=" برجاء الانتظار" message=" جاري تنفيذ التغيرات " onEnd={handlePopUp} interval={4000}/>}
             {isLogged &&  <PopUp type="info" title="مرحبا بك!" message={name} onEnd={handlePopUp} interval={5000}/>}
             {isError &&  <PopUp type="error" title="لم تنجح العملية" message=" برجاء الانتظار، ثم المحاولة لاحقا" onEnd={handlePopUp} interval={5000}/>}
