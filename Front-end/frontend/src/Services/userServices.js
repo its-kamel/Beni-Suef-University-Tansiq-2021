@@ -1,8 +1,6 @@
-import { hexToRgb } from "@material-ui/core";
 import axios from "axios"
 import configData from '../config/production.json'
 import $ from "jquery"
-import { ResponsiveEmbed } from "react-bootstrap";
 const SERVER_URL = configData.SERVER_URL ;
 //login data
 //users
@@ -17,7 +15,6 @@ export default async function getUserChoices (){
     try{
         const response = await axios.get( SERVER_URL+'desires/',{headers:{'Authorization': `token ${localStorage.token}`}});
         //Success
-        // const data = await response.data
         return(response)
     } catch (error){
         if (error.response){
