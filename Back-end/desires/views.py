@@ -309,7 +309,7 @@ def get_threshold(request):
         seventh_desire.min_threshold=list[0].grade
         seventh_desire.save()
 
-    Desire_obj =Desire.objects.filter(owner=request.user)
+    Desire_obj =Desire.objects.filter(owner=request.user).order_by('uid')
     desires = ThresholdSerializer(Desire_obj,many=True)
     return Response(desires.data)
 
