@@ -278,10 +278,49 @@ def department_students(request):
 @permission_classes((IsAuthenticated,))
 def get_threshold(request):
     # GET
-    #first_desire =Desire.objects.filter(owner=request.user,uid=1)
-    #first_desire.min_threshold=number
-    #first_desire.save()
-    Desire_obj =Desire.objects.filter(owner=request.user)
+    list=User.objects.filter(result="غزل ونسيج").order_by('grade')
+    first_desire =Desire.objects.get(owner=request.user,uid=1)
+    if list :
+        first_desire.min_threshold=list[0].grade
+        first_desire.save()
+
+    list=User.objects.filter(result="ميكانيكا انتاج").order_by('grade')
+    second_desire =Desire.objects.get(owner=request.user,uid=2)
+    if list :
+        second_desire.min_threshold=list[0].grade
+        second_desire.save()
+    
+    list=User.objects.filter(result="ميكانيكا اجهزة").order_by('grade')
+    third_desire =Desire.objects.get(owner=request.user,uid=3)
+    if list :
+        third_desire.min_threshold=list[0].grade
+        third_desire.save()
+
+    list=User.objects.filter(result="كهرباء تحكم آلى").order_by('grade')
+    fourth_desire =Desire.objects.get(owner=request.user,uid=4)
+    if list :
+        fourth_desire.min_threshold=list[0].grade
+        fourth_desire.save()
+
+    list=User.objects.filter(result="كهرباء الكترونيات").order_by('grade')
+    fifth_desire =Desire.objects.get(owner=request.user,uid=5)
+    if list :    
+        fifth_desire.min_threshold=list[0].grade
+        fifth_desire.save()
+    
+    list=User.objects.filter(result="عمارة").order_by('grade')
+    sixth_desire =Desire.objects.get(owner=request.user,uid=6)
+    if list :
+        sixth_desire.min_threshold=list[0].grade
+        sixth_desire.save()
+
+    list=User.objects.filter(result="مدنى").order_by('grade')
+    seventh_desire =Desire.objects.get(owner=request.user,uid=7)
+    if list :
+        seventh_desire.min_threshold=list[0].grade
+        seventh_desire.save()
+
+    Desire_obj =Desire.objects.filter(owner=request.user).order_by('uid')
     desires = ThresholdSerializer(Desire_obj,many=True)
     return Response(desires.data)
 
