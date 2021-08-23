@@ -224,7 +224,18 @@ def upload_grade(request):
             #sending mail
             email= prepare_password_email(password,user)
             emails_to_be_sent.append(Util.send_email(email))
-        connection.send_messages(emails_to_be_sent)
+
+        counter = 0
+        temp = []
+        for email in emails_to_be_sent:
+            temp.append(email)
+            if counter == 9:
+                connection.send_messages(temp)
+                print('Email sent')
+                temp.clear()
+                counter = 0
+            counter +=1
+
         connection.close()
         return Response("Grades uploaded successfully")
 
