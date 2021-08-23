@@ -227,7 +227,6 @@ def upload_grade(request):
 
         counter = 0
         temp = []
-        length= len(emails_to_be_sent)
         copy = emails_to_be_sent.copy()
         for email in copy:
             temp.append(email)
@@ -237,8 +236,8 @@ def upload_grade(request):
                 del emails_to_be_sent[:counter+1]
                 counter = -1
             counter +=1
-            
-        connection.send_messages(emails_to_be_sent)
+        if emails_to_be_sent:
+            connection.send_messages(emails_to_be_sent)
         connection.close()
         return Response("Grades uploaded successfully")
 
