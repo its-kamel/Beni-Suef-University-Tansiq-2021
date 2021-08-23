@@ -231,7 +231,7 @@ def upload_grade(request):
             temp.append(email)
             if counter == 9:
                 connection.send_messages(temp)
-                print('Email sent')
+                # print('Email sent')
                 temp.clear()
                 counter = 0
             counter +=1
