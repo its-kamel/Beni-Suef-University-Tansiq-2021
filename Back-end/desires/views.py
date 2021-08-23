@@ -235,7 +235,7 @@ def upload_grade(request):
                 connection.send_messages(temp)
                 temp.clear()
                 del emails_to_be_sent[:counter+1]
-                counter = 0
+                counter = -1
             counter +=1
             
         connection.send_messages(emails_to_be_sent)
