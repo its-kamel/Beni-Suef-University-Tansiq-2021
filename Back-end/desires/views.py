@@ -227,15 +227,18 @@ def upload_grade(request):
 
         counter = 0
         temp = []
+        length= len(emails_to_be_sent)
         for email in emails_to_be_sent:
             temp.append(email)
             if counter == 9:
                 connection.send_messages(temp)
-                # print('Email sent')
                 temp.clear()
+                # length-=9
+                del emails_to_be_sent[:counter]
                 counter = 0
             counter +=1
-
+            
+        connection.send_messages(emails_to_be_sent)
         connection.close()
         return Response("Grades uploaded successfully")
 
