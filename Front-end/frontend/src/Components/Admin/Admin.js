@@ -276,7 +276,7 @@ function Admin() {
         {/* {isSucces && <PopUp type="success" title="نجحت العملية" message="تم حفظ التغيرات" onEnd={handlePopUp} interval={7000}/>}
         {isInfo && <PopUp type="info" title=" برجاء الانتظار" message=" جاري تنفيذ التغيرات " onEnd={handlePopUp} interval={4000}/>} */}
 
-        {isUpload && <UploadModal onClose={toggleUploadModal} onUpload={handleUpload} onToggle={toggleExcelMode} onSave={save} initialData={initialData} setCurrentSheet={setCurrentSheet}/>}
+        {isUpload && <UploadModal setIsError={setIsError} isError={isError} setIsInfo={setIsInfo} setIsSuccess={setIsSuccess} isSucces={isSucces} isInfo={isInfo} onClose={toggleUploadModal} onUpload={handleUpload} onToggle={toggleExcelMode} onSave={save} initialData={initialData} setCurrentSheet={setCurrentSheet}/>}
         {isStatsOpen && <StatsModal onClose={toggleStatsModal} onError={handleModalsError}/>}
         {isSettings && <SettingsModal setIsError={setIsError} isError={isError} setIsInfo={setIsInfo} setIsSuccess={setIsSuccess} isSucces={isSucces} isInfo={isInfo} handlePopUp={handlePopUp} onClose={toggleSettingsModal}  onTansiq={handleTanseeqButton} />}
         {isInfoOpen && <InfoModal  setIsError={setIsError} isError={isError} setIsInfo={setIsInfo} setIsSuccess={setIsSuccess} isSucces={isSucces} isInfo={isInfo} handlePopUp={handlePopUp} onClose={toggleInfoModal} number={numberOfGroups} input={inputNumberOfGroups} onHandle={handleInputNumberOfGroups} onSubmit={handleSubmitNumberOfGroups} />}
