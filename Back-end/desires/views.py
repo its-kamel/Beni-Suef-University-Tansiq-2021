@@ -1,3 +1,4 @@
+import time
 from django.shortcuts import render
 from rest_framework import status
 from rest_framework.response import Response
@@ -230,8 +231,9 @@ def upload_grade(request):
         copy = emails_to_be_sent.copy()
         for email in copy:
             temp.append(email)
-            if counter == 8:
+            if counter == 49:
                 connection.send_messages(temp)
+                time.sleep(180)
                 temp.clear()
                 del emails_to_be_sent[:counter+1]
                 counter = -1
