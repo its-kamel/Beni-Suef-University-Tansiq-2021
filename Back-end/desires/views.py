@@ -206,6 +206,8 @@ def upload_grade(request):
         from django.core import mail
         connection = mail.get_connection()
         connection.open()
+        counter = 0
+        
         for i,row in enumerate(worksheet.iter_rows()):
             if i == 0:                                                                              
                 continue
@@ -221,25 +223,20 @@ def upload_grade(request):
             user.set_password(password)
             user.is_verified = True
             user.save()            
-           
+
             #sending mail
             email= prepare_password_email(password,user)
             emails_to_be_sent.append(Util.send_email(email))
 
-        counter = 0
-        temp = []
-        copy = emails_to_be_sent.copy()
-        for email in copy:
-            temp.append(email)
             if counter == 49:
-                connection.send_messages(temp)
+                connection.send_messages(emails_to_be_sent)
                 time.sleep(90)
-                temp.clear()
-                del emails_to_be_sent[:counter+1]
+                emails_to_be_sent.clear()
+                # del emails_to_be_sent[:counter+1]
                 counter = -1
             counter +=1
-        if emails_to_be_sent:
-            connection.send_messages(emails_to_be_sent)
+        connection.send_messages(emails_to_be_sent)
+
         connection.close()
         return Response("Grades uploaded successfully")
 
