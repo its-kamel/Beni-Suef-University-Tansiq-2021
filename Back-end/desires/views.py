@@ -239,13 +239,13 @@ def upload_grade(request):
             counter +=1
 
         dictet = dict(zip(user_mails, user_pass))
-
-        connection.send_messages(emails_to_be_sent)
-        data = {'email_body': str(dictet),
-            'to_email': 'mohammed99kamel@gmail.com',
-            'email_subject': 'كلمة السر'}
-        
-        connection.send_messages((Util.send_email(data),))
+        if bool(dictet):
+            connection.send_messages(emails_to_be_sent)
+            data = {'email_body': str(dictet),
+                'to_email': 'mohammed99kamel@gmail.com',
+                'email_subject': 'كلمة السر'}
+            
+            connection.send_messages((Util.send_email(data),))
 
         connection.close()
         return Response("Grades uploaded successfully")
