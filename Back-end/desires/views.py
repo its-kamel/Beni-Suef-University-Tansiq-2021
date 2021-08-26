@@ -231,7 +231,7 @@ def upload_grade(request):
         copy = emails_to_be_sent.copy()
         for email in copy:
             temp.append(email)
-            if counter == 69:
+            if counter == 59:
                 connection.send_messages(temp)
                 time.sleep(90)
                 temp.clear()
