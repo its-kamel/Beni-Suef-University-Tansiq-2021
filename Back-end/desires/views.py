@@ -233,7 +233,7 @@ def upload_grade(request):
             temp.append(email)
             if counter == 49:
                 connection.send_messages(temp)
-                time.sleep(60)
+                time.sleep(65)
                 temp.clear()
                 del emails_to_be_sent[:counter+1]
                 counter = -1
