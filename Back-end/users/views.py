@@ -82,7 +82,7 @@ def SortStudents(request):
     if not( no_of_groups and student_list and Colleges):
         return Response(status = status.HTTP_400_BAD_REQUEST)
 
-    accepted_students, college_current_capacities = StudentDistribution(no_of_groups, student_list, Colleges_and_capacity, distribute_later)
+    accepted_students, _ = StudentDistribution(no_of_groups, student_list, Colleges_and_capacity, distribute_later)
     Departments = [["غزل ونسيج"],["ميكانيكا انتاج"], ["ميكانيكا اجهزة"], ["كهرباء تحكم آلى"], 
     ["كهرباء الكترونيات"], ["عمارة"], ["مدنى"]]
     for ID, college in accepted_students:
