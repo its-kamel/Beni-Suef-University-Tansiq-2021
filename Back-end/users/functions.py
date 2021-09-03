@@ -19,8 +19,8 @@ def MinCapColg(ColgDict):
             MinValue = collage[1][0]
             MinCapacity = collage
     return MinCapacity
-      
-def StudentDistribution(no_of_groups, student_list, college_list, distribute_later):
+
+def StudentDistribution(student_list, college_list, distribute_later):
     """Distributes the students according to there desires. The list should be sorted for greatest to smallest mark
 
     Args:
