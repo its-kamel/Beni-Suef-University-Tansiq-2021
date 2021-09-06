@@ -30,7 +30,7 @@ class Desire(models.Model):
 
     Capacity = models.IntegerField(default=1)
 
-    min_threshold= models.IntegerField(default=0)
+    min_threshold= models.FloatField(default= 0)
     class Meta():
         ordering = ['order',]
     
