@@ -136,6 +136,10 @@ def edit_desires(request):
         
     desires_list = Desire.objects.filter(owner=request.user)
     desires = DesireSerializer(desires_list, many=True)
+
+    request.user.edited = True
+    request.user.save()
+    
     return Response(desires.data, status= status.HTTP_200_OK)
 
 @api_view(['GET'])

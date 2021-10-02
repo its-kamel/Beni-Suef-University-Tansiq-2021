@@ -47,6 +47,7 @@ class User(AbstractBaseUser, PermissionsMixin, TrackingModel):
     result=models.CharField(max_length=1000, default=" لم تظهر بعد" )
     grade = models.FloatField(default= None)
     logged = models.BooleanField(default=False)
+    edited = models.BooleanField(default=False)
     
     USERNAME_FIELD = 'email'
     objects = MyUserManager()
