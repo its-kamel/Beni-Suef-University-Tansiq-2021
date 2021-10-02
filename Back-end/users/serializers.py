@@ -139,6 +139,8 @@ class LogInSerializer(serializers.ModelSerializer):
                 Desire.objects.create(name="كهرباء الكترونيات", uid=5, order=5,owner=user)
                 Desire.objects.create(name="عمارة", uid=6, order=6,owner=user)
                 Desire.objects.create(name="مدنى", uid=7, order=7,owner=user)
+                user.logged =True
+                user.save()
 
         return {
             'email': user.email,
