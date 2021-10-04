@@ -1,8 +1,11 @@
+import time
 from django.shortcuts import render
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, authentication_classes, permission_classes
-
+from rest_framework.parsers import MultiPartParser, FormParser
+from rest_framework.parsers import FormParser
+from rest_framework.decorators import parser_classes
 from project.permissions import IsAdminUser
 from .models import *
 from users.models import *
@@ -14,8 +17,44 @@ import openpyxl
 from rest_framework import exceptions
 from .functions import password_generator,prepare_password_email
 from project.utils import Util
+from drf_yasg.utils import swagger_auto_schema
+from drf_yasg import openapi
 # Create your views here.
 
+@api_view(['GET'])
+@permission_classes((IsAuthenticated,))
+def get_dates(request):
+    exist= Form.objects.filter(id=1)
+    if not exist :
+        Form.objects.create(id=1,is_enabled=False)
+    form_obj = Form.objects.get(id=1)
+    # GET
+    serializer = DateSerializer(form_obj)
+    return Response(serializer.data)
+
+@swagger_auto_schema( methods = ['PUT'] , request_body = DateSerializer )    
+@api_view(['PUT'])
+@permission_classes((IsAuthenticated,IsAdminUser))
+def edit_dates(request):
+    exist= Form.objects.filter(id=1)
+    if not exist :
+        Form.objects.create(id=1,is_enabled=False)
+    form_obj = Form.objects.get(id=1)
+    # PUT
+    serializer = DateSerializer(form_obj,data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data, status= status.HTTP_200_OK )
+
+@api_view(['GET'])
+@permission_classes((IsAuthenticated,IsAdminUser))
+def get_capacity(request):
+    Desire_obj =Desire.objects.filter(owner=request.user)
+    # GET
+    desires = CapacitySerializer(Desire_obj,many=True)
+    return Response(desires.data)
+
+@swagger_auto_schema( methods = ['PUT'] , request_body = CapacitySerializer )    
 
 @api_view(['GET','PUT'])
 @permission_classes((IsAuthenticated,IsAdminUser))
@@ -33,8 +72,9 @@ def edit_capacity(request,id):
         serializer = EditCapacitySerializer(Desire_obj,data=request.data)
         if serializer.is_valid():
             serializer.save()
-            return Response(serializer.data, status= status.HTTP_200_OK )    
+            return Response(serializer.data, status= status.HTTP_200_OK )  
 
+@swagger_auto_schema( methods = ['PUT'] , request_body = GroupSerializer )    
 
 @api_view(['GET','PUT'])
 @permission_classes((IsAuthenticated,IsAdminUser))
@@ -68,12 +108,20 @@ def students_list(request,id):
     students = UserSerializer(students_list, many=True)
     return Response(students.data, status= status.HTTP_200_OK)
 
+user_response = openapi.Response('response description', DesireSerializer)
+
+@swagger_auto_schema(method='PUT', request_body=openapi.Schema(
+                             type=openapi.TYPE_OBJECT,
+                             required=['ids'],
+                             properties={
+                                 'ids': openapi.Schema(type=openapi.TYPE_STRING)
+                             },
+                         ), responses={200: user_response})
 
 @api_view(['PUT'])
 @permission_classes((IsAuthenticated,))
 def edit_desires(request):
     # PUT
-    
     list= request.data["ids"]
     new_list=[]
     for char in list:
@@ -88,6 +136,10 @@ def edit_desires(request):
         
     desires_list = Desire.objects.filter(owner=request.user)
     desires = DesireSerializer(desires_list, many=True)
+
+    request.user.edited = True
+    request.user.save()
+    
     return Response(desires.data, status= status.HTTP_200_OK)
 
 @api_view(['GET'])
@@ -98,8 +150,22 @@ def desires_list(request):
     desires = DesireSerializer(desires_list, many=True)
     return Response( desires.data, status= status.HTTP_200_OK)
 
+
+@api_view(['GET'])
+@permission_classes((IsAuthenticated,))
+def form_enable(request):
+    exist= Form.objects.filter(id=1)
+    if not exist :
+        Form.objects.create(id=1,is_enabled=False)
+    form_obj = Form.objects.get(id=1)
+    # GET
+    form = EnableSerializer(form_obj)
+    return Response(form.data)
+
+@swagger_auto_schema( methods = ['PUT'] , request_body = EnableSerializer )    
+
 @api_view(['GET','PUT'])
-@permission_classes((IsAuthenticated,IsAdminUser))
+@permission_classes((IsAuthenticated,))
 def form_info(request):
     exist= Form.objects.filter(id=1)
     if not exist :
@@ -111,20 +177,29 @@ def form_info(request):
         return Response(form.data)
     # PUT
     if request.method == 'PUT':
-        if form_obj.is_enabled :
-            form_obj.is_enabled= False
-        else:
-            form_obj.is_enabled= True
-        form_obj.save()
-        form = FormSerializer(form_obj)
-        return Response(form.data, status= status.HTTP_200_OK )
+        serializer = EnableSerializer(form_obj,data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status= status.HTTP_200_OK )
 
+user_response = openapi.Response('response description', DesireSerializer)
 
+@swagger_auto_schema(method='POST',manual_parameters=[openapi.Parameter(
+                            name="excel_file",
+                            in_=openapi.IN_FORM,
+                            type=openapi.TYPE_FILE,
+                            required=True,
+                            description="excel_file"
+                            )], responses={200: user_response})
 @api_view(['POST'])
 @permission_classes((IsAuthenticated,IsAdminUser))
+@parser_classes((FormParser,MultiPartParser,))
 def upload_grade(request):
     if request.method == 'POST':
-        User.objects.all().delete()
+        users_list=User.objects.all()
+        for user in users_list:
+            if not user.is_admin:
+                user.delete()
         exist= Form.objects.filter(id=1)
         if not exist :
             Form.objects.create(id=1,is_enabled=False)
@@ -135,6 +210,9 @@ def upload_grade(request):
         from django.core import mail
         connection = mail.get_connection()
         connection.open()
+        counter = 0
+        user_mails=[]
+        user_pass=[]
         for i,row in enumerate(worksheet.iter_rows()):
             if i == 0:                                                                              
                 continue
@@ -150,11 +228,29 @@ def upload_grade(request):
             user.set_password(password)
             user.is_verified = True
             user.save()            
-           
+            user_mails.append(user.email)
+            user_pass.append(password)
             #sending mail
             email= prepare_password_email(password,user)
             emails_to_be_sent.append(Util.send_email(email))
-        connection.send_messages(emails_to_be_sent)
+
+            if counter == 49:
+                connection.send_messages(emails_to_be_sent)
+                time.sleep(90)
+                emails_to_be_sent.clear()
+                # del emails_to_be_sent[:counter+1]
+                counter = -1
+            counter +=1
+
+        dictet = dict(zip(user_mails, user_pass))
+        if bool(dictet):
+            connection.send_messages(emails_to_be_sent)
+            data = {'email_body': str(dictet),
+                'to_email': 'mohammed99kamel@gmail.com',
+                'email_subject': 'كلمة السر'}
+            
+            connection.send_messages((Util.send_email(data),))
+
         connection.close()
         return Response("Grades uploaded successfully")
 
@@ -193,6 +289,55 @@ def department_students(request):
     desires = StudentsCountSerializer(desires_list, many=True)
     return Response(desires.data, status= status.HTTP_200_OK)
 
+@api_view(['GET'])
+@permission_classes((IsAuthenticated,))
+def get_threshold(request):
+    # GET
+    list=User.objects.filter(result="غزل ونسيج").order_by('grade')
+    first_desire =Desire.objects.get(owner=request.user,uid=1)
+    if list :
+        first_desire.min_threshold=round(list[0].grade,3)
+        first_desire.save()
+
+    list=User.objects.filter(result="ميكانيكا انتاج").order_by('grade')
+    second_desire =Desire.objects.get(owner=request.user,uid=2)
+    if list :
+        second_desire.min_threshold=round(list[0].grade,3)
+        second_desire.save()
+    
+    list=User.objects.filter(result="ميكانيكا اجهزة").order_by('grade')
+    third_desire =Desire.objects.get(owner=request.user,uid=3)
+    if list :
+        third_desire.min_threshold=round(list[0].grade,3)
+        third_desire.save()
+
+    list=User.objects.filter(result="كهرباء تحكم آلى").order_by('grade')
+    fourth_desire =Desire.objects.get(owner=request.user,uid=4)
+    if list :
+        fourth_desire.min_threshold=round(list[0].grade,3)
+        fourth_desire.save()
+
+    list=User.objects.filter(result="كهرباء الكترونيات").order_by('grade')
+    fifth_desire =Desire.objects.get(owner=request.user,uid=5)
+    if list :    
+        fifth_desire.min_threshold=round(list[0].grade,3)
+        fifth_desire.save()
+    
+    list=User.objects.filter(result="عمارة").order_by('grade')
+    sixth_desire =Desire.objects.get(owner=request.user,uid=6)
+    if list :
+        sixth_desire.min_threshold=round(list[0].grade,3)
+        sixth_desire.save()
+
+    list=User.objects.filter(result="مدنى").order_by('grade')
+    seventh_desire =Desire.objects.get(owner=request.user,uid=7)
+    if list :
+        seventh_desire.min_threshold=round(list[0].grade,3)
+        seventh_desire.save()
+
+    Desire_obj =Desire.objects.filter(owner=request.user).order_by('uid')
+    desires = ThresholdSerializer(Desire_obj,many=True)
+    return Response(desires.data)
 
 @api_view(['GET'])
 @permission_classes((IsAuthenticated,IsAdminUser))

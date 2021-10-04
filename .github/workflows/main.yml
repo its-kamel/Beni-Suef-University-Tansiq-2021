@@ -1,0 +1,78 @@
+name: CI
+
+on:
+  push:
+    branches: [ frontend, backend ]
+
+  workflow_dispatch:
+
+jobs:
+  front:
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/frontend'
+    defaults:
+      run:
+        working-directory: Front-end/frontend
+    steps:
+      - uses: actions/checkout@v2
+      
+      - name: Cache node modules
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-node-modules
+        with:
+          path: '**/node_modules'
+          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache-name }}-
+            ${{ runner.os }}-build-
+            ${{ runner.os }}-
+            
+      - name: Installs dependencies
+        run: npm ci --legacy-peer-deps --production
+
+      - name: Builds project
+        run: npm run build
+        
+      - name: Uploads project
+        uses: SamKirkland/FTP-Deploy-Action@4.1.0
+        with:
+          server: ${{ secrets.ftp_server }}
+          username: ${{ secrets.ftp_username }}
+          password: ${{ secrets.ftp_password }}
+          local-dir: ./Front-end/frontend/build/
+          server-dir: ./public_html/BSU/
+          
+  Back:
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/backend'
+    steps:
+      - uses: actions/checkout@v2
+                  
+      - name: SCP files
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_KEY }}
+          source: "Back-end"
+          target: "."
+
+      - name: SSH commands
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_KEY }}
+          script: |
+            sudo rm -fr  Back-end/*/migrations
+            cd Back-end/
+            python3 -m venv env
+            source env/bin/activate
+            pip install -r requirements.txt
+            pip install gunicorn
+            python manage.py makemigrations
+            python manage.py makemigrations
+            python manage.py migrate
+            kill -HUP $(lsof -i:8000 -t)
+            python manage.py collectstatic --noinput

@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from os import path
+import os
 from pathlib import Path
 from decouple import config
 
@@ -27,7 +28,7 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['mzayed.net', 'www.mzayed.net', '127.0.0.1']
+ALLOWED_HOSTS = ['fotone.me','www.fotone.me']
 
 AUTH_USER_MODEL="users.User"
 
@@ -44,11 +45,24 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     
     ###
+    
     'corsheaders',
     'rest_framework',
+    'drf_yasg',
     'users',
     'desires',
+
 ]
+
+SWAGGER_SETTINGS = {
+    'SECURITY_DEFINITIONS': {
+        'Bearer': {
+            'type': 'apiKey',
+            'name': 'Authorization',
+            'in': 'header'
+        }
+    }
+}
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
@@ -102,6 +116,7 @@ WSGI_APPLICATION = 'project.wsgi.application'
 #         'NAME': 'tansiq',
 #     }
 # }
+
 
 DATABASES = {
     'default': {
@@ -184,3 +199,5 @@ EMAIL_HOST_PASSWORD=config('EMAIL_HOST_PASSWORD')
 EMAIL_USE_SSL = True
 
 # python manage.py check --deploy
+
+STATIC_ROOT = '/home/ubuntu/Back-end/assets/static/'

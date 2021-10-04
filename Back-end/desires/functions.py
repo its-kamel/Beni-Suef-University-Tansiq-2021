@@ -25,8 +25,8 @@ def password_generator():
     return password
 
 def prepare_password_email(password,user):
-    email_body = 'Hi ' + str(user.national_id) + ' Here is your test password \n' + password
+    email_body = 'اهلا وسهلا ' + str(user.name) +'\n' +  password+' : هذة كلمة السر الخاصة بكم'  + '\n' + 'برجاء عدم مشاركتها مع اي شخص\n'
     data = {'email_body': email_body,
             'to_email': user.email,
-            'email_subject': 'Password Test'}
+            'email_subject': 'كلمة السر'}
     return data

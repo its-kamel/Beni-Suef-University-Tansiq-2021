@@ -10,7 +10,8 @@ from .serializers import *
 from rest_framework.permissions import  IsAuthenticated
 from project.permissions import IsAdminUser
 from django.core.exceptions import ObjectDoesNotExist
-
+from drf_yasg.utils import swagger_auto_schema
+from drf_yasg import openapi
 # from rest_framework_simplejwt.tokens import RefreshToken
 
 # Create your views here.
@@ -20,8 +21,15 @@ from django.core.exceptions import ObjectDoesNotExist
 def result_info(request):
     # GET
     result = ResultSerializer(request.user)
-    return Response( result.data, status= status.HTTP_200_OK)
+    result=result.data['result']
+    if result == " لم تظهر بعد" :
+        is_out= False
+    else:
+        is_out=True 
+    
+    return Response( {"result": result,"is_out": is_out }, status= status.HTTP_200_OK)
 
+@swagger_auto_schema( methods = ['PUT'] , request_body = ResultSerializer )    
 @api_view(['PUT'])
 @permission_classes((IsAuthenticated,IsAdminUser))
 def edit_result(request,id):
@@ -74,7 +82,7 @@ def SortStudents(request):
     if not( no_of_groups and student_list and Colleges):
         return Response(status = status.HTTP_400_BAD_REQUEST)
 
-    accepted_students, college_current_capacities = StudentDistribution(no_of_groups, student_list, Colleges_and_capacity, distribute_later)
+    accepted_students, _ = StudentDistribution(student_list, Colleges_and_capacity, distribute_later)
     Departments = [["غزل ونسيج"],["ميكانيكا انتاج"], ["ميكانيكا اجهزة"], ["كهرباء تحكم آلى"], 
     ["كهرباء الكترونيات"], ["عمارة"], ["مدنى"]]
     for ID, college in accepted_students:
@@ -94,8 +102,10 @@ class SignUpView(generics.GenericAPIView):
         serializer.is_valid(raise_exception=True)
         serializer.save()
         user_data = serializer.data
+
         #Setting email message
         user = User.objects.get(email=user_data['email'])
+        
 
         return Response(user_data, status=status.HTTP_201_CREATED)
     
@@ -112,13 +122,12 @@ class LoginView(generics.GenericAPIView):
 
 #Add admin
 class AddAdminView(generics.CreateAPIView):
-    authentication_classes=[]
     permission_classes = (IsAuthenticated,IsAdminUser)
     serializer_class = AddAdminSerializer
 
 #test
 class AuthUserAPIView(generics.GenericAPIView):
-    permission_classes = (permissions.IsAuthenticated,IsAdminUser)
+    permission_classes = (permissions.IsAuthenticated,)
 
     def get(self,request):
         user = request.user

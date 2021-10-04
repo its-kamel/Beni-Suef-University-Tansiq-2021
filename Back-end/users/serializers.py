@@ -55,7 +55,7 @@ class ResultSerializer(serializers.ModelSerializer):
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['result', 'grade','email','national_id','is_admin']
+        fields = ['name','result', 'grade','email','national_id','is_admin']
 
 
 #Sign up serializer
@@ -72,7 +72,6 @@ class SignUpSerializer(serializers.ModelSerializer):
     def validate(self, attrs):
         
         password = attrs.get('password', '')
-        age= attrs.get('age', '')
         national_id= attrs.get('national_id', '')
         email= attrs.get('email','').lower()
         user = User.objects.filter(email=email)
@@ -106,8 +105,8 @@ class LogInSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = User
-        fields = ['email', 'password', 'tokens']
-        read_only_fields = ['tokens']
+        fields = ['email', 'password', 'tokens','is_admin']
+        read_only_fields = ['tokens','is_admin']
     def validate(self, attrs):
         email = attrs.get('email', '')
         password = attrs.get('password', '')
@@ -120,16 +119,31 @@ class LogInSerializer(serializers.ModelSerializer):
             raise AuthenticationFailed('Account disabled, contact admin')
         if not user.is_verified:
             raise AuthenticationFailed('Email is not verified')
-        exist= Desire.objects.filter(name="غزل ونسيج", uid=1, order=1,owner=user)  
-        if not exist:  
-            Desire.objects.create(name="غزل ونسيج", uid=1, order=1,owner=user)
-            Desire.objects.create(name="ميكانيكا انتاج", uid=2, order=2,owner=user)
-            Desire.objects.create(name="ميكانيكا اجهزة", uid=3, order=3,owner=user)
-            Desire.objects.create(name="كهرباء تحكم آلى", uid=4, order=4,owner=user)
-            Desire.objects.create(name="كهرباء الكترونيات", uid=5, order=5,owner=user)
-            Desire.objects.create(name="عمارة", uid=6, order=6,owner=user)
-            Desire.objects.create(name="مدنى", uid=7, order=7,owner=user)
+    
+        exist= Desire.objects.filter(name="غزل ونسيج", uid=1,owner=user)  
+
+        if not exist:
+            if user.is_admin:
+                Desire.objects.create(name="غزل ونسيج", uid=1, order=0,owner=user)
+                Desire.objects.create(name="ميكانيكا انتاج", uid=2, order=0,owner=user)
+                Desire.objects.create(name="ميكانيكا اجهزة", uid=3, order=0,owner=user)
+                Desire.objects.create(name="كهرباء تحكم آلى", uid=4, order=0,owner=user)
+                Desire.objects.create(name="كهرباء الكترونيات", uid=5, order=0,owner=user)
+                Desire.objects.create(name="عمارة", uid=6, order=0,owner=user)
+                Desire.objects.create(name="مدنى", uid=7, order=0,owner=user)   
+            else:
+                Desire.objects.create(name="غزل ونسيج", uid=1, order=1,owner=user)
+                Desire.objects.create(name="ميكانيكا انتاج", uid=2, order=2,owner=user)
+                Desire.objects.create(name="ميكانيكا اجهزة", uid=3, order=3,owner=user)
+                Desire.objects.create(name="كهرباء تحكم آلى", uid=4, order=4,owner=user)
+                Desire.objects.create(name="كهرباء الكترونيات", uid=5, order=5,owner=user)
+                Desire.objects.create(name="عمارة", uid=6, order=6,owner=user)
+                Desire.objects.create(name="مدنى", uid=7, order=7,owner=user)
+                user.logged =True
+                user.save()
+
         return {
             'email': user.email,
-            'tokens': user.tokens
+            'tokens': user.tokens,
+            'is_admin': user.is_admin,
         }
