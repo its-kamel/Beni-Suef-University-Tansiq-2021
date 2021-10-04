@@ -296,37 +296,37 @@ def get_threshold(request):
     list=User.objects.filter(result="غزل ونسيج").order_by('grade')
     first_desire =Desire.objects.get(owner=request.user,uid=1)
     if list :
-        first_desire.min_threshold=list[0].grade
+        first_desire.min_threshold=round(list[0].grade,3)
         first_desire.save()
 
     list=User.objects.filter(result="ميكانيكا انتاج").order_by('grade')
     second_desire =Desire.objects.get(owner=request.user,uid=2)
     if list :
-        second_desire.min_threshold=list[0].grade
+        second_desire.min_threshold=round(list[0].grade,3)
         second_desire.save()
     
     list=User.objects.filter(result="ميكانيكا اجهزة").order_by('grade')
     third_desire =Desire.objects.get(owner=request.user,uid=3)
     if list :
-        third_desire.min_threshold=list[0].grade
+        third_desire.min_threshold=round(list[0].grade,3)
         third_desire.save()
 
     list=User.objects.filter(result="كهرباء تحكم آلى").order_by('grade')
     fourth_desire =Desire.objects.get(owner=request.user,uid=4)
     if list :
-        fourth_desire.min_threshold=list[0].grade
+        fourth_desire.min_threshold=round(list[0].grade,3)
         fourth_desire.save()
 
     list=User.objects.filter(result="كهرباء الكترونيات").order_by('grade')
     fifth_desire =Desire.objects.get(owner=request.user,uid=5)
     if list :    
-        fifth_desire.min_threshold=list[0].grade
+        fifth_desire.min_threshold=round(list[0].grade,3)
         fifth_desire.save()
     
     list=User.objects.filter(result="عمارة").order_by('grade')
     sixth_desire =Desire.objects.get(owner=request.user,uid=6)
     if list :
-        sixth_desire.min_threshold=list[0].grade
+        sixth_desire.min_threshold=round(list[0].grade,3)
         sixth_desire.save()
 
     list=User.objects.filter(result="مدنى").order_by('grade')
