@@ -332,7 +332,7 @@ def get_threshold(request):
     list=User.objects.filter(result="مدنى").order_by('grade')
     seventh_desire =Desire.objects.get(owner=request.user,uid=7)
     if list :
-        seventh_desire.min_threshold=list[0].grade
+        seventh_desire.min_threshold=round(list[0].grade,3)
         seventh_desire.save()
 
     Desire_obj =Desire.objects.filter(owner=request.user).order_by('uid')
